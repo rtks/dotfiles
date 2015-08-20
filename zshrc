@@ -156,3 +156,6 @@ prompt_context() {
     prompt_segment cyan black "%(!.%{%F{yellow}%}.)$user@%m"
   fi
 }
+
+# zawを読み込む
+source ~/.zaw/zaw.zsh
