@@ -131,6 +131,17 @@ export LC_ALL=ja_JP.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# グローバルエイリアス
+alias -g L='| less'
+alias -g G='| grep'
+alias -g M='| more'
+alias -g C='| pbcopy' # C で標準出力をクリップボードにコピーする(Mac)
+
+alias reload_shell='exec $SHELL'
+alias platex='platex --kanji=utf8'
+alias nf=terminal-notifier
+alias more='more -R'
+
 ###############
 # Themeの調整
 # SEPARATORをズレが小さい文字に置き換え
