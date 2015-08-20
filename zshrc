@@ -54,6 +54,8 @@ plugins=(git osx brew brew-cask sublime atom)
 ##############################################
 # User configuration
 
+# 日本語
+setopt print_eight_bit # 補完候補リストの日本語を正しく表示
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 export GNUTERM=x11
@@ -87,6 +89,9 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+export LANG=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
