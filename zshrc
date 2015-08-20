@@ -54,6 +54,8 @@ plugins=(git osx brew brew-cask sublime atom)
 ##############################################
 # User configuration
 
+# 通常時はHost名とユーザー名を表示しない
+export DEFAULT_USER=ryota
 # 日本語
 setopt print_eight_bit # 補完候補リストの日本語を正しく表示
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
@@ -115,3 +117,18 @@ export LC_ALL=ja_JP.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+###############
+# Themeの調整
+# SEPARATORをズレが小さい文字に置き換え
+export SEGMENT_SEPARATOR='⮀'
+# プロンプトの色を変更する 
+prompt_dir() {
+  prompt_segment white default '%.'
+}
+prompt_context() {
+  local user=`whoami`
+  if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
+    prompt_segment cyan black "%(!.%{%F{yellow}%}.)$user@%m"
+  fi
+}
