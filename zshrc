@@ -71,6 +71,9 @@ setopt combining_chars
 #補完リストが多いときに尋ねない
 LISTMAX=1000
 
+#lessコマンドなどで色をつける
+export CLICOLOR_FORCE=1
+
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 export GNUTERM=x11
