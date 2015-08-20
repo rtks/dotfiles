@@ -35,3 +35,8 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
+
+syntax on
+
+set laststatus=2
+
