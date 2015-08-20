@@ -51,9 +51,36 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git osx brew brew-cask sublime atom)
 
+##############################################
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+
+export GNUTERM=x11
+export PATH="/opt/X11/bin:$PATH"
+
+export PATH="/Library/TeX/texbin:$PATH"
+
+export NODE_PATH=$HOME/nodebrew/current/lib/node_modules
+export PATH="$HOME/nodebrew/current/bin:$PATH"
+
+export PATH="$HOME/pyenv/bin:$PATH"
+
+export PATH="$HOME/work/hrp2/gcc-arm-none-eabi-4_9-2015q1/bin:$PATH"
+
+export PATH="$HOME/Developer/android-sdk-macosx/tools:$PATH"
+
+#export PATH="~/Library/Python/2.7/bin:$PATH"
+#export PATH=/usr/local/share/python:$PATH
+#source `which virtualenvwrapper.sh`
+#export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+#export iOSOpenDevPath=/opt/iOSOpenDev
+#export iOSOpenDevDevice=
+#export PATH=/opt/iOSOpenDev/bin:$PATH
+
+##############################################
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -74,6 +101,7 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+##############################################
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
