@@ -174,3 +174,8 @@ bindkey '^X^F' zaw-git-files
 bindkey '^X^B' zaw-git-branches
 bindkey '^X^P' zaw-process
 #bindkey '^A' zaw-tmux
+
+# 速度測定 無効にする場合は~/.zshenvのzmodload zsh/zprof && zprofをコメントアウト
+if (which zprof > /dev/null) ;then
+  zprof | less
+fi
