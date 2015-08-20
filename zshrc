@@ -157,5 +157,20 @@ prompt_context() {
   fi
 }
 
+# cdrの設定 最近使ったディレクトリを補完
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 500 # cdrの履歴を保存する個数
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
 # zawを読み込む
 source ~/.zaw/zaw.zsh
+# zawの設定 Case insensitiveにする
+zstyle ':filter-select' case-insensitive yes
+# zawのキーバインド
+bindkey '^@' zaw-cdr
+bindkey '^R' zaw-history
+bindkey '^X^F' zaw-git-files
+bindkey '^X^B' zaw-git-branches
+bindkey '^X^P' zaw-process
+#bindkey '^A' zaw-tmux
