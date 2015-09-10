@@ -49,7 +49,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx brew brew-cask sublime atom)
+plugins=(git osx brew brew-cask sublime atom common-aliases)
 
 ##############################################
 # User configuration
@@ -135,9 +135,6 @@ export LC_ALL=ja_JP.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # グローバルエイリアス
-alias -g L='| less'
-alias -g G='| grep'
-alias -g M='| more'
 alias -g C='| pbcopy' # C で標準出力をクリップボードにコピーする(Mac)
 
 alias reload_shell='exec $SHELL'
