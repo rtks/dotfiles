@@ -86,8 +86,6 @@ export PATH="$HOME/nodebrew/current/bin:$PATH"
 
 export PATH="$HOME/pyenv/bin:$PATH"
 
-export PATH="$HOME/work/hrp2/gcc-arm-none-eabi-4_9-2015q1/bin:$PATH"
-
 export PATH="$HOME/Developer/android-sdk-macosx/tools:$PATH"
 
 #export PATH="~/Library/Python/2.7/bin:$PATH"
