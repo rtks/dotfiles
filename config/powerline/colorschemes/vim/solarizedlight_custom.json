@@ -3,10 +3,10 @@
 	"groups": {
 		"information:additional":   { "fg": "solarized:base02", "bg": "solarized:base2", "attrs": [] },
 		"information:unimportant":  { "fg": "solarized:base1", "bg": "solarized:base01", "attrs": [] },
-		"background":               { "fg": "solarized:base03", "bg": "solarized:base01", "attrs": [] },
-		"background:divider":       { "fg": "solarized:base0", "bg": "solarized:base01", "attrs": [] },
-		"mode":                     { "fg": "solarized:base3", "bg": "solarized:green", "attrs": ["bold"] },
-		"visual_range":             { "fg": "solarized:green", "bg": "solarized:base3", "attrs": ["bold"] },
+		"background":               { "fg": "solarized:base03", "bg": "solarized:base2", "attrs": [] },
+		"background:divider":       { "fg": "solarized:base2", "bg": "solarized:base1", "attrs": [] },
+		"mode":                     { "fg": "solarized:base3", "bg": "solarized:blue", "attrs": ["bold"] },
+		"visual_range":             { "fg": "solarized:green", "bg": "solarized:base2", "attrs": ["bold"] },
 		"modified_indicator":       { "fg": "solarized:yellow", "bg": "solarized:base2", "attrs": ["bold"] },
 		"paste_indicator":          { "fg": "solarized:red", "bg": "solarized:base2", "attrs": ["bold"] },
 		"readonly_indicator":       { "fg": "solarized:red", "bg": "solarized:base2", "attrs": [] },
@@ -20,17 +20,20 @@
 		"file_vcs_status":          { "fg": "solarized:red", "bg": "solarized:base2", "attrs": [] },
 		"file_vcs_status_M":        { "fg": "solarized:yellow", "bg": "solarized:base2", "attrs": [] },
 		"file_vcs_status_A":        { "fg": "solarized:green", "bg": "solarized:base2", "attrs": [] },
+
+		"file_format":              { "fg": "solarized:base2", "bg": "solarized:base1", "attrs": [] },
+
 		"line_percent":             { "fg": "solarized:base03", "bg": "solarized:base2", "attrs": [] },
 		"line_percent_gradient":    { "fg": "green_yellow_orange_red", "bg": "solarized:base2", "attrs": [] },
-		"position":                 { "fg": "solarized:base03", "bg": "solarized:base2", "attrs": [] },
-		"position_gradient":        { "fg": "green_yellow_orange_red", "bg": "solarized:base2", "attrs": [] },
-		"line_current":             { "fg": "solarized:base3", "bg": "solarized:base02", "attrs": ["bold"] },
-		"line_current_symbol":      { "fg": "solarized:base3", "bg": "solarized:base02", "attrs": [] },
-		"virtcol_current_gradient": { "fg": "yellow_orange_red", "bg": "solarized:base02", "attrs": [] },
-		"col_current":              { "fg": "solarized:base00", "bg": "solarized:base02", "attrs": [] },
+		"position":                 { "fg": "solarized:base03", "bg": "solarized:base01", "attrs": [] },
+		"position_gradient":        { "fg": "green_yellow_orange_red", "bg": "solarized:base01", "attrs": [] },
+		"line_current":             { "fg": "solarized:base3", "bg": "solarized:base01", "attrs": [] },
+		"line_current_symbol":      { "fg": "solarized:base3", "bg": "solarized:base01", "attrs": [] },
+		"virtcol_current_gradient": { "fg": "yellow_orange_red", "bg": "solarized:base01", "attrs": [] },
+		"col_current":              { "fg": "solarized:base2", "bg": "solarized:base01", "attrs": [] },
 		"error":                    { "fg": "solarized:base03", "bg": "solarized:red", "attrs": ["bold"] },
 		"warning":                  { "fg": "solarized:base03", "bg": "solarized:base2", "attrs": ["bold"] },
-		"current_tag":              { "fg": "solarized:base03", "bg": "solarized:base01", "attrs": ["bold"] }
+		"current_tag":              { "fg": "solarized:base03", "bg": "solarized:base1", "attrs": ["bold"] }
 	},
 	"mode_translations": {
 		"nc": {
@@ -45,27 +48,27 @@
 		},
 		"i": {
 			"groups": {
-				"mode":                   { "fg": "solarized:base3", "bg": "solarized:blue", "attrs": ["bold"] }
+				"mode": { "fg": "solarized:base3", "bg": "solarized:orange", "attrs": ["bold"] }
 			}
 		},
 		"v": {
 			"groups": {
-				"mode": { "fg": "solarized:base3", "bg": "solarized:orange", "attrs": ["bold"] }
+				"mode": { "fg": "solarized:base3", "bg": "solarized:red", "attrs": ["bold"] }
 			}
 		},
 		"V": {
 			"groups": {
-				"mode": { "fg": "solarized:base3", "bg": "solarized:orange", "attrs": ["bold"] }
+				"mode": { "fg": "solarized:base3", "bg": "solarized:red", "attrs": ["bold"] }
 			}
 		},
 		"^V": {
 			"groups": {
-				"mode": { "fg": "solarized:base3", "bg": "solarized:orange", "attrs": ["bold"] }
+				"mode": { "fg": "solarized:base3", "bg": "solarized:red", "attrs": ["bold"] }
 			}
 		},
 		"R": {
 			"groups": {
-				"mode": { "fg": "solarized:base3", "bg": "solarized:red", "attrs": ["bold"] }
+				"mode": { "fg": "solarized:base3", "bg": "solarized:violet", "attrs": ["bold"] }
 			}
 		}
 	}
