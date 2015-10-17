@@ -29,7 +29,7 @@
 			"theme": "default"
 		},
 		"vim": {
-			"colorscheme": "default",
+			"colorscheme": "solarizedlight_custom",
 			"theme": "default",
 			"local_themes": {
 				"__tabline__": "tabline",
