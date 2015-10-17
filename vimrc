@@ -16,8 +16,8 @@ call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
-NeoBundle 'Lokaltog/powerline'
-NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+NeoBundle 'Lokaltog/powerline-fontpatcher'
 NeoBundle 'altercation/vim-colors-solarized'
 "NeoBundle 'Shougo/neosnippet.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'
