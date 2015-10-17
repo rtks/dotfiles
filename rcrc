@@ -1,2 +1,2 @@
 EXCLUDES="README.md install.sh rcm"
-SYMLINK_DIRS="oh-my-zsh zaw neobundle.vim"
+SYMLINK_DIRS="oh-my-zsh zaw neobundle.vim powerline"
