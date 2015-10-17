@@ -43,10 +43,8 @@ syntax on
 
 set background              =light
 if exists('$SSH_CONNECTION') 
-  let g:Powerline_colorscheme ='solarized256_light'
 else
   colorscheme solarized
-  let g:Powerline_colorscheme ='solarized'
 endif
 let g:Powerline_symbols     ='fancy'
 
