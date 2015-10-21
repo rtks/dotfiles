@@ -134,6 +134,7 @@ export LC_ALL=ja_JP.UTF-8
 
 # グローバルエイリアス
 alias -g C='| pbcopy' # C で標準出力をクリップボードにコピーする(Mac)
+alias -g P='| percol'
 
 alias reload_shell='exec $SHELL'
 alias platex='platex --kanji=utf8'
