@@ -166,6 +166,7 @@ zstyle ':completion:*' recent-dirs-insert both
 source ~/.zaw/zaw.zsh
 # zawの設定 Case insensitiveにする
 zstyle ':filter-select' case-insensitive yes
+zstyle ':filter-select' max-lines 10
 # zawのキーバインド
 bindkey '^@' zaw-cdr
 bindkey '^R' zaw-history
