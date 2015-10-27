@@ -62,7 +62,7 @@ setopt print_eight_bit # 補完候補リストの日本語を正しく表示
 setopt share_history # Historyを共有
 setopt inc_append_history # コマンド実行時にHistoryに追記
 setopt hist_ignore_all_dups  # 重複したHistoryは追加しない
-setopt hist_find_no_dups # History検索中に重複を飛ばす
+#setopt hist_find_no_dups # History検索中に重複を飛ばす
 setopt HIST_IGNORE_SPACE # 余分な空白は詰めて記録
 setopt hist_reduce_blanks # 冗長な空白を除く
 
