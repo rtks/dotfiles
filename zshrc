@@ -88,6 +88,8 @@ export PATH="$HOME/pyenv/bin:$PATH"
 
 export PATH="$HOME/Developer/android-sdk-macosx/tools:$PATH"
 
+export HRP2KERNELDIR="$HOME/work/hrp2"
+
 #export PATH="~/Library/Python/2.7/bin:$PATH"
 #export PATH=/usr/local/share/python:$PATH
 #source `which virtualenvwrapper.sh`
