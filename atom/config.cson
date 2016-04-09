@@ -1,5 +1,81 @@
 "*":
+  "atom-beautify":
+    _analyticsUserId: "aa012dd4-6c50-49ad-bcbd-5d11f98ad313"
+  "auto-encoding": {}
+  "autocomplete-clang": {}
+  "autocomplete-plus":
+    strictMatching: true
+  autosave:
+    enabled: true
+  core:
+    disabledPackages: [
+      "feedback"
+      "metrics"
+      "bezier-curve-editor"
+      "close-on-left"
+      "welcome"
+      "minimap-autohide"
+      "autocomplete-clang"
+      "auto-encoding"
+      "color-picker"
+      "linter-cpplint"
+    ]
+    themes: [
+      "one-light-ui"
+      "_slush-and-poppies"
+    ]
+  editor:
+    fontFamily: "SourceHanCodeJP-Regular"
+    fontSize: 12
+    invisibles: {}
+    lineHeight: 1.45
+    showIndentGuide: true
+    tabLength: 4
   "exception-reporting":
     userId: "d386b46f-1be3-3f2e-c170-cf81a4a515fc"
+  "file-icons": {}
+  "git-blame":
+    dateFormatString: "YY/MM/DD"
+  "git-log":
+    fontScale: 0.8
+  "git-plus":
+    splitPane: "Down"
+  linter:
+    displayLinterInfo: false
+    showErrorPanel: false
+    showErrorTabLine: true
+  "linter-cpplint": {}
+  "merge-conflicts": {}
+  metrics:
+    userId: "e82ed6b395965d1ec6bdae90499cea15d9a28a58"
+  minimap:
+    autoToggle: true
+    charHeight: 1.5
+    interline: 0.5
+    minimapScrollIndicator: false
+    plugins:
+      "find-and-replace": true
+      "find-and-replaceDecorationsZIndex": 0
+      "git-diff": true
+      "git-diffDecorationsZIndex": 0
+      "minimap-autohide": true
+      pigments: true
+      pigmentsDecorationsZIndex: 0
+  "one-light-ui":
+    layoutMode: "Compact"
+  pigments:
+    sortPaletteColors: "by color"
+  "status-bar": {}
+  "sublime-tabs":
+    hideIgnoredNames: true
+  "switch-header-source": {}
+  "symbols-tree-view": {}
+  "tree-view":
+    hideIgnoredNames: true
+  "vim-mode":
+    startInInsertMode: true
+    wrapLeftRightMotion: true
   welcome:
     showOnStartup: false
+  whitespace:
+    ignoreWhitespaceOnlyLines: true

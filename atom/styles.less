@@ -30,3 +30,118 @@ atom-text-editor {
 atom-text-editor::shadow .cursor {
   // border-color: red;
 }
+
+// gitのmodifiedの強調色を落ち着いた色にする
+.tree-view {
+  .list-group li:not(.list-nested-item).status-modified,
+  .list-tree li:not(.list-nested-item).status-modified,
+  .list-group li.list-nested-item.status-modified > .list-item,
+  .list-tree li.list-nested-item.status-modified > .list-item {
+    color: rgb(176, 112, 0);;
+  }
+}
+
+// wrapとindentの線の色を薄くする
+atom-text-editor::shadow {
+  .wrap-guide {
+    background-color: rgba(128,128,128,0.1);
+  }
+  .indent-guide {
+    color: rgba(128,128,128,0.2);
+    &:first-child {
+      color: transparent;
+    }
+  }
+}
+  
+// minimapの設定アイコンを薄くする
+atom-text-editor::shadow {
+  atom-text-editor-minimap::shadow {
+    .open-minimap-quick-settings:before {
+      opacity: 0.1 !important;
+    }
+  }
+}
+
+// ステータスバー内のLinterの位置を修正
+linter-bottom-tab {
+  margin-top: -2px !important;
+}
+
+// パネルを分割するとアクティブになっているパネルがわかりにくいので、非アクティブのパネルは透過
+.vertical {
+  .pane {
+    opacity:0.80;
+    &.active {
+      opacity: 1.0;
+    }
+  }
+}
+
+// タブバーの高さを変更 for one-light theme
+@ui-tab-height: 27px;
+.tab-bar {
+  height: @ui-tab-height;
+  .tab {
+    height: @ui-tab-height;
+    line-height: @ui-tab-height;
+    .close-icon {
+      height: @ui-tab-height;
+      line-height: @ui-tab-height;
+    }
+  }
+  .tab.modified {
+    &:not(:hover) .close-icon {
+      height: @ui-tab-height;
+    }
+  }
+  .placeholder {
+    height: @ui-tab-height;
+    &:after {
+      top: @ui-tab-height/2;
+    }
+  }
+}
+.tree-view {
+  .project-root.project-root {
+    &:before {
+      height: @ui-tab-height;
+    }
+    & > .header .name {
+      line-height: @ui-tab-height;
+    }
+  }
+  &:before {
+      height: @ui-tab-height;
+  }
+}
+.tree-view .project-root.project-root {
+  &:before {
+    height: @ui-tab-height !important;
+  }
+}
+
+// タブ内の閉じるボタンを左側にする
+.tab-bar {
+  .tab {
+    .title {
+      -webkit-mask: linear-gradient(to right, hsla(0,0%,0%,0), hsla(0,0%,0%,1) 5px) no-repeat;
+    }
+    .close-icon {
+      right: initial;
+    }
+    &:hover .title {
+      -webkit-mask-position: 14px 0;
+    }
+  }
+  .tab.modified:not(:hover) {
+    .close-icon {
+      right: initial;
+    }
+  }
+}
+
+// タイトルバーの下の線をなくす
+atom-workspace {
+  border-top: 0px !important;
+}
