@@ -145,7 +145,7 @@ alias more='more -R'
 
 ###############
 # Themeの調整
-# SEPARATORをズレが小さい文字に置き換え
+export SEGMENT_SEPARATOR=$SEGMENT_SEPARATOR
 #export SEGMENT_SEPARATOR='⮀'
 # プロンプトの色を変更する 
 prompt_dir() {
