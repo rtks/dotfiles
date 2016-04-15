@@ -1,7 +1,7 @@
 DOTPATH=~/.dotfiles
 DOT_GIT="https://github.com/rtks/dotfiles.git"
 DOT_URL="https://github.com/rtks/dotfiles/archive/master.tar.gz"
-RCM_URL="https://thoughtbot.github.io/rcm/dist/rcm-1.2.3.tar.gz"
+RCM_URL="https://thoughtbot.github.io/rcm/dist/rcm-1.3.0.tar.gz"
 RCM_DIR=rcm
 
 is_exists() {
