@@ -64,8 +64,9 @@ if [ -f ~/.zplug/zplug ]; then
   zplug "zsh-users/zsh-syntax-highlighting", nice:10
   zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
   zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
+  zplug "junegunn/fzf", of:shell/completion.zsh
+  zplug "junegunn/fzf", of:shell/key-bindings.zsh
   zplug "mollifier/anyframe"
-  zplug "zsh-users/zaw"
   
   # Install plugins if there are plugins that have not been installed
   if ! zplug check --verbose; then
@@ -119,13 +120,18 @@ zstyle ':completion:*' recent-dirs-insert both
 # Case insensitiveにする
 zstyle ':filter-select' case-insensitive yes
 zstyle ':filter-select' max-lines 10
-# zawのキーバインド
-bindkey '^@' zaw-cdr
-bindkey '^R' zaw-history
 bindkey '^X^F' zaw-git-files
 bindkey '^X^B' zaw-git-branches
 bindkey '^X^P' zaw-process
 #bindkey '^A' zaw-tmux
+
+############
+## fzfの設定
+zstyle ':anyframe:selector:fzf:' command fzf-tmux
+export MANPATH="\$MANPATH:$HOME/.zplug/repos/junegunn/fzf/man"
+export FZF_DEFAULT_OPTS="--reverse --inline-info"
+# zawのキーバインド
+bindkey '^@' anyframe-widget-cdr
 
 ############
 ## agnosterテーマの設定
