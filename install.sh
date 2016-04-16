@@ -18,7 +18,11 @@ if is_exists git; then
     git clone --recursive "$DOT_GIT" "$DOTPATH"
 else
     mkdir "$DOTPATH"
-	curl -L "$DOT_URL" | tar xvfz - -C "$DOTPATH" --strip-components 1
+    if is_exists curl; then
+        curl -fsSL "$DOT_URL" | tar xvfz - -C "$DOTPATH" --strip-components 1
+    else
+        wget -qO - "$DOT_URL" | tar xvfz - -C "$DOTPATH" --strip-components 1
+    fi
 fi
 
 if is_exists lsrc; then

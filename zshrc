@@ -45,7 +45,7 @@ export HRP2KERNELDIR="$HOME/work/hrp2"
 if [ ! -f ~/.zplug/zplug ]; then
   printf "Install zplug? [y/N]: "
   if read -q; then
-    echo; curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
+    echo; curl -fsSLo ~/.zplug/zplug --create-dirs git.io/zplug
     source ~/.zplug/zplug
     zplug update --self
   fi
@@ -86,7 +86,7 @@ fi
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
   printf "Install vim-plug? [y/N]: "
   if read -q; then
-    echo; curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    echo; curl -fsSLo ~/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     printf "Install vim-plug plugins? [y/N]: "
     if read -q; then

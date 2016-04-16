@@ -2,9 +2,18 @@
 
 ## Install
 
+curl
+
 ```bash
-curl -L raw.github.com/rtks/dotfiles/master/install.sh | bash
+curl -fsSL raw.github.com/rtks/dotfiles/master/install.sh | bash
 ```
+
+wget
+
+```bash
+wget -qO - raw.github.com/rtks/dotfiles/master/install.sh | bash
+```
+
 ## Atom
 
 Install packages.
