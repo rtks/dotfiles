@@ -14,6 +14,15 @@ wget
 wget -qO - raw.github.com/rtks/dotfiles/master/install.sh | bash
 ```
 
+## Manual install
+
+```bash
+brew install rcm
+git clone --recursive https://github.com/rtks/dotfiles.git ~/.dotfiles
+env RCRC=$HOME/.dotfiles/rcrc rcup
+```
+
+
 ## Atom
 
 Install packages.
