@@ -76,6 +76,8 @@ export CLICOLOR_FORCE=1
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
+export PATH="$HOME/bin:$PATH"
+
 export GNUTERM=x11
 export PATH="/opt/X11/bin:$PATH"
 
