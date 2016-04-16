@@ -149,7 +149,7 @@ alias more='more -R'
 # Themeの調整
 export SEGMENT_SEPARATOR=$SEGMENT_SEPARATOR
 #export SEGMENT_SEPARATOR='⮀'
-# プロンプトの色を変更する 
+# プロンプトの色を変更する
 prompt_dir() {
   prompt_segment white default '%.'
 }
@@ -178,6 +178,8 @@ bindkey '^X^F' zaw-git-files
 bindkey '^X^B' zaw-git-branches
 bindkey '^X^P' zaw-process
 #bindkey '^A' zaw-tmux
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # 速度測定 無効にする場合は~/.zshenvのzmodload zsh/zprof && zprofをコメントアウト
 if (which zprof > /dev/null) ;then
