@@ -61,8 +61,10 @@ if [ -f ~/.zplug/zplug ]; then
   zplug "plugins/brew", from:oh-my-zsh, if:"which brew"
   zplug "plugins/atom", from:oh-my-zsh, if:"which atom"
   zplug "plugins/osx", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+  zplug "zsh-users/zsh-syntax-highlighting", nice:10
   zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
   zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
+  zplug "mollifier/anyframe"
   zplug "zsh-users/zaw"
   
   # Install plugins if there are plugins that have not been installed
