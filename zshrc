@@ -67,6 +67,7 @@ if [ -f ~/.zplug/zplug ]; then
   zplug "junegunn/fzf", of:shell/completion.zsh
   zplug "junegunn/fzf", of:shell/key-bindings.zsh
   zplug "mollifier/anyframe"
+  zplug "b4b4r07/easy-oneliner"
   
   # Install plugins if there are plugins that have not been installed
   if ! zplug check --verbose; then
