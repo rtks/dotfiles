@@ -81,6 +81,20 @@ if [ -f ~/.zplug/zplug ]; then
 fi
 
 ############
+## vim-plug
+if [ ! -f ~/.vim/autoload/plug.vim ]; then
+  printf "Install vim-plug? [y/N]: "
+  if read -q; then
+    echo; curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    printf "Install vim-plug plugins? [y/N]: "
+    if read -q; then
+      vim +PlugUpdate +PlugClean! +qall
+    fi
+  fi
+fi
+
+############
 ## エイリアス
 alias -g F='| fzf'
 alias reload_shell='exec $SHELL'

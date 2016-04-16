@@ -1,6 +1,3 @@
-[submodule "vim/bundle/neobundle.vim"]
-	path = vim/bundle/neobundle.vim
-	url = https://github.com/Shougo/neobundle.vim
 [submodule "atom/packages/_one-light-syntax"]
 	path = atom/packages/_one-light-syntax
 	url = git@github.com:rtks/one-light-syntax.git
