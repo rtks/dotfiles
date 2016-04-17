@@ -12,8 +12,6 @@ export LC_CTYPE=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 # GNUTERM
 export GNUTERM=x11
-# oh-my-zshの自動アップデート無効
-export DISABLE_AUTO_UPDATE=true
 
 ############
 ## PATH設定
@@ -42,36 +40,40 @@ export HRP2KERNELDIR="$HOME/work/hrp2"
 
 ############
 ## zplug
-if [ ! -f ~/.zplug/zplug ]; then
+if [ ! -f ~/.zplug/init.zsh ]; then
   printf "Install zplug? [y/N]: "
   if read -q; then
-    echo; curl -fsSLo ~/.zplug/zplug --create-dirs git.io/zplug
-    source ~/.zplug/zplug
-    zplug update --self
+    echo; git clone --depth=1 -b v2 --single-branch https://github.com/b4b4r07/zplug.git ~/.zplug/repos/b4b4r07/zplug
+    ln -s ~/.zplug/repos/b4b4r07/zplug/init.zsh ~/.zplug/init.zsh
+    ZPLUG_INSTALL=true
   fi
 fi
-if [ -f ~/.zplug/zplug ]; then
-  source ~/.zplug/zplug
+if [ -f ~/.zplug/init.zsh ]; then
+  source ~/.zplug/init.zsh
 
-  zplug "b4b4r07/zplug"
+  zplug "b4b4r07/zplug", at:v2
+  zplug "lib/history", from:oh-my-zsh
+  zplug "lib/theme-and-appearance", from:oh-my-zsh
   zplug "themes/agnoster", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh
+  autoload -Uz is-at-least # common-aliasesはoh-my-zsh/libでロードされるis-at-leastを使用
   zplug "plugins/vi-like", from:oh-my-zsh
-  zplug "plugins/git", from:oh-my-zsh, if:"which git"
   zplug "plugins/brew", from:oh-my-zsh, if:"which brew"
   zplug "plugins/atom", from:oh-my-zsh, if:"which atom"
+  zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
   zplug "plugins/osx", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
+  zplug "plugins/git", from:oh-my-zsh, if:"which git", nice:10
   zplug "zsh-users/zsh-syntax-highlighting", nice:10
-  zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
-  zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
-  zplug "junegunn/fzf", of:shell/completion.zsh
-  zplug "junegunn/fzf", of:shell/key-bindings.zsh
+  zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+  zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+  zplug "junegunn/fzf", use:shell/completion.zsh
+  zplug "junegunn/fzf", use:shell/key-bindings.zsh
   zplug "mollifier/anyframe"
   zplug "b4b4r07/easy-oneliner"
+  zplug "rupa/z", use:"*.sh"
   
-  # Install plugins if there are plugins that have not been installed
-  if ! zplug check --verbose; then
-    printf "Install plugins? [y/N]: "
+  if [ "$ZPLUG_INSTALL" = true ]; then
+    printf "Install zsh plugins? [y/N]: "
     if read -q; then
       echo; zplug install
     fi
