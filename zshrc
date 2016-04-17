@@ -53,6 +53,7 @@ if [ -f ~/.zplug/init.zsh ]; then
 
   zplug "b4b4r07/zplug", at:v2
   zplug "lib/history", from:oh-my-zsh
+  zplug "lib/completion", from:oh-my-zsh
   zplug "lib/theme-and-appearance", from:oh-my-zsh
   zplug "themes/agnoster", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh
@@ -71,6 +72,7 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "mollifier/anyframe"
   zplug "b4b4r07/easy-oneliner"
   zplug "rupa/z", use:"*.sh"
+  zplug "Tarrasch/zsh-bd", use:bd.zsh
   
   if [ "$ZPLUG_INSTALL" = true ]; then
     printf "Install zsh plugins? [y/N]: "
