@@ -153,7 +153,7 @@ zle -N anyframe-widget-z
 bindkey '^@' anyframe-widget-z
 v() {
   local files
-  files=$(grep '^>' ~/.viminfo | cut -c3- |
+  files=$(grep '^>' ~/.viminfo | cut -c3- | grep -v ".git/COMMIT_EDITMSG" |
     while read line; do
       [ -f "${line/\~/$HOME}" ] && echo "$line"
     done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
