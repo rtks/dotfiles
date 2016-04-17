@@ -138,17 +138,26 @@ zstyle ':completion:*' recent-dirs-insert both
 
 ############
 ## fzfの設定
-zstyle ':anyframe:selector:fzf:' command fzf-tmux
 export MANPATH="\$MANPATH:$HOME/.zplug/repos/junegunn/fzf/man"
-export FZF_DEFAULT_OPTS="--reverse --inline-info"
-# fzfのキーバインド
-function anyframe-widget-z() {
-  z -l | awk '{ print $2 }' | sed 's/\/Users\/ryota/~/' \
-    | fzf --tac \
-    | anyframe-action-execute z
+export FZF_DEFAULT_OPTS="--reverse --inline-info --ansi
+  --bind ctrl-f:page-down,ctrl-b:page-up
+  --color bg+:007,fg+:010,hl:009,hl+:009"
+zstyle ':anyframe:selector:fzf:' command fzf-tmux
+# fzfの関数
+anyframe-widget-z() {
+  z -l | sed 's/^[0-9,.]* *//' | sed s"#$HOME#~#" \
+    | fzf-tmux --tac +s \
+    | anyframe-action-execute cd
 }
 zle -N anyframe-widget-z
 bindkey '^@' anyframe-widget-z
+v() {
+  local files
+  files=$(grep '^>' ~/.viminfo | cut -c3- |
+    while read line; do
+      [ -f "${line/\~/$HOME}" ] && echo "$line"
+    done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
+}
 
 ############
 ## agnosterテーマの設定
