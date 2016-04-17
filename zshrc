@@ -133,22 +133,18 @@ zstyle ':chpwd:*' recent-dirs-default yes
 zstyle ':completion:*' recent-dirs-insert both
 
 ############
-## zawの設定
-# Case insensitiveにする
-zstyle ':filter-select' case-insensitive yes
-zstyle ':filter-select' max-lines 10
-bindkey '^X^F' zaw-git-files
-bindkey '^X^B' zaw-git-branches
-bindkey '^X^P' zaw-process
-#bindkey '^A' zaw-tmux
-
-############
 ## fzfの設定
 zstyle ':anyframe:selector:fzf:' command fzf-tmux
 export MANPATH="\$MANPATH:$HOME/.zplug/repos/junegunn/fzf/man"
 export FZF_DEFAULT_OPTS="--reverse --inline-info"
-# zawのキーバインド
-bindkey '^@' anyframe-widget-cdr
+# fzfのキーバインド
+function anyframe-widget-z() {
+  z -l | awk '{ print $2 }' | sed 's/\/Users\/ryota/~/' \
+    | fzf --tac \
+    | anyframe-action-execute z
+}
+zle -N anyframe-widget-z
+bindkey '^@' anyframe-widget-z
 
 ############
 ## agnosterテーマの設定
