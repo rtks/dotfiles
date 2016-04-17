@@ -74,10 +74,12 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "rupa/z", use:"*.sh"
   zplug "Tarrasch/zsh-bd", use:bd.zsh
   
-  if [ "$ZPLUG_INSTALL" = true ]; then
-    printf "Install zsh plugins? [y/N]: "
-    if read -q; then
-      echo; zplug install
+  if [ -z $ZPLUG_CACHE_FILE ]; then
+    if [ zplug check --vebose ]; then
+      printf "Install zsh plugins? [y/N]: "
+      if read -q; then
+        echo; zplug install
+      fi
     fi
   fi
   
