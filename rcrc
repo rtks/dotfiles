@@ -2,5 +2,10 @@ EXCLUDES="README.md install.sh rcm"
 SYMLINK_DIRS="oh-my-zsh zaw neobundle.vim powerline _*"
 UNDOTTED="bin"
 
-[[ -e ~/.rcrc.local ]] && source ~/.rcrc.local
-
+if [ -r ~/.rcrc.local ]; then
+  source ~/.rcrc.local
+else
+  if [ -r ~/.dotfiles.local/rcrc.local ]; then
+    source ~/.dotfiles.local/rcrc.local
+  fi
+fi

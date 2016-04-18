@@ -1,4 +1,6 @@
-DOTPATH=~/.dotfiles
+#!/bin/bash
+
+DOTPATH="$HOME/.dotfiles"
 DOT_GIT="https://github.com/rtks/dotfiles.git"
 DOT_URL="https://github.com/rtks/dotfiles/archive/master.tar.gz"
 RCM_URL="https://thoughtbot.github.io/rcm/dist/rcm-1.3.0.tar.gz"
@@ -10,36 +12,40 @@ is_exists() {
 }
 
 if [ -d "$DOTPATH" ]; then
-    echo "$DOTPATH: already exists"
-    exit -1
-fi
-
-if is_exists git; then
-    git clone --recursive "$DOT_GIT" "$DOTPATH"
+  echo "already exists $DOTPATH"
+  read -p "Use this? [y/N]: " -n 1 -r
+  echo; if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "cancel install"
+    exit 1
+  fi
 else
+  if is_exists git; then
+      git clone --recursive "$DOT_GIT" "$DOTPATH"
+  else
     mkdir "$DOTPATH"
     if is_exists curl; then
-        curl -fsSL "$DOT_URL" | tar xvfz - -C "$DOTPATH" --strip-components 1
+        curl -fsSL "$DOT_URL" | tar xfz - -C "$DOTPATH" --strip-components 1
     else
-        wget -qO - "$DOT_URL" | tar xvfz - -C "$DOTPATH" --strip-components 1
+        wget -qO - "$DOT_URL" | tar xfz - -C "$DOTPATH" --strip-components 1
     fi
+  fi
 fi
 
-if is_exists lsrc; then
-    :
-else
-    cd "$DOTPATH"
-	mkdir "$RCM_DIR"
-	cd "$RCM_DIR"
-	PREFIX=`pwd`
-	mkdir "cache"
-    cd "cache"
-    curl -L "$RCM_URL" | tar xvfz - --strip-components 1
-    ./configure --prefix="$PREFIX"
-    make install-exec
-    cd ../
-    rm -Rf cache
-    cd bin
-    export PATH=$PATH:`pwd`
+if ! is_exists lsrc; then
+  if [ ! -x "$DOTPATH/$RCM_DIR/bin/lsrc" ]; then
+    echo "downloading rcm"
+    PREFIX="$DOTPATH/$RCM_DIR"
+  	mkdir -p "$PREFIX/temp"
+    cd "$PREFIX/temp"
+    curl -fsSL "$RCM_URL" | tar xfz - --strip-components 1
+    ./configure --prefix="$PREFIX" >/dev/null
+    make install-exec >/dev/null
+    rm -Rf "$PREFIX/temp"
+    cd "$HOME"
+  fi
+  export PATH="$PATH:$DOTPATH/$RCM_DIR/bin"
 fi
-env RCRC="$DOTPATH/rcrc" rcup -d "$DOTPATH"
+
+echo "installing .dotfiles"
+env RCRC="$DOTPATH/rcrc" rcup -v -d "$DOTPATH"
+echo "completed!!!"
