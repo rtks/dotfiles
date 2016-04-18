@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'powerline/powerline', { 'rtp' : 'powerline/bindings/vim'}
 Plug 'powerline/fontpatcher', { 'branch' : 'develop' }
 Plug 'altercation/vim-colors-solarized'
+Plug 'vim-scripts/restore_view.vim'
 "Plug 'Shougo/neosnippet.vim'
 "Plug 'Shougo/neosnippet-snippets'
 "Plug 'tpope/vim-fugitive'
