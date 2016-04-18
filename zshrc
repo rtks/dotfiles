@@ -1,10 +1,4 @@
 ############
-## autoload
-# cdr 最近使ったディレクトリを補完
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-
-############
 ## 環境変数
 # 言語
 export LANG=ja_JP.UTF-8
@@ -133,6 +127,8 @@ setopt hist_reduce_blanks
 
 ############
 ## cdrの設定
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
 zstyle ':chpwd:*' recent-dirs-max 500 # cdrの履歴を保存する個数
 zstyle ':chpwd:*' recent-dirs-default yes
 zstyle ':completion:*' recent-dirs-insert both
