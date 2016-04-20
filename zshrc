@@ -67,6 +67,7 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "mollifier/anyframe"
   zplug "b4b4r07/easy-oneliner"
   zplug "rupa/z", use:"*.sh"
+  zplug "willghatch/zsh-cdr"
   zplug "Tarrasch/zsh-bd", use:bd.zsh
   
   # Then, source plugins and add commands to $PATH
@@ -123,14 +124,6 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 # 冗長な空白を除く
 setopt hist_reduce_blanks
-
-############
-## cdrの設定
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':chpwd:*' recent-dirs-max 500 # cdrの履歴を保存する個数
-zstyle ':chpwd:*' recent-dirs-default yes
-zstyle ':completion:*' recent-dirs-insert both
 
 ############
 ## fzfの設定
