@@ -69,17 +69,16 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "rupa/z", use:"*.sh"
   zplug "Tarrasch/zsh-bd", use:bd.zsh
   
-  if [ -z $ZPLUG_CACHE_FILE ]; then
-    if [ zplug check --vebose ]; then
+  # Then, source plugins and add commands to $PATH
+  zplug load --verbose 2> $ZPLUG_CACHE_FILE.log
+  if [ ! "$(cat $ZPLUG_CACHE_FILE.log | grep 'Static loading...')" ]; then
+    if ! zplug check --verbose; then
       printf "Install zsh plugins? [y/N]: "
       if read -q; then
         echo; zplug install
       fi
     fi
   fi
-  
-  # Then, source plugins and add commands to $PATH
-  zplug load
 fi
 
 ############
