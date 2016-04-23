@@ -20,8 +20,6 @@ export PATH="$HOME/nodebrew/current/bin:$PATH"
 export PATH="$HOME/pyenv/bin:$PATH"
 # Android SDK
 export PATH="$HOME/Developer/android-sdk-macosx/tools:$PATH"
-# hrp2 ETロボコン
-export HRP2KERNELDIR="$HOME/work/hrp2"
 # Python
 #export PATH="~/Library/Python/2.7/bin:$PATH"
 #export PATH=/usr/local/share/python:$PATH
