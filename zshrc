@@ -69,6 +69,8 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "willghatch/zsh-cdr"
   zplug "rtks/90bf454eefa7ef9ee1830ae955a9a8c4", from:gist
   zplug "Tarrasch/zsh-bd", use:bd.zsh
+  zplug "zsh-users/zsh-autosuggestions"
+  zplug "zsh-users/zsh-completions"
   
   # Then, source plugins and add commands to $PATH
   zplug load --verbose 2> $ZPLUG_CACHE_FILE.log
@@ -124,6 +126,22 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 # 冗長な空白を除く
 setopt hist_reduce_blanks
+
+# 補完関数の表示を強化する
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'$DEFAULT
+zstyle ':completion:*' group-name ''
+
+if [ -f /usr/local/share/zsh/site-functions/_git ]; then
+  echo "zsh built-in git completion is overridden."
+  rm -i /usr/local/share/zsh/site-functions/_git
+fi
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=251"
 
 ############
 ## fzfの設定
