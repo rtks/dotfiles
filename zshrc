@@ -47,6 +47,7 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "lib/history", from:oh-my-zsh
   zplug "lib/completion", from:oh-my-zsh
   zplug "lib/theme-and-appearance", from:oh-my-zsh
+  zplug "lib/termsupport", from:oh-my-zsh
   zplug "themes/agnoster", from:oh-my-zsh
   zplug "plugins/common-aliases", from:oh-my-zsh
   autoload -Uz is-at-least # common-aliasesはoh-my-zsh/libでロードされるis-at-leastを使用
