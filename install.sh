@@ -39,7 +39,7 @@ if ! is_exists lsrc; then
     cd "$PREFIX/temp"
     curl -fsSL "$RCM_URL" | tar xfz - --strip-components 1
     ./configure --prefix="$PREFIX" >/dev/null
-    make install-exec >/dev/null
+    make install >/dev/null
     rm -Rf "$PREFIX/temp"
     cd "$HOME"
   fi
@@ -47,5 +47,5 @@ if ! is_exists lsrc; then
 fi
 
 echo "installing .dotfiles"
-env RCRC="$DOTPATH/rcrc" rcup -v -d "$DOTPATH"
+env RCRC="$DOTPATH/rcrc" rcup -v
 echo "completed!!!"
