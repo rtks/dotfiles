@@ -69,7 +69,7 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "willghatch/zsh-cdr"
   zplug "rtks/90bf454eefa7ef9ee1830ae955a9a8c4", from:gist
   zplug "Tarrasch/zsh-bd", use:bd.zsh
-  zplug "zsh-users/zsh-autosuggestions"
+  zplug "zsh-users/zsh-autosuggestions", at:"v0.3.x"
   zplug "zsh-users/zsh-completions"
   
   # Then, source plugins and add commands to $PATH
