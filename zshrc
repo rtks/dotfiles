@@ -146,6 +146,11 @@ fi
 
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=251"
 
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^F' forward-char
+bindkey '^B' backward-char
+
 ############
 ## fzfの設定
 export MANPATH="\$MANPATH:$HOME/.zplug/repos/junegunn/fzf/man"
