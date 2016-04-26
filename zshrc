@@ -49,7 +49,7 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "lib/theme-and-appearance", from:oh-my-zsh
   zplug "lib/termsupport", from:oh-my-zsh
   zplug "themes/agnoster", from:oh-my-zsh
-  zplug "plugins/common-aliases", from:oh-my-zsh
+  zplug "plugins/common-aliases", from:oh-my-zsh, nice:5
   autoload -Uz is-at-least # common-aliasesはoh-my-zsh/libでロードされるis-at-leastを使用
   zplug "plugins/vi-mode", from:oh-my-zsh
   zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux", nice:10
@@ -61,8 +61,8 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "zsh-users/zsh-syntax-highlighting", nice:10
   zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
   zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
-  zplug "junegunn/fzf", use:shell/completion.zsh
-  zplug "junegunn/fzf", use:shell/key-bindings.zsh
+  zplug "junegunn/fzf", use:shell/completion.zsh, nice:10
+  zplug "junegunn/fzf", use:shell/key-bindings.zsh, nice:10
   zplug "mollifier/anyframe"
   zplug "b4b4r07/easy-oneliner"
   zplug "rupa/z", use:"*.sh"
