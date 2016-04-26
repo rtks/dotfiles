@@ -3,21 +3,12 @@
 	email = rtks@users.noreply.github.com
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = vim
+	editor = vim -c \"set fenc=utf-8\"
+	pager = less -R
 	precomposeunicode = true
+	autocrlf = false
 [merge]
-	keepBackup = false;
-	tool = opendiff
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+	keepBackup = false
 [rebase]
 	autostash = true
 	autosquash = true
@@ -26,8 +17,28 @@
 [pull]
 	rebase = preserve
 [alias]
-	g = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
-	ga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
+	cd = !cd `git rev-parse --show-toplevel`
+	g = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
+	ga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
 	amd = git commit -a --amend --no-edit
-[include]
-	path = ~/.gitconfig.local
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[difftool "winmerge"]
+	path = C:/Program Files/WinMerge/winmergeu.exe
+	cmd = \"C:/Program Files/WinMerge/winmergeu.exe\" -e -u \"$LOCAL\" \"$REMOTE\"
+[difftool "TortoiseMerge"]
+	path = C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe
+[mergetool "TortoiseMerge"]
+	path = C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe
+	cmd = \"C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe\" /base:\"$BASE\" /mine:\"$LOCAL\" /theirs:\"$REMOTE\" /merged:\"$MERGED\"
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[filter "qt-pri"]
+	smudge = cat
+	clean = sed -e 's/$$PWD\\///g' | sed -e 's/\\r//g'
