@@ -135,7 +135,7 @@ zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$D
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'$DEFAULT
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select interactive
+zstyle ':completion:*:*:*:*:*' menu select interactive
 setopt menu_complete
 setopt nolistbeep
 
