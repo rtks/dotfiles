@@ -43,7 +43,7 @@ fi
 if [ -f ~/.zplug/init.zsh ]; then
   source ~/.zplug/init.zsh
 
-  zplug "b4b4r07/zplug", at:v2
+  zplug "zplug/zplug"
   zplug "lib/history", from:oh-my-zsh
   zplug "lib/completion", from:oh-my-zsh
   zplug "lib/theme-and-appearance", from:oh-my-zsh
