@@ -31,6 +31,20 @@ export PATH="$HOME/Developer/android-sdk-macosx/tools:$PATH"
 #export PATH=/opt/iOSOpenDev/bin:$PATH
 
 ############
+## agnosterテーマの調整
+__fix_omz_theme() {
+  prompt_dir() {
+    prompt_segment white default '%.'
+  }
+  prompt_context() {
+    local user=`whoami`
+    if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
+      prompt_segment cyan black "%(!.%{%F{yellow}%}.)$user@%m"
+    fi
+  }
+}
+
+############
 ## zplug
 if [ ! -f ~/.zplug/init.zsh ]; then
   printf "Install zplug? [y/N]: "
@@ -48,8 +62,8 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "lib/completion", from:oh-my-zsh
   zplug "lib/theme-and-appearance", from:oh-my-zsh
   zplug "lib/termsupport", from:oh-my-zsh
-  zplug "themes/agnoster", from:oh-my-zsh
-  zplug "plugins/common-aliases", from:oh-my-zsh, nice:5
+  zplug "themes/agnoster", from:oh-my-zsh, hook-load:"__fix_omz_theme"
+  zplug "plugins/common-aliases", from:oh-my-zsh, nice:5, hook-load:"unalias \P"
   autoload -Uz is-at-least # common-aliasesはoh-my-zsh/libでロードされるis-at-leastを使用
   zplug "plugins/vi-mode", from:oh-my-zsh
   zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux", nice:10
@@ -182,16 +196,6 @@ export DEFAULT_USER=ryota
 #export SEGMENT_SEPARATOR='⮀'
 # PowerLineのセパレータをtmux.confで取得できるようにする
 export SEGMENT_SEPARATOR=$SEGMENT_SEPARATOR
-# agnosterテーマの調整
-prompt_dir() {
-  prompt_segment white default '%.'
-}
-prompt_context() {
-  local user=`whoami`
-  if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    prompt_segment cyan black "%(!.%{%F{yellow}%}.)$user@%m"
-  fi
-}
 
 ############
 ## 速度測定
