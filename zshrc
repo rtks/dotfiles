@@ -35,8 +35,8 @@ export PATH="$HOME/Developer/android-sdk-macosx/tools:$PATH"
 if [ ! -f ~/.zplug/init.zsh ]; then
   printf "Install zplug? [y/N]: "
   if read -q; then
-    echo; git clone --depth=1 -b v2 --single-branch https://github.com/b4b4r07/zplug.git ~/.zplug/repos/b4b4r07/zplug
-    ln -s ~/.zplug/repos/b4b4r07/zplug/init.zsh ~/.zplug/init.zsh
+    echo; git clone --depth=1 -b v2 --single-branch https://github.com/zplug/zplug.git ~/.zplug/repos/b4b4r07/zplug
+    ln -s ~/.zplug/repos/zplug/zplug/init.zsh ~/.zplug/init.zsh
     ZPLUG_INSTALL=true
   fi
 fi
