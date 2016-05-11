@@ -38,8 +38,8 @@
 	path = C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe
 	cmd = \"C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe\" /base:\"$BASE\" /mine:\"$LOCAL\" /theirs:\"$REMOTE\" /merged:\"$MERGED\"
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
 [filter "qt-pri"]
 	smudge = cat
