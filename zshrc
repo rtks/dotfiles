@@ -56,6 +56,7 @@ if [ ! -f ~/.zplug/init.zsh ]; then
 fi
 if [ -f ~/.zplug/init.zsh ]; then
   source ~/.zplug/init.zsh
+  zplugs=()
 
   zplug "zplug/zplug"
   zplug "lib/history", from:oh-my-zsh
