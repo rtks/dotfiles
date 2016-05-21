@@ -70,6 +70,7 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux", nice:10
   zplug "plugins/brew", from:oh-my-zsh, if:"which brew"
   zplug "plugins/atom", from:oh-my-zsh, if:"which atom"
+  zplug "plugins/pip", from:oh-my-zsh, if:"which pip"
   zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
   zplug "plugins/osx", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
   zplug "plugins/git", from:oh-my-zsh, if:"which git", nice:10
