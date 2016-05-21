@@ -13,4 +13,5 @@ function fish_user_key_bindings
         bind -M insert \ec '__fzf_alt_c'
     end
     ### fzf ###
+  bind \cx '__global_alias'
 end
