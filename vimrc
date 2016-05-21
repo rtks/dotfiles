@@ -1,8 +1,13 @@
+if &shell =~# 'fish$'
+  set shell=bash
+endif
+
 call plug#begin('~/.vim/plugged')
 Plug 'powerline/powerline', { 'rtp' : 'powerline/bindings/vim'}
 Plug 'powerline/fontpatcher', { 'branch' : 'develop' }
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/restore_view.vim'
+Plug 'dag/vim-fish'
 "Plug 'Shougo/neosnippet.vim'
 "Plug 'Shougo/neosnippet-snippets'
 "Plug 'tpope/vim-fugitive'
@@ -17,9 +22,10 @@ function! s:plug.is_installed(name)
   return has_key(self.plugs, a:name) ? isdirectory(self.plugs[a:name].dir) : 0
 endfunction
 
+syntax enable
+filetype plugin indent on
 
-syntax on
-set background =light
+set background=light
 set laststatus=2
 
 if s:plug.is_installed("vim-colors-solarized")
