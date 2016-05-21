@@ -18,7 +18,7 @@ function set_color_custom
 	set -U fish_color_selection         '--background=grey'
 	set -U fish_color_valid_path        '--underline'
 	set -U fish_pager_color_completion  'normal'
-	set -U fish_pager_color_description '555 yellow'
+	set -U fish_pager_color_description 'yellow'
 	set -U fish_pager_color_prefix      'cyan'
 	set -U fish_pager_color_progress    'cyan'
 end
