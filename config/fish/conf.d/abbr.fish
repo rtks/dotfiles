@@ -1,21 +1,19 @@
-if [ "$abbr_initialized" != 1 ]
+if not set -q abbr_initialized
   printf 'Initializing \e[33mabbr\e[0m ... '
   
-  set -e fish_user_abbreviations
-  set -l abbr_tmp_func 0
-  
-  if not functions abbr
-    function abbr
-      set -U fish_user_abbreviations $fish_user_abbreviations $argv[2]
+  if not functions -q abbr
+    function abbr -d temp
+      set fish_user_abbreviations $fish_user_abbreviations $argv[2]
     end
-    set abbr_tmp_func 1
   end
-  
+
+  set -U fish_user_abbreviations
+
   abbr -a gfi='git-fixup'
   abbr -a gfia='git add --all; git-fixup'
   abbr -a glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit"
   abbr -a glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit --all"
-  
+
   abbr -a g='git'
   abbr -a ga='git add'
   abbr -a gaa='git add --all'
@@ -125,11 +123,11 @@ if [ "$abbr_initialized" != 1 ]
   abbr -a glum='git pull upstream master'
   abbr -a gwch='git whatchanged -p --abbrev-commit --pretty=medium'
   abbr -a gwip='git add -A; git rm (git ls-files --deleted) 2> /dev/null; git commit -m "--wip--"'
-  
-  if [ $abbr_tmp_func = 1 ]
+
+  if functions abbr | head -n1 | grep -q temp
     functions -e abbr
   end
-  
+
   set -U abbr_initialized 1
   echo 'Done'
 end
