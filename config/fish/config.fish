@@ -2,7 +2,8 @@
 ## PATH
 set PATH "$HOME/bin" $PATH
 # Android SDK
-set PATH "$HOME/Developer/android-sdk-macosx/tools" $PATH
+[ -e "$HOME/Developer/android-sdk-macosx/tools" ]
+and set PATH "$HOME/Developer/android-sdk-macosx/tools" $PATH
 #set PATH /opt/X11/bin $PATH
 #set PATH /Library/TeX/texbin $PATH
 # NodeBrew
