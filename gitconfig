@@ -11,6 +11,8 @@
 	helper = cache
 [merge]
 	keepBackup = false
+[mergetool]
+	keepBackup = false
 [rebase]
 	autostash = true
 	autosquash = true
