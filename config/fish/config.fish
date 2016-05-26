@@ -1,9 +1,18 @@
 ########
 ## PATH
 set PATH "$HOME/bin" $PATH
+if [ -d ~/.dotfiles/rcm ]
+  set PATH "$HOME/.dotfiles/rcm/bin" $PATH
+  set MANPATH "$HOME/.dotfiles/rcm/share/man" $MANPATH
+end
+if [ -d ~/.local ]
+  set PATH "$HOME/.local/bin" $PATH
+  set MANPATH "$HOME/.local/share/man" $MANPATH
+end
 # Android SDK
-[ -e "$HOME/Developer/android-sdk-macosx/tools" ]
-and set PATH "$HOME/Developer/android-sdk-macosx/tools" $PATH
+if [ -d "$HOME/Developer/android-sdk-macosx/tools" ]
+  set PATH "$HOME/Developer/android-sdk-macosx/tools" $PATH
+end
 #set PATH /opt/X11/bin $PATH
 #set PATH /Library/TeX/texbin $PATH
 # NodeBrew
