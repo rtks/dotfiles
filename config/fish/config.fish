@@ -5,8 +5,10 @@ if [ -d ~/.dotfiles/rcm ]
   set PATH "$HOME/.dotfiles/rcm/bin" $PATH
   set MANPATH "$HOME/.dotfiles/rcm/share/man" $MANPATH
 end
-if [ -d ~/.local ]
+if [ -d ~/.local/bin ]
   set PATH "$HOME/.local/bin" $PATH
+end
+if [ -d ~/.local/share/man ]
   set MANPATH "$HOME/.local/share/man" $MANPATH
 end
 # Android SDK
