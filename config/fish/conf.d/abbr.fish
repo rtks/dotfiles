@@ -13,6 +13,8 @@ if not set -q abbr_initialized
   abbr -a gfia='git add --all; git-fixup'
   abbr -a glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit --date-order"
   abbr -a glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit --all --date-order"
+  abbr -a glg='git log --stat --use-mailmap'
+  abbr -a glgp='git log --stat -p --use-mailmap'
 
   abbr -a g='git'
   abbr -a ga='git add'
@@ -65,8 +67,6 @@ if not set -q abbr_initialized
   abbr -a gk='\gitk --all --branches'
   abbr -a gke='\gitk --all (git log -g --pretty=format:%h)'
   abbr -a gl='git pull'
-  abbr -a glg='git log --stat'
-  abbr -a glgp='git log --stat -p'
   abbr -a glgg='git log --graph'
   abbr -a glgga='git log --graph --decorate --all'
   abbr -a glgm='git log --graph --max-count=10'
