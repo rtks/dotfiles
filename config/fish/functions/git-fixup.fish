@@ -1,7 +1,7 @@
 function git-fixup
     set MAX_LOG_COUNT 30
     
-    if type fzf > /dev/null
+    if type -q fzf
         if git diff --cached --quiet
             set commits "No staged changes. Use git add -p to add them."
             set ret 1
