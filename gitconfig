@@ -3,7 +3,7 @@
 	email = rtks@users.noreply.github.com
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = vim -c \"set fenc=utf-8\"
+	editor = vim
 	pager = less -R
 	precomposeunicode = true
 	autocrlf = false
