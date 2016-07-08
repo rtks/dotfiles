@@ -46,3 +46,10 @@
 [filter "qt-pri"]
 	smudge = cat
 	clean = sed -e 's/$$PWD\\///g' | sed -e 's/\\r//g'
+[diff]
+	compactionHeuristic = true
+[pager]
+	log = diff-highlight | less -R
+	show = diff-highlight | less -R
+	diff = diff-highlight | less -R
+
