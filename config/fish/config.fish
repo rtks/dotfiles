@@ -1,4 +1,4 @@
-########
+﻿########
 ## PATH
 set PATH "$HOME/bin" $PATH
 if [ -d ~/.dotfiles/rcm ]
@@ -11,9 +11,28 @@ end
 if [ -d ~/.local/share/man ]
   set MANPATH "$HOME/.local/share/man" $MANPATH
 end
+if [ -d /usr/local/share/man ]
+  set MANPATH /usr/local/share/man $MANPATH
+end
 # Android SDK
 if [ -d "$HOME/Developer/android-sdk-macosx/tools" ]
   set PATH "$HOME/Developer/android-sdk-macosx/tools" $PATH
+end
+# Homebrew fish
+if [ -d /usr/local/share/fish/vendor_completions.d ]
+  set fish_complete_path /usr/local/share/fish/vendor_completions.d $fish_complete_path
+end
+# C/C++
+if [ -d /usr/local/include ]
+  set -x C_INCLUDE_PATH (string join : /usr/local/include $C_INCLUDE_PATH)
+  set -x CPLUS_INCLUDE_PATH (string join : /usr/local/include $CPLUS_INCLUDE_PATH)
+end
+if [ -d /usr/local/lib ]
+  set -x LIBRARY_PATH (string join : /usr/local/lib $LIBRARY_PATH)
+  set -x LD_LIBRARY_PATH (string join : /usr/local/lib $LD_LIBRARY_PATH)
+end
+if [ -d /usr/local/lib/pkgconfig ]
+  set -x PKG_CONFIG_PATH (string join : /usr/local/lib/pkgconfig $PKG_CONFIG_PATH)
 end
 #set PATH /opt/X11/bin $PATH
 #set PATH /Library/TeX/texbin $PATH
