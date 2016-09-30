@@ -10,6 +10,7 @@
 #   editor.onDidSave ->
 #     console.log "Saved! #{editor.getPath()}"
 
+###
 fs = require('fs')
 
 atom.workspace.onDidOpen ->
@@ -32,3 +33,4 @@ atom.workspace.onDidOpen ->
     encoding = encoding.toLowerCase().replace(/[^0-9a-z]|:\d{4}$/g, '')
     if encoding is 'shiftjis' or encoding is 'eucjp'
       editor.setEncoding(encoding)
+###
