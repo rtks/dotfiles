@@ -58,7 +58,7 @@ atom-text-editor::shadow {
 atom-text-editor::shadow {
   atom-text-editor-minimap::shadow {
     .open-minimap-quick-settings:before {
-      opacity: 0.1 !important;
+      opacity: 0.2 !important;
     }
   }
 }
@@ -125,12 +125,13 @@ linter-bottom-tab {
 .tab-bar {
   .tab {
     .title {
-      -webkit-mask: linear-gradient(to right, hsla(0,0%,0%,0), hsla(0,0%,0%,1) 5px) no-repeat;
+      -webkit-mask: none;
     }
     .close-icon {
       right: initial;
     }
     &:hover .title {
+      -webkit-mask: linear-gradient(to right, hsla(0,0%,0%,0), hsla(0,0%,0%,1) 5px) no-repeat;
       -webkit-mask-position: 14px 0;
     }
   }

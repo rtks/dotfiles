@@ -22,7 +22,7 @@
     ]
     themes: [
       "one-light-ui"
-      "_slush-and-poppies"
+      "solarized-light-syntax"
     ]
   editor:
     fontFamily: "SourceHanCodeJP-Regular"
