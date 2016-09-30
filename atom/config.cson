@@ -19,6 +19,7 @@
       "auto-encoding"
       "color-picker"
       "linter-cpplint"
+      "terminal-plus"
     ]
     themes: [
       "one-light-ui"
