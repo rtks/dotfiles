@@ -11,8 +11,8 @@ if not set -q abbr_initialized
 
   abbr -a gfi='git-fixup'
   abbr -a gfia='git add --all; git-fixup'
-  abbr -a glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit --date-order"
-  abbr -a glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit --all --date-order"
+  abbr -a glol="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit"
+  abbr -a glola="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit --all"
   abbr -a glg='git log --stat --use-mailmap'
   abbr -a glgp='git log --stat -p --use-mailmap'
 
