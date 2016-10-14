@@ -21,7 +21,12 @@ brew install rcm
 git clone --recursive https://github.com/rtks/dotfiles.git ~/.dotfiles
 env RCRC=$HOME/.dotfiles/rcrc rcup
 ```
-
+## Brew bundle
+```bash
+brew tap Homebrew/bundle
+cd ~/.dotfiles
+brew bundle
+```
 
 ## Atom
 
