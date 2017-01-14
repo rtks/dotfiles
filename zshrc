@@ -49,14 +49,11 @@ __fix_omz_theme() {
 if [ ! -f ~/.zplug/init.zsh ]; then
   printf "Install zplug? [y/N]: "
   if read -q; then
-    echo; git clone --depth=1 -b v2 --single-branch https://github.com/zplug/zplug.git ~/.zplug/repos/b4b4r07/zplug
-    ln -s ~/.zplug/repos/zplug/zplug/init.zsh ~/.zplug/init.zsh
-    ZPLUG_INSTALL=true
+    echo; git clone --depth=1 --single-branch https://github.com/zplug/zplug.git ~/.zplug
   fi
 fi
 if [ -f ~/.zplug/init.zsh ]; then
   source ~/.zplug/init.zsh
-  zplugs=()
 
   zplug "zplug/zplug"
   zplug "lib/history", from:oh-my-zsh
@@ -64,40 +61,39 @@ if [ -f ~/.zplug/init.zsh ]; then
   zplug "lib/theme-and-appearance", from:oh-my-zsh
   zplug "lib/termsupport", from:oh-my-zsh
   zplug "themes/agnoster", from:oh-my-zsh, hook-load:"__fix_omz_theme"
-  zplug "plugins/common-aliases", from:oh-my-zsh, nice:5, hook-load:"unalias \P"
-  autoload -Uz is-at-least # common-aliasesはoh-my-zsh/libでロードされるis-at-leastを使用
+  zplug "plugins/common-aliases", from:oh-my-zsh, defer:1, hook-load:"unalias \P"
   zplug "plugins/vi-mode", from:oh-my-zsh
-  zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux", nice:10
+  zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux", defer:2
   zplug "plugins/brew", from:oh-my-zsh, if:"which brew"
   zplug "plugins/atom", from:oh-my-zsh, if:"which atom"
   zplug "plugins/pip", from:oh-my-zsh, if:"which pip"
   zplug "lib/clipboard", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
   zplug "plugins/osx", from:oh-my-zsh, if:"[[ $OSTYPE == *darwin* ]]"
-  zplug "plugins/git", from:oh-my-zsh, if:"which git", nice:10
-  zplug "zsh-users/zsh-syntax-highlighting", nice:10
+  zplug "plugins/git", from:oh-my-zsh, if:"which git", defer:2
+  zplug "zsh-users/zsh-syntax-highlighting", defer:2
   zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
   zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
-  zplug "junegunn/fzf", use:shell/completion.zsh, nice:10
-  zplug "junegunn/fzf", use:shell/key-bindings.zsh, nice:10
+  zplug "junegunn/fzf", use:shell/completion.zsh, defer:2
+  zplug "junegunn/fzf", use:shell/key-bindings.zsh, defer:2
   zplug "mollifier/anyframe"
   zplug "b4b4r07/easy-oneliner"
   zplug "rupa/z", use:"*.sh"
   zplug "willghatch/zsh-cdr"
   zplug "rtks/90bf454eefa7ef9ee1830ae955a9a8c4", from:gist
   zplug "Tarrasch/zsh-bd", use:bd.zsh
-  zplug "zsh-users/zsh-autosuggestions", at:"v0.3.x"
+  zplug "zsh-users/zsh-autosuggestions"
   zplug "zsh-users/zsh-completions"
   
-  # Then, source plugins and add commands to $PATH
-  zplug load --verbose 2> $ZPLUG_CACHE_FILE.log
-  if [ ! "$(cat $ZPLUG_CACHE_FILE.log | grep 'Static loading...')" ]; then
-    if ! zplug check --verbose; then
-      printf "Install zsh plugins? [y/N]: "
+  # Install plugins if there are plugins that have not been installed
+  if ! zplug check --verbose; then
+      printf "Install? [y/N]: "
       if read -q; then
-        echo; zplug install
+           echo; zplug install
       fi
-    fi
   fi
+  
+  # Then, source plugins and add commands to $PATH
+  zplug load
 fi
 
 ############
