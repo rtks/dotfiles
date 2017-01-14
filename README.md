@@ -21,7 +21,21 @@ brew install rcm
 git clone --recursive https://github.com/rtks/dotfiles.git ~/.dotfiles
 env RCRC=$HOME/.dotfiles/rcrc rcup
 ```
+## vim-plug
+
+```bash
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
+## Fisheman
+
+```bash
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+```
+
 ## Brew bundle
+
 ```bash
 brew tap Homebrew/bundle
 cd ~/.dotfiles
