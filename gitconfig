@@ -43,6 +43,7 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
 [filter "qt-pri"]
 	smudge = cat
 	clean = sed -e 's/$$PWD\\///g' | sed -e 's/\\r//g'
