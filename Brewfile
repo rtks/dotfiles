@@ -16,7 +16,7 @@ brew 'cpputest'
 brew 'doxygen'
 brew 'fish'
 brew 'fzf'
-brew 'px4/px4/gcc-arm-none-eabi'
+brew 'px4/px4/gcc-arm-none-eabi-48'
 brew 'ghostscript'
 brew 'gist'
 brew 'git'
@@ -45,6 +45,8 @@ brew 'uncrustify'
 brew 'wget'
 brew 'bash-completion'
 brew 'vim'
+brew 'qt5'
+brew 'highlight'
 
 brew 'youtube-dl'
 brew 'boost'
@@ -68,6 +70,8 @@ cask 'scriptql'
 cask 'sitesucker'
 cask 'suspicious-package'
 cask 'virtualbox'
+cask 'dash'
+cask 'qt-creator'
 
 mas 'Xcode', id: 497799835
 mas 'Numbers', id: 409203825
@@ -77,7 +81,6 @@ mas 'iMovie', id: 408981434
 mas 'GarageBand', id: 682658836
 mas 'Apple Configurator 2', id: 1037126344
 mas 'Tweetbot', id: 557168941
-mas 'Dash', id: 449589707
 mas 'Reeder', id: 880001334
 mas 'Pocket', id: 568494494
 mas 'Day One', id: 1055511498
