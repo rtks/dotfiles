@@ -28,6 +28,11 @@ filetype plugin indent on
 set background=light
 set laststatus=2
 
+set tabstop=4
+set autoindent
+set expandtab
+set shiftwidth=4
+
 set encoding=utf-8
 set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 
