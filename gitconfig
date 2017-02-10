@@ -7,6 +7,7 @@
 	pager = less -R
 	precomposeunicode = true
 	autocrlf = false
+	whitespace = cr-at-eol
 [credential]
 	helper = cache
 [merge]
@@ -55,4 +56,6 @@
 	diff = diff-highlight | less -R
 [diff "toutf8"]
 	textconv = nkf -w8
+[diff "nkf"]
+	textconv = nkf
 
