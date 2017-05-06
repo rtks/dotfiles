@@ -2,6 +2,7 @@ if &shell =~# 'fish$'
   set shell=bash
 endif
 
+if filereadable(expand('~/.vim/autoload/plug.vim')) 
 call plug#begin('~/.vim/plugged')
 Plug 'powerline/powerline', { 'rtp' : 'powerline/bindings/vim'}
 Plug 'powerline/fontpatcher', { 'branch' : 'develop' }
@@ -15,6 +16,7 @@ Plug 'dag/vim-fish'
 "Plug 'flazz/vim-colorschemes'
 " Then reload .vimrc and :PlugInstall to install plugins.
 call plug#end()
+endif
 
 " vim-plugでpluginがインストールされている確認する関数
 let s:plug = { "plugs": get(g:, 'plugs', {}) }
@@ -27,6 +29,7 @@ filetype plugin indent on
 
 set background=light
 set laststatus=2
+set backspace=2
 
 set tabstop=4
 set autoindent
