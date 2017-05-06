@@ -41,6 +41,11 @@ brew tap Homebrew/bundle
 cd ~/.dotfiles
 brew bundle
 ```
+Update Brewfile.
+
+```
+brew bundle dump --force --file=~/.dotfiles/Brewfile; for l in (diff -u (brew list | sort | psub) (brew leaves | sed 's#^.*/##' | sort | psub) | tail -n+3 | grep "^-" | cut -c2-); sed -i -e "/^brew '[^']*$l'/d" ~/.dotfiles/Brewfile; end
+```
 
 ## Atom
 
