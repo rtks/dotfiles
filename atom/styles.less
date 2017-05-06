@@ -27,7 +27,7 @@ atom-text-editor {
 }
 
 // To style other content in the text editor's shadow DOM, use the ::shadow expression
-atom-text-editor::shadow .cursor {
+atom-text-editor.editor .cursor {
   // border-color: red;
 }
 
@@ -42,7 +42,7 @@ atom-text-editor::shadow .cursor {
 }
 
 // wrapとindentの線の色を薄くする
-atom-text-editor::shadow {
+atom-text-editor.editor {
   .wrap-guide {
     background-color: rgba(128,128,128,0.1);
   }
@@ -55,8 +55,8 @@ atom-text-editor::shadow {
 }
   
 // minimapの設定アイコンを薄くする
-atom-text-editor::shadow {
-  atom-text-editor-minimap::shadow {
+atom-text-editor.editor {
+  atom-text-editor-minimap {
     .open-minimap-quick-settings:before {
       opacity: 0.2 !important;
     }
@@ -128,7 +128,8 @@ linter-bottom-tab {
       -webkit-mask: none;
     }
     .close-icon {
-      right: initial;
+      right: initial !important;
+      margin-left: 7px;
     }
     &:hover .title {
       -webkit-mask: linear-gradient(to right, hsla(0,0%,0%,0), hsla(0,0%,0%,1) 5px) no-repeat;
@@ -145,4 +146,28 @@ linter-bottom-tab {
 // タイトルバーの下の線をなくす
 atom-workspace {
   border-top: 0px !important;
+}
+
+.platformio-ide-terminal {
+  .xterm {
+    background-color: #FCF5DE;
+    color: #536870;
+    ::selection { background-color: #DFD4AE; }
+    .terminal-cursor { background-color: #DFD4AE; }
+  }
+  .btn {
+    border: none !important;
+    background: none !important;
+  }
+  .icon-chevron-down::before {
+    padding-top: 2px !important;
+  }
+  .btn-toolbar {
+    background-color: #FCF5DE;
+    margin-right: -5px;
+  }
+  &.status-bar{
+    margin: 0 0;
+    > .icon-x { display: none; }
+  }
 }

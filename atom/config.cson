@@ -1,12 +1,18 @@
 "*":
   "atom-beautify":
     _analyticsUserId: "aa012dd4-6c50-49ad-bcbd-5d11f98ad313"
+    general:
+      _analyticsUserId: "6ad0ed86-0101-4f32-8b31-dad9c20a9dbb"
   "auto-encoding": {}
   "autocomplete-clang": {}
   "autocomplete-plus":
     strictMatching: true
   autosave:
     enabled: true
+  blame:
+    dateFormat: "YY.MM.DD"
+    defaultWidth: 180
+    gutterFormat: "{date} {author}"
   core:
     disabledPackages: [
       "feedback"
@@ -40,12 +46,14 @@
   "git-log":
     fontScale: 0.8
   "git-plus":
-    splitPane: "Down"
-  linter:
-    displayLinterInfo: false
-    showErrorPanel: false
-    showErrorTabLine: true
+    commits:
+      verboseCommits: true
+    general:
+      analytics: false
+      enableStatusBarIcon: false
+  linter: {}
   "linter-cpplint": {}
+  "linter-ui-default": {}
   "merge-conflicts": {}
   metrics:
     userId: "e82ed6b395965d1ec6bdae90499cea15d9a28a58"
@@ -66,6 +74,31 @@
     layoutMode: "Compact"
   pigments:
     sortPaletteColors: "by color"
+  "platformio-ide-terminal":
+    ansiColors:
+      normal:
+        blue: "#278cd2"
+        cyan: "#2aa198"
+        green: "#859901"
+        magenta: "#d33682"
+        red: "#dc322f"
+        white: "#eee8d5"
+        yellow: "#b68a00"
+      zBright:
+        brightBlack: "#012b36"
+        brightBlue: "#839496"
+        brightCyan: "#93a1a1"
+        brightGreen: "#657b83"
+        brightMagenta: "#6c71c4"
+        brightRed: "#cb4b16"
+        brightWhite: "#fdf6e3"
+        brightYellow: "#657b83"
+    core:
+      autoRunCommand: "fish"
+    style:
+      animationSpeed: 2
+      fontFamily: "Source Code Pro"
+      fontSize: "11"
   "status-bar": {}
   "sublime-tabs":
     hideIgnoredNames: true
@@ -76,6 +109,14 @@
   "vim-mode":
     startInInsertMode: true
     wrapLeftRightMotion: true
+  "vim-mode-plus":
+    smoothScrollOnFullScrollMotion: true
+    smoothScrollOnFullScrollMotionDuration: 150
+    smoothScrollOnHalfScrollMotion: true
+    smoothScrollOnHalfScrollMotionDuration: 150
+    startInInsertMode: true
+    statusBarModeStringStyle: "long"
+    useClipboardAsDefaultRegister: true
   welcome:
     showOnStartup: false
   whitespace:
