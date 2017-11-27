@@ -13,6 +13,8 @@ function __global_alias
   case "cc"
     commandline -rt '| ccze -A'
   case "f"
-commandline -rt '| __fzfcmd'
+    commandline -rt '| __fzfcmd'
+  case "n"
+    commandline -rt '| nkf'
   end
 end
