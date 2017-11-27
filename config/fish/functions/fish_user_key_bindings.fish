@@ -13,8 +13,10 @@ function fish_user_key_bindings
   ### fzf ###
   if type fzf >/dev/null ^&1
     bind \cq '__fzf_z'
+    bind \eg '__fzf_alt_g'
     if bind -M insert >/dev/null ^/dev/null
       bind -M insert \cq '__fzf_z'
+      bind -M insert \eg '__fzf_alt_g'
     end
   end
   bind \cx '__global_alias'
