@@ -4,6 +4,10 @@ function fish_prompt --description 'Write out the prompt'
 	if not set -q __fish_prompt_normal
 		set -g __fish_prompt_normal (set_color normal)
 	end
+    
+    if set -q SSH_CONNECTED
+        echo -n (hostname | cut -d. -f1)' '
+    end
 
 	# PWD
 	set_color $fish_color_cwd
