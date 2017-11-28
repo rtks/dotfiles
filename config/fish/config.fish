@@ -1,4 +1,12 @@
-﻿########
+﻿switch "$FISH_VERSION"
+    case 2.2.0 2.1.2 2.1.1 2.1.0 2.0.0
+        cd
+        for file in .config/fish/conf.d/*.fish
+            source $file
+        end
+end
+
+########
 ## PATH
 set PATH "$HOME/bin" $PATH
 if [ -d ~/.dotfiles/rcm ]
@@ -67,13 +75,10 @@ set -gx FZF_TMUX 1
 # PowerLineのセパレータをtmux.confで取得できるようにする
 set -gx SEGMENT_SEPARATOR ''
 
-switch "$FISH_VERSION"
-    case 2.2.0 2.1.2 2.1.1 2.1.0 2.0.0
-        cd
-        for file in .config/fish/conf.d/*.fish
-            source $file
-        end
+for file in .config/fish/conf.override.d/*.fish
+    source $file
 end
+
 if test -n "$MSYSTEM"
   set -xg MSYS winsymlinks:nativestrict
 end
