@@ -3,4 +3,5 @@ function __git_fixup_commits
     printf "$i\n"
   end
 end
-complete -f -c git-fixup -a '(__git_fixup_commits)'
+complete -f -c git -n '__fish_git_using_command fixup' -a '(__git_fixup_commits)'
+
