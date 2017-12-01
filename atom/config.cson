@@ -20,7 +20,6 @@
       "bezier-curve-editor"
       "close-on-left"
       "welcome"
-      "minimap-autohide"
       "autocomplete-clang"
       "auto-encoding"
       "color-picker"
@@ -68,10 +67,10 @@
       "git-diff": true
       "git-diffDecorationsZIndex": 0
       "minimap-autohide": true
+      "minimap-autohideDecorationsZIndex": 0
       pigments: true
       pigmentsDecorationsZIndex: 0
-  "one-light-ui":
-    layoutMode: "Compact"
+  "one-light-ui": {}
   pigments:
     sortPaletteColors: "by color"
   "platformio-ide-terminal":
@@ -94,7 +93,7 @@
         brightWhite: "#fdf6e3"
         brightYellow: "#657b83"
     core:
-      autoRunCommand: "fish"
+      shell: "/usr/local/bin/fish"
     style:
       animationSpeed: 2
       fontFamily: "Source Code Pro"
@@ -106,6 +105,7 @@
   "symbols-tree-view": {}
   "tree-view":
     hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
   "vim-mode":
     startInInsertMode: true
     wrapLeftRightMotion: true

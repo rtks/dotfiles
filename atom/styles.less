@@ -85,10 +85,6 @@ linter-bottom-tab {
   .tab {
     height: @ui-tab-height;
     line-height: @ui-tab-height;
-    .close-icon {
-      height: @ui-tab-height;
-      line-height: @ui-tab-height;
-    }
   }
   .tab.modified {
     &:not(:hover) .close-icon {
@@ -164,10 +160,13 @@ atom-workspace {
   }
   .btn-toolbar {
     background-color: #FCF5DE;
-    margin-right: -5px;
+    margin-left: 0;
+    padding: 3px 0 0 0 !important;
+  }
+  .input-block {
+    padding: 0 !important;
   }
   &.status-bar{
-    margin: 0 0;
     > .icon-x { display: none; }
   }
 }
