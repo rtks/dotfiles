@@ -75,6 +75,11 @@ set -gx FZF_DEFAULT_OPTS "--reverse --inline-info --ansi\
 set -gx FZF_TMUX 1
 
 ########
+# Z
+set Z_CMD "j"
+set Z_DATA "$HOME/.z"
+
+########
 ## PowerLine
 # PowerLineのセパレータをtmux.confで取得できるようにする
 set -gx SEGMENT_SEPARATOR ''
