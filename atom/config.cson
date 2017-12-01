@@ -26,6 +26,7 @@
       "linter-cpplint"
       "terminal-plus"
     ]
+    telemetryConsent: "no"
     themes: [
       "one-light-ui"
       "solarized-light-syntax"
