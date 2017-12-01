@@ -42,6 +42,10 @@ end
 if [ -d /usr/local/lib/pkgconfig ]
   set -x PKG_CONFIG_PATH (string join : /usr/local/lib/pkgconfig $PKG_CONFIG_PATH)
 end
+# git diff-highlight
+if [ -d /usr/local/share/git-core/contrib/diff-highlight ]
+  set PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
+end
 #set PATH /opt/X11/bin $PATH
 #set PATH /Library/TeX/texbin $PATH
 # NodeBrew
