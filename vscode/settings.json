@@ -1,0 +1,46 @@
+{
+    "workbench.activityBar.visible": false,
+    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.formatOnPaste": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "files.associations": {
+        "vimrc": "viml"
+    },
+    "workbench.statusBar.feedback.visible": false,
+    "workbench.colorTheme": "Solarized Dark",
+    "commands.commands" : [
+        {
+            "text": "$(file-directory)",
+            "command": "workbench.view.explorer",
+            "tooltip": "エクスプローラー",
+            "priority": 20000
+        },
+        {
+            "text": "$(search)",
+            "command": "workbench.view.search",
+            "tooltip": "検索",
+            "priority": 20000
+        },
+        {
+            "text": "$(repo-forked)",
+            "command": "workbench.view.scm",
+            "tooltip": "ソース管理",
+            "priority": 20000
+        },
+        {
+            "text": "$(bug)",
+            "command": "workbench.view.debug",
+            "tooltip": "デバッグ",
+            "priority": 20000
+        },
+        {
+            "text": "$(package)",
+            "command": "workbench.view.extensions",
+            "tooltip": "拡張機能",
+            "priority": 20000
+        }
+    ]
+}

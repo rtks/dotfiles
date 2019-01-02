@@ -48,4 +48,5 @@ fi
 
 echo "installing .dotfiles"
 env RCRC="$DOTPATH/rcrc" rcup -v
+$DOTPATH/vscode/setup.sh
 echo "completed!!!"

@@ -1,0 +1,11 @@
+code --install-extension deerawan.vscode-dash
+code --install-extension dunstontc.viml
+code --install-extension eamodio.gitlens
+code --install-extension fabiospampinato.vscode-commands
+code --install-extension lunaryorn.fish-ide
+code --install-extension MS-CEINTL.vscode-language-pack-ja
+code --install-extension ms-python.python
+code --install-extension ms-vscode.sublime-keybindings
+code --install-extension sidneys1.gitconfig
+code --install-extension skyapps.fish-vscode
+code --install-extension yzhang.markdown-all-in-one

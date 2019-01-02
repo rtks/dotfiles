@@ -1,5 +1,5 @@
-EXCLUDES="README.md install.sh rcm"
-SYMLINK_DIRS="oh-my-zsh zaw neobundle.vim powerline _*"
+EXCLUDES="README.md install.sh rcm vscode"
+SYMLINK_DIRS="powerline"
 UNDOTTED="bin"
 
 if [ -r ~/.rcrc.local ]; then
