@@ -27,7 +27,7 @@ endfunction
 syntax enable
 filetype plugin indent on
 
-set background=light
+set background=dark
 set laststatus=2
 set backspace=2
 
