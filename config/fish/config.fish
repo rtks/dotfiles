@@ -1,9 +1,9 @@
-﻿switch "$FISH_VERSION"
+switch "$FISH_VERSION"
     case 2.2.0 2.1.2 2.1.1 2.1.0 2.0.0
-        cd
-        for file in .config/fish/conf.d/*.fish
-            source $file
-        end
+      set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+      for file in $XDG_CONFIG_HOME/fish/conf.d/*.fish
+        builtin source $file 2>/dev/null
+      end
 end
 
 ########
@@ -21,6 +21,9 @@ if [ -d ~/.local/share/man ]
 end
 if [ -d /usr/local/share/man ]
   set MANPATH /usr/local/share/man $MANPATH
+end
+if [ -d /usr/local/sbin ]
+  set PATH /usr/local/sbin $PATH
 end
 # Android SDK
 if [ -d "$HOME/Developer/android-sdk-macosx/tools" ]
@@ -46,22 +49,6 @@ end
 if [ -d /usr/local/share/git-core/contrib/diff-highlight ]
   set PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
 end
-#set PATH /opt/X11/bin $PATH
-#set PATH /Library/TeX/texbin $PATH
-# NodeBrew
-#set -gx NODE_PATH "$HOME/nodebrew/current/lib/node_modules"
-#set PATH "$HOME/nodebrew/current/bin" $PATH
-# pyenv
-#set PATH "$HOME/pyenv/bin" $PATH
-# Python
-#export PATH="~/Library/Python/2.7/bin:$PATH"
-#export PATH=/usr/local/share/python:$PATH
-#source `which virtualenvwrapper.sh`
-#export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
-# iOS Open Dev
-#export iOSOpenDevPath=/opt/iOSOpenDev
-#export iOSOpenDevDevice=
-#export PATH=/opt/iOSOpenDev/bin:$PATH
 
 ########
 ## LS
@@ -76,18 +63,20 @@ set -gx FZF_TMUX 1
 
 ########
 # Z
-set Z_CMD "j"
-set Z_DATA "$HOME/.z"
+set -U Z_CMD "j"
+set -U Z_DATA "$HOME/.z"
 
 ########
 ## PowerLine
 # PowerLineのセパレータをtmux.confで取得できるようにする
 set -gx SEGMENT_SEPARATOR ''
 
-for file in .config/fish/conf.override.d/*.fish
-    source $file
-end
-
+########
+# msys
 if test -n "$MSYSTEM"
   set -xg MSYS winsymlinks:nativestrict
+end
+
+for file in .config/fish/conf.override.d/*.fish
+    source $file
 end

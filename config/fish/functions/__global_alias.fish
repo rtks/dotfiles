@@ -13,7 +13,7 @@ function __global_alias
   case "cc"
     commandline -rt '| ccze -A'
   case "f"
-    commandline -rt '| __fzfcmd'
+    commandline -rt '| fzf-tmux'
   case "n"
     commandline -rt '| nkf'
   end
