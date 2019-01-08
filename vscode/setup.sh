@@ -14,7 +14,7 @@ fi
 echo "Creating VSCode Symbolic links"
 ln -si ~/.dotfiles/vscode/settings.json "$VSCODE_USER/settings.json"
 ln -si ~/.dotfiles/vscode/keybindings.json "$VSCODE_USER/keybindings.json"
-rm -i "$VSCODE_USER/snippets"
+rm -ri "$VSCODE_USER/snippets"
 ln -s ~/.dotfiles/vscode/snippets "$VSCODE_USER/snippets"
 echo "Done!"
 
