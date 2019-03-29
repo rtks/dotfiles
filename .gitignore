@@ -1,1 +1,49 @@
-rcm
+# Manage only dotfiles
+/*
+!/.*
+
+# Directories
+/.cache/
+/.local/
+/.vscode/extensions/
+/.yadm/repo.git/
+/.vim/
+/.config/fisher/
+
+# Log files
+*[_-]history
+*.log*
+log.*
+
+# z
+/.config/z
+
+# fzf
+/.fzf/
+
+# Fish
+/.config/fish/fish_variables
+/.config/fish/fishd*
+
+# Fisher Plugin files
+/.config/fish/functions/__bass.py
+/.config/fish/functions/bass.fish
+/.config/fish/functions/bd.fish
+/.config/fish/completions/bd.fish
+/.config/fish/functions/__fzf_cd.fish
+/.config/fish/functions/__fzf_complete.fish
+/.config/fish/functions/__fzf_complete_preview.fish
+/.config/fish/functions/__fzf_find_file.fish
+/.config/fish/functions/__fzf_get_dir.fish
+/.config/fish/functions/__fzf_open.fish
+/.config/fish/functions/__fzf_parse_commandline.fish
+/.config/fish/functions/__fzf_reverse_isearch.fish
+/.config/fish/functions/__fzfcmd.fish
+/.config/fish/conf.d/fzf.fish
+/.config/fish/conf.d/fzf_key_bindings.fish
+/.config/fish/functions/getopts.fish
+/.config/fish/functions/__z.fish
+/.config/fish/functions/__z_add.fish
+/.config/fish/functions/__z_clean.fish
+/.config/fish/functions/__z_complete.fish
+/.config/fish/conf.d/z.fish
