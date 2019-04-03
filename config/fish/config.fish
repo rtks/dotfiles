@@ -9,6 +9,7 @@ end
 ########
 ## PATH
 set PATH "$HOME/bin" $PATH
+set MANPATH (string split : (manpath -q))
 if [ -d ~/.dotfiles/rcm ]
   set PATH "$HOME/.dotfiles/rcm/bin" $PATH
   set MANPATH "$HOME/.dotfiles/rcm/share/man" $MANPATH
