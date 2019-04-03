@@ -1,17 +1,27 @@
 {
     "workbench.activityBar.visible": false,
-    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
     "workbench.startupEditor": "newUntitledFile",
-    "editor.multiCursorModifier": "ctrlCmd",
     "editor.formatOnPaste": true,
     "git.confirmSync": false,
     "git.autofetch": true,
+    "workbench.statusBar.feedback.visible": false,
     "files.associations": {
         "vimrc": "viml"
     },
-    "workbench.statusBar.feedback.visible": false,
-    "workbench.colorTheme": "Solarized Dark",
+    "workbench.colorTheme": "Solarized Light High-Contrast",
+    "editor.fontFamily": "'SFMonoSquareVSCodeHack', \"SF Mono Square\"",
+    "editor.fontSize": 13,
+    "editor.lineHeight": 13,
+    "editor.fontLigatures": true,
+    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
+    "terminal.integrated.shell.windows": "C:\\Ubuntu18.04\\ubuntu1804.exe",
     "commands.commands" : [
+        {
+            "text": "$(three-bars)",
+            "command": "workbench.action.toggleSidebarVisibility",
+            "tooltip": "サイドバーの表示切替え",
+            "priority": 20000
+        },
         {
             "text": "$(file-directory)",
             "command": "workbench.view.explorer",
@@ -25,9 +35,21 @@
             "priority": 20000
         },
         {
+            "text": "$(checklist)",
+            "command": "workbench.view.extension.todo",
+            "tooltip": "TODO+",
+            "priority": 20000
+        },
+        {
             "text": "$(repo-forked)",
             "command": "workbench.view.scm",
             "tooltip": "ソース管理",
+            "priority": 20000
+        },
+        {
+            "text": "$(repo)",
+            "command": "workbench.view.extension.gitlens",
+            "tooltip": "GitLens",
             "priority": 20000
         },
         {
@@ -35,12 +57,7 @@
             "command": "workbench.view.debug",
             "tooltip": "デバッグ",
             "priority": 20000
-        },
-        {
-            "text": "$(package)",
-            "command": "workbench.view.extensions",
-            "tooltip": "拡張機能",
-            "priority": 20000
         }
-    ]
+    ],
+    "terminal.integrated.copyOnSelection": true
 }
