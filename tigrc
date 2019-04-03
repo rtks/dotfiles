@@ -3,6 +3,8 @@ set split-view-height = 85%
 set tab-size = 4
 set ignore-space = all
 set diff-highlight = true
+set line-graphics = utf-8
+set main-view-date = relative-compact
 
 source ~/.tigrc.vim
 source -q ~/.tigrc.local
