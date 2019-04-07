@@ -1,6 +1,5 @@
 # Manage only dotfiles
-/*
-!/.*
+/[^.]*
 
 # Directories
 /.cache/
@@ -9,6 +8,8 @@
 /.yadm/repo.git/
 /.vim/
 /.config/fisher/
+/.conda/
+/.subversion/
 
 # Log files
 *[_-]history
@@ -20,10 +21,25 @@ log.*
 
 # fzf
 /.fzf/
+/.config/fish/functions/fzf_key_bindings.fish
+
+# bash
+/.bash_sessions
+
+# vim
+/.viminfo
+*.swp
+
+/.lesshst
+/.wget-hsts
 
 # Fish
 /.config/fish/fish_variables
 /.config/fish/fishd*
+
+# Fisher
+/.config/fish/completions/fisher.fish
+/.config/fish/functions/fisher.fish
 
 # Fisher Plugin files
 /.config/fish/functions/__bass.py
@@ -46,4 +62,5 @@ log.*
 /.config/fish/functions/__z_add.fish
 /.config/fish/functions/__z_clean.fish
 /.config/fish/functions/__z_complete.fish
+/.config/fish/functions/__zo.fish
 /.config/fish/conf.d/z.fish
