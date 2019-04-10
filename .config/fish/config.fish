@@ -1,54 +1,46 @@
-switch "$FISH_VERSION"
-    case 2.2.0 2.1.2 2.1.1 2.1.0 2.0.0
-      set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-      for file in $XDG_CONFIG_HOME/fish/conf.d/*.fish
-        builtin source $file 2>/dev/null
-      end
-end
-
 ########
 ## PATH
-set PATH "$HOME/bin" $PATH
-set MANPATH (string split : (manpath -q))
+set -px PATH "$HOME/bin"
+set -x MANPATH (string split : (manpath -q))
 if [ -d ~/.dotfiles/rcm ]
-  set PATH "$HOME/.dotfiles/rcm/bin" $PATH
-  set MANPATH "$HOME/.dotfiles/rcm/share/man" $MANPATH
+  set -xp PATH "$HOME/.dotfiles/rcm/bin"
+  set -xp MANPATH "$HOME/.dotfiles/rcm/share/man"
 end
 if [ -d ~/.local/bin ]
-  set PATH "$HOME/.local/bin" $PATH
+  set -xp PATH "$HOME/.local/bin"
 end
 if [ -d ~/.local/share/man ]
-  set MANPATH "$HOME/.local/share/man" $MANPATH
+  set -xp MANPATH "$HOME/.local/share/man"
 end
 if [ -d /usr/local/share/man ]
-  set MANPATH /usr/local/share/man $MANPATH
+  set -xp MANPATH /usr/local/share/man
 end
 if [ -d /usr/local/sbin ]
-  set PATH /usr/local/sbin $PATH
+  set -xp PATH /usr/local/sbin
 end
 # Android SDK
 if [ -d "$HOME/Developer/android-sdk-macosx/tools" ]
-  set PATH "$HOME/Developer/android-sdk-macosx/tools" $PATH
+  set -xp PATH "$HOME/Developer/android-sdk-macosx/tools"
 end
 # Homebrew fish
 if [ -d /usr/local/share/fish/vendor_completions.d ]
-  set fish_complete_path /usr/local/share/fish/vendor_completions.d $fish_complete_path
+  set -xp fish_complete_path /usr/local/share/fish/vendor_completions.d
 end
 # C/C++
 if [ -d /usr/local/include ]
-  set -x C_INCLUDE_PATH (string join : /usr/local/include $C_INCLUDE_PATH)
-  set -x CPLUS_INCLUDE_PATH (string join : /usr/local/include $CPLUS_INCLUDE_PATH)
+  set -xp C_INCLUDE_PATH /usr/local/include
+  set -xp CPLUS_INCLUDE_PATH /usr/local/include
 end
 if [ -d /usr/local/lib ]
-  set -x LIBRARY_PATH (string join : /usr/local/lib $LIBRARY_PATH)
-  set -x LD_LIBRARY_PATH (string join : /usr/local/lib $LD_LIBRARY_PATH)
+  set -xp LIBRARY_PATH /usr/local/lib
+  set -xp LD_LIBRARY_PATH /usr/local/lib
 end
 if [ -d /usr/local/lib/pkgconfig ]
-  set -x PKG_CONFIG_PATH (string join : /usr/local/lib/pkgconfig $PKG_CONFIG_PATH)
+  set -xp PKG_CONFIG_PATH /usr/local/lib/pkgconfig
 end
 # git diff-highlight
 if [ -d /usr/local/share/git-core/contrib/diff-highlight ]
-  set PATH /usr/local/share/git-core/contrib/diff-highlight $PATH
+  set -xp PATH /usr/local/share/git-core/contrib/diff-highlight
 end
 
 ########
@@ -66,7 +58,7 @@ set -gx FZF_TMUX 1
 ########
 ## PowerLine
 # PowerLineのセパレータをtmux.confで取得できるようにする
-set -gx SEGMENT_SEPARATOR ''
+set -gx SEGMENT_SEPARATOR '���'
 
 ########
 # msys
