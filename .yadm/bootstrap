@@ -3,53 +3,61 @@
 system_type=$(uname -s)
 unset GIT_DIR
 
+msg() {
+  echo -e "\e[1m$1\e[m"
+}
+
 # Install package manager
 if [ "$system_type" = "Darwin" ]; then
   if ! command -v brew >/dev/null 2>&1; then
-    echo "Installing homebrew"
+    msg "Installing homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
   pkgmgr=brew
-elif command -v apt >/dev/null 2>&1; then
-  pkgmgr="sudo -E apt"
+elif command -v apt-get >/dev/null 2>&1; then
+  pkgmgr="sudo -E apt-get -y"
 else
-  echo "Package maneger was not found." 1>&2
+  msg "Package maneger was not found." 1>&2
   exit 1
 fi
 
 # Install yadm
 if ! command -v yadm >/dev/null 2>&1; then
-  echo "Installing yadm"
+  msg "Installing yadm"
   $pkgmgr install yadm
 fi
 
 # Clone repository
 if [ ! -d ~/.yadm/repo.git ]; then
-  echo "Cloning repository"
+  msg "Cloning repository"
   yadm clone --no-bootstrap "https://github.com/rtks/dotfiles.git"
 fi
 
 # Install fish
 if ! command -v fish >/dev/null 2>&1; then
-  echo "Installing fish"
-  if [[ $pkgmgr =~ apt ]]; then
-    $pkgmgr-add-repository ppa:fish-shell/release-3
+  msg "Installing fish"
+  if [[ $pkgmgr =~ apt-get ]]; then
+    sudo -E apt-add-repository -y ppa:fish-shell/release-3
     $pkgmgr update
   fi
   $pkgmgr install fish
 fi
+msg "Bootstraping fish"
+fish -c set_color_custom
+fish -c "set -U fish_greeting ''"
 
 # Install fisher
 if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
-  echo "Installing fisher"
+  msg "Installing fisher"
   curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 fi
+msg "Bootstraping fisher"
 fish -c fisher
 
 # Install vim-plug
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
-  echo "Installing vim-plug"
+  msg "Installing vim-plug"
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
+msg "Bootstraping vim-plug"
 vim +'PlugInstall --sync' +qa -
-
