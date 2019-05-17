@@ -8,7 +8,7 @@
 /.yadm/repo.git/
 /.vim/
 /.config/fisher/
-/.conda/
+/.envs/
 /.subversion/
 
 # Log files
