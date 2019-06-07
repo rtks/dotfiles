@@ -16,6 +16,7 @@ if [ "$system_type" = "Darwin" ]; then
   pkgmgr=brew
 elif command -v apt-get >/dev/null 2>&1; then
   pkgmgr="sudo -E apt-get -y"
+  $pkgmgr update
 else
   msg "Package maneger was not found." 1>&2
   exit 1
