@@ -1,6 +1,8 @@
 ############
 ## PATH設定
 
+############
+## zplugin
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
   printf "Install zplugin? [y/N]: "
   if read -q; then
@@ -14,6 +16,23 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin's installer chunk
 
+setopt promptsubst
+zplugin ice atload"function git_prompt_info(){}"
+zplugin snippet ${HOME}/.config/zsh/themes/af-magic.zsh-theme
+
+zplugin snippet OMZ::lib/functions.zsh
+zplugin snippet OMZ::lib/history.zsh
+zplugin snippet OMZ::lib/termsupport.zsh
+
+zplugin ice wait"0" lucid
+zplugin snippet OMZ::lib/git.zsh
+
+zplugin ice wait"0" atload"unalias grv" lucid
+zplugin snippet OMZ::plugins/git/git.plugin.zsh
+
+zplugin ice wait"0" lucid
+zplugin light momo-lab/zsh-abbrev-alias
+
 zplugin ice wait"0" blockf lucid
 zplugin light zsh-users/zsh-completions
 
@@ -22,15 +41,6 @@ zplugin light zsh-users/zsh-autosuggestions
 
 zplugin ice wait"0" atinit"zpcompinit; zpcdreplay" lucid
 zplugin light zdharma/fast-syntax-highlighting
-
-zplugin ice wait"0" lucid
-zplugin snippet OMZ::lib/git.zsh
-
-zplugin ice wait"0" atload"unalias grv" lucid
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
-
-setopt promptsubst
-zplugin snippet OMZ::themes/agnoster.zsh-theme
 
 ############
 ## vim-plug
@@ -45,13 +55,6 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
     fi
   fi
 fi
-
-bindkey '^A' beginning-of-line
-bindkey '^E' end-of-line
-bindkey '^F' forward-char
-bindkey '^B' backward-char
-
-export DEFAULT_USER=ryota
 
 ############
 ## 速度測定

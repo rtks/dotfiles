@@ -28,6 +28,9 @@ log.*
 # bash
 /.bash_sessions
 
+# zsh
+/.zcompdump
+
 # vim
 /.viminfo
 *.swp
