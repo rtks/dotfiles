@@ -21,11 +21,12 @@ zplugin light sindresorhus/pure
 
 zplugin snippet PZT::modules/terminal/init.zsh
 zplugin snippet PZT::modules/history/init.zsh
-zplugin snippet PZT::modules/completion/init.zsh
-zplugin ice svn; zplugin snippet PZT::modules/utility
 
 zplugin ice svn atclone'git clone https://github.com/zsh-users/zsh-history-substring-search.git external'
 zplugin snippet PZT::modules/history-substring-search
+
+zplugin ice wait svn lucid;
+zplugin snippet PZT::modules/utility
 
 zplugin ice wait lucid
 zplugin snippet OMZ::lib/git.zsh
@@ -42,8 +43,11 @@ zplugin light zsh-users/zsh-completions
 zplugin ice wait atload"_zsh_autosuggest_start" lucid
 zplugin light zsh-users/zsh-autosuggestions
 
-zplugin ice wait atinit"zpcompinit; zpcdreplay" lucid
+zplugin ice wait lucid
 zplugin light zdharma/fast-syntax-highlighting
+
+zplugin ice wait lucid
+zplugin snippet PZT::modules/completion/init.zsh
 
 ############
 ## vim-plug
