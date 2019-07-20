@@ -50,20 +50,6 @@ zplugin ice wait lucid
 zplugin snippet PZT::modules/completion/init.zsh
 
 ############
-## vim-plug
-if [ ! -f ~/.vim/autoload/plug.vim ]; then
-  printf "Install vim-plug? [y/N]: "
-  if read -q; then
-    echo; curl -fsSLo ~/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    printf "Install vim-plug plugins? [y/N]: "
-    if read -q; then
-      vim +PlugUpdate +PlugClean! +qall
-    fi
-  fi
-fi
-
-############
 ## 速度測定
 # 無効にする場合は~/.zshenvのzmodload zsh/zprof && zprofをコメントアウト
 if (which zprof > /dev/null) ;then

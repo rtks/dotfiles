@@ -34,31 +34,28 @@ if [ ! -d ~/.yadm/repo.git ]; then
   yadm clone --no-bootstrap "https://github.com/rtks/dotfiles.git"
 fi
 
-# Install fish
-if ! command -v fish >/dev/null 2>&1; then
-  msg "Installing fish"
-  if [[ $pkgmgr =~ apt-get ]]; then
-    sudo -E apt-add-repository -y ppa:fish-shell/release-3
-    $pkgmgr update
+# Bootstrap fish
+if command -v fish >/dev/null 2>&1; then
+  msg "Bootstraping fish"
+  fish -c set_color_custom
+  fish -c "set -U fish_greeting ''"
+
+  # Install fisher
+  if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
+    msg "Installing fisher"
+    curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
   fi
-  $pkgmgr install fish
+  msg "Bootstraping fisher"
+  fish -c fisher
 fi
-msg "Bootstraping fish"
-fish -c set_color_custom
-fish -c "set -U fish_greeting ''"
 
-# Install fisher
-if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
-  msg "Installing fisher"
-  curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+# Bootstrap vim
+if command -v vim >/dev/null 2>&1; then
+  # Install vim-plug
+  if [ ! -f ~/.vim/autoload/plug.vim ]; then
+    msg "Installing vim-plug"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  fi
+  msg "Bootstraping vim-plug"
+  vim +'PlugInstall --sync' +qa -
 fi
-msg "Bootstraping fisher"
-fish -c fisher
-
-# Install vim-plug
-if [ ! -f ~/.vim/autoload/plug.vim ]; then
-  msg "Installing vim-plug"
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-msg "Bootstraping vim-plug"
-vim +'PlugInstall --sync' +qa -
