@@ -37,6 +37,10 @@ zplugin snippet OMZ::plugins/git/git.plugin.zsh
 zplugin ice wait lucid
 zplugin light momo-lab/zsh-abbrev-alias
 
+zplugin ice wait lucid
+zplugin light agkozak/zsh-z
+export ZSHZ_CMD=j
+
 zplugin ice wait blockf lucid
 zplugin light zsh-users/zsh-completions
 
