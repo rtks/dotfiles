@@ -22,11 +22,11 @@ zplugin light sindresorhus/pure
 zplugin snippet PZT::modules/terminal/init.zsh
 zplugin snippet PZT::modules/history/init.zsh
 
-zplugin ice svn atclone'git clone https://github.com/zsh-users/zsh-history-substring-search.git external'
-zplugin snippet PZT::modules/history-substring-search
+zplugin ice atclone'git clone https://github.com/zsh-users/zsh-history-substring-search.git external'
+zplugin snippet PZT::modules/history-substring-search/init.zsh
 
-zplugin ice wait svn lucid;
-zplugin snippet PZT::modules/utility
+zplugin ice wait lucid;
+zplugin snippet PZT::modules/utility/init.zsh
 
 zplugin ice wait lucid
 zplugin snippet OMZ::lib/git.zsh
