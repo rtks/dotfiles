@@ -2,6 +2,12 @@
 ## PATH設定
 
 ############
+## WSL
+if grep -q Microsoft /proc/version; then
+  unsetopt BG_NICE # for WSL 1803
+fi
+
+############
 ## zplugin
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
   printf "Install zplugin? [y/N]: "
