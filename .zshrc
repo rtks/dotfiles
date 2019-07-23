@@ -19,7 +19,6 @@ fi
 ### Added by Zplugin's installer
 source ~/.zplugin/bin/zplugin.zsh
 autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
 ### End of Zplugin's installer chunk
 
 zplugin ice pick"async.zsh" src"pure.zsh"
@@ -60,7 +59,7 @@ zplugin ice wait lucid
 zplugin snippet PZT::modules/completion/init.zsh
 
 ############
-## 速度測定
+## Profile
 # 無効にする場合は~/.zshenvのzmodload zsh/zprof && zprofをコメントアウト
 if (which zprof > /dev/null) ;then
   zprof | less
