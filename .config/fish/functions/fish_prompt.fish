@@ -1,6 +1,20 @@
+set __fish_prompt_initialize 1
+
 function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
-  
+
+  if set -q __fish_prompt_initialize
+    set -g __fish_prompt_git_info (__git_informative_prompt)
+    set -e __fish_prompt_initialize
+  else
+    if not set -q __fish_prompt_result
+      __run_async fish_prompt_async __fish_prompt_callback __git_informative_prompt
+    else
+      set -g __fish_prompt_git_info $__fish_prompt_result
+      set -e __fish_prompt_result
+    end
+  end
+
   # Hostname
   if set -q SSH_CONNECTED; or set -q SSH_CONNECTION
     echo -n (prompt_hostname)' '
@@ -11,25 +25,20 @@ function fish_prompt --description 'Write out the prompt'
   if not test -w .
     echo -n ''
   end
-  echo -n (prompt_pwd)' '
+  echo -n (prompt_pwd)
   set_color normal
 
   # Git
-  __fish_git_prompt '(%s) '
-
-  # Job
-  set -l jobcount (count (jobs)) 
-  if test $jobcount -gt 0
-    echo -n '▶'$jobcount' '
-  end
+  echo -n $__fish_prompt_git_info
+  echo -n ' '
 
   # Exit code
   if not test $last_status -eq 0
     set_color $fish_color_error
     switch $last_status
-	    case 1
+      case 1
         echo -n "ERROR"
-	    case 2
+      case 2
         echo -n "USAGE"
       case 126
         echo -n "NOPERM"
@@ -80,24 +89,24 @@ function fish_prompt --description 'Write out the prompt'
       case 128 + 22
         echo -n "SIGTTOU"
       case '*'
-		    echo -n $last_status
+        echo -n $last_status
     end
   end
-
   echo -n '> '
   set_color normal
 end
 
-# Fish git prompt
-set __fish_git_prompt_show_informative_status 'yes'
-set __fish_git_prompt_showcolorhints 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_char_cleanstate '✓'
-set __fish_git_prompt_char_dirtystate '↔'
-set __fish_git_prompt_char_invalidstate '×'
-set __fish_git_prompt_char_stagedstate '✓'
-set __fish_git_prompt_char_stashstate '■'
-set __fish_git_prompt_char_untrackedfiles '…'
-set __fish_git_prompt_char_upstream_ahead '⤴'
-set __fish_git_prompt_char_upstream_behind '⤵'
-set __fish_git_prompt_color_stashstate cyan
+function __fish_prompt_callback
+  set -g __fish_prompt_result $argv[1]
+  __fish_prompt_refresh
+end
+
+function __fish_prompt_refresh
+  fish -c "kill -WINCH $fish_pid" 2>/dev/null &
+  set -l pid (jobs --last --pid)
+  disown $pid  # prevent blocking exit while job is running
+end
+
+function __fish_prompt_pwd --on-variable PWD
+  set -g __fish_prompt_git_info ''
+end
