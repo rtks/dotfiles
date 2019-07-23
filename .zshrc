@@ -3,7 +3,7 @@
 
 ############
 ## WSL
-if grep -q Microsoft /proc/version; then
+if [ -e /proc/version ] && grep -q Microsoft /proc/version; then
   unsetopt BG_NICE # for WSL 1803
 fi
 
