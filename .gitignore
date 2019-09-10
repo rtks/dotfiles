@@ -12,6 +12,8 @@
 /.subversion/
 /.wine/
 /.zplugin/
+/.cargo/
+/.rustup/
 
 # Log files
 *[_-]history
