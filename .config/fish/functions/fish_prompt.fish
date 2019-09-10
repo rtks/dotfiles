@@ -14,6 +14,7 @@ function fish_prompt --description 'Write out the prompt'
       set -e __fish_prompt_result
     end
   end
+  set -e __fish_prompt_pwd_out
 
   # Hostname
   if set -q SSH_CONNECTED; or set -q SSH_CONNECTION
@@ -125,6 +126,71 @@ function __fish_prompt_refresh
   disown $pid  # prevent blocking exit while job is running
 end
 
-function __fish_prompt_pwd --on-variable PWD
+function __fish_prompt_pwd --on-variable PWD --on-variable PATH
   set -g __fish_prompt_git_info ''
+
+  set -q __fish_prompt_pwd_out; and return 
+  set -g __fish_prompt_pwd_out 1
+
+  set -l line ""
+
+  # Current Git author
+  if command git rev-parse 2>/dev/null
+    set line $line(set_color yellow)
+    set line $line"Git "
+    set line $line(set_color normal)
+    set line $line(git config user.name)" <"(git config user.email)"> "
+    function __fish_prompt_pwd_get
+      echo (ls {(git rev-parse --show-toplevel),./}/$argv[1] 2>/dev/null)[1]
+    end
+  else
+    function __fish_prompt_pwd_get
+      echo $argv[1]
+    end
+  end
+
+  # Current Rust version
+  type -q rustc
+  and begin 
+    test -f (__fish_prompt_pwd_get Cargo.toml)
+    or test (count *.rs) -gt 0 
+  end
+  and begin
+    set line $line(set_color yellow)
+    set line $line"Rust "
+    set line $line(set_color normal)
+    set line $line(echo (string split "(" -- (rustc --version))[1] | string replace "rustc " "")
+  end
+
+  # Current Python version
+  type -q python
+  and begin
+    set -q VIRTUAL_ENV
+    or test -f requirements.txt
+    or test -f .python-version
+    or test -f pyproject.toml
+    or test -f Pipfile
+    or test (count *.py) -gt 0
+  end
+  and begin
+    set line $line(set_color yellow)
+    set line $line"Python "
+    set line $line(set_color normal)
+    set line $line(python --version 2>&1 | string replace "Python " "")
+  end
+  
+  # Current version of package in current directory
+  type -q cargo
+  and test -f (__fish_prompt_pwd_get Cargo.toml)
+  and set -l package_ver (string trim -c "'\" " (string split = (cat (__fish_prompt_pwd_get Cargo.toml) | string match -r "version\s*=.*")[1] | string split =)[-1])
+  and test -n "$package_ver"
+  and begin
+    set line $line(set_color yellow)
+    set line $line"Package "
+    set line $line(set_color normal)
+    set line $line$package_ver
+  end
+
+  test -n "$line"; and echo "$line"
+  set_color normal
 end
