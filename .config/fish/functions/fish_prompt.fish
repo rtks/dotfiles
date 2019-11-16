@@ -2,7 +2,7 @@ function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
   
   # Hostname
-  if set -q SSH_CONNECTED
+  if set -q SSH_CONNECTED; or set -q SSH_CONNECTION
     echo -n (prompt_hostname)' '
   end
 
