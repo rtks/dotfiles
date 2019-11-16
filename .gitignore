@@ -5,7 +5,7 @@
 /.cache/
 /.local/
 /.vscode/extensions/
-/.yadm/repo.git/
+/.config/yadm/repo.git/
 /.vim/
 /.config/fisher/
 /.envs/
