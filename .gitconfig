@@ -12,6 +12,7 @@
 	helper = cache
 [merge]
 	keepBackup = false
+    tool = vimdiff
 [mergetool]
 	keepBackup = false
 [rebase]
