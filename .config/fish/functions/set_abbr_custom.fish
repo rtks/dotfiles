@@ -21,6 +21,7 @@ function set_abbr_custom
   abbr glola "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN>%Creset' --abbrev-commit --all"
   abbr glg 'git log --stat --use-mailmap'
   abbr glgp 'git log --stat -p --use-mailmap'
+  abbr gau 'git add --update'
 
   abbr g 'git'
   abbr ga 'git add'
