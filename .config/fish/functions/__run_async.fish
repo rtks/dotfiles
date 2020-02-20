@@ -1,24 +1,24 @@
 function __run_async
-  set -l job_unique_flag $argv[1]
-  if set -q $job_unique_flag
-    return 0
-  end
+  set -l command $argv[1]
+  set -l callback $argv[2]
 
-  set -l callback_function $argv[2]
-  set -l cmd $argv[3]
-  set -l async_job_result _async_job_result_(random 0 2147483647)
-  set -g $job_unique_flag
-  set -U $async_job_result "…"
-
-  fish -c "set -U $async_job_result (eval $cmd)" &
-
+  fish -c 'set -U _async_job_result_$fish_pid (eval '$command')' &
   set -l pid (jobs --last --pid)
-  disown $pid  # prevent blocking exit while job is running
+  disown $pid
+  set -l async_job_result _async_job_result_$pid
 
-  function _async_job_$pid -v $async_job_result -V pid -V async_job_result -V callback_function -V job_unique_flag
-    set -e $job_unique_flag
-    eval "$callback_function \"$$async_job_result\" \"$job_unique_flag\""
-    functions -e _async_job_$pid
+  function _async_job_$pid -v $async_job_result -V async_job_result -V callback
+    functions -e (status current-function)
+    eval "$callback \"$$async_job_result\""
     set -e $async_job_result
+  end
+end
+
+function _async_on_exit --on-event fish_exit
+  set -l fish_pids (pgrep -f fish)
+  set -U -n | sed -En 's/(_async_job_result_([0-9]+))/\1 \2/p' | while read -l varname pid
+    if not contains "$pid" fish_pids
+      set -e $varname
+    end
   end
 end

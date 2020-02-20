@@ -8,7 +8,7 @@ function fish_prompt --description 'Write out the prompt'
     set -e __fish_prompt_initialize
   else
     if not set -q __fish_prompt_result
-      __run_async fish_prompt_async __fish_prompt_callback __git_informative_prompt
+      __run_async __git_informative_prompt __fish_prompt_callback
     else
       set -g __fish_prompt_git_info $__fish_prompt_result
       set -e __fish_prompt_result
