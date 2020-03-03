@@ -1,18 +1,17 @@
-set __fish_prompt_initialize 1
+function __fish_prompt_setup_on_startup --on-event fish_prompt
+  functions -e (status current-function)
+  set -g __fish_prompt_result (__git_informative_prompt)
+end
 
 function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
 
-  if set -q __fish_prompt_initialize
-    set -g __fish_prompt_git_info (__git_informative_prompt)
-    set -e __fish_prompt_initialize
+  if not set -q __fish_prompt_result
+    set __fish_prompt_git_info (set_color brcyan;string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
+    __run_async __git_informative_prompt __fish_prompt_callback
   else
-    if not set -q __fish_prompt_result
-      __run_async __git_informative_prompt __fish_prompt_callback
-    else
-      set -g __fish_prompt_git_info $__fish_prompt_result
-      set -e __fish_prompt_result
-    end
+    set -g __fish_prompt_git_info $__fish_prompt_result
+    set -e __fish_prompt_result
   end
   set -e __fish_prompt_pwd_out
 
