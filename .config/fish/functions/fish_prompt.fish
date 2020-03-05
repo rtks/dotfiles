@@ -50,6 +50,12 @@ function fish_prompt --description 'Write out the prompt'
   end
   set_color normal
 
+  # Job Count
+  set -l job_count (count (jobs -p))
+  if test $job_count -gt 0
+    echo -n "+"$job_count" "
+  end
+
   # Exit code
   if not test $last_status -eq 0
     set_color $fish_color_error
