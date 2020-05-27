@@ -17,7 +17,9 @@ function fish_prompt --description 'Write out the prompt'
 
   # Hostname
   if set -q SSH_CONNECTED; or set -q SSH_CONNECTION
-    echo -n (prompt_hostname)' '
+    if not set -q TMUX
+      echo -n (prompt_hostname)' '
+    end
   end
 
   # PWD
