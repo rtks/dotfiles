@@ -53,7 +53,7 @@ function fish_prompt --description 'Write out the prompt'
   set_color normal
 
   # Job Count
-  set -l job_count (count (jobs -p))
+  set -l job_count (count (jobs | grep -v _async_job_result_ | grep -v 'kill -WINCH'))
   if test $job_count -gt 0
     echo -n "+"$job_count" "
   end
@@ -129,8 +129,7 @@ end
 
 function __fish_prompt_refresh
   fish -c "kill -WINCH $fish_pid" 2>/dev/null &
-  set -l pid (jobs --last --pid)
-  disown $pid  # prevent blocking exit while job is running
+  #disown  # prevent blocking exit while job is running
 end
 
 function __fish_prompt_pwd --on-variable PWD --on-variable PATH
