@@ -1,35 +1,72 @@
-#!/bin/bash
+#!/bin/sh
 
-system_type=$(uname -s)
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  OS=$NAME
+elif type lsb_release >/dev/null 2>&1; then
+  OS=$(lsb_release -si)
+elif [ -f /etc/lsb-release ]; then
+  . /etc/lsb-release
+  OS=$DISTRIB_ID
+elif [ -f /etc/debian_version ]; then
+  OS=Debian
+else
+  OS=$(uname -s)
+fi
+
 unset GIT_DIR
 
 msg() {
-  echo -e "\e[1m$1\e[m"
+  printf "\e[1m$1\e[m\n"
 }
 
 # Install package manager
-if [ "$system_type" = "Darwin" ]; then
+if [ "$OS" = "Darwin" ]; then
   if ! command -v brew >/dev/null 2>&1; then
     msg "Installing homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
-  pkgmgr=brew
+  pkgmgr="brew install"
 elif command -v apt-get >/dev/null 2>&1; then
-  pkgmgr="sudo -E apt-get -y"
-  $pkgmgr update
+  if [ $(id -u) -eq 0 ]; then
+    pkgmgr="apt-get update; apt-get -y install"
+  else
+    pkgmgr="sudo apt-get update: sudo -E apt-get -y install"
+  fi
+elif command -v apk >/dev/null 2>&1; then
+  if [ $(id -u) -eq 0 ]; then
+    pkgmgr="apk add --no-cache"
+  else
+    pkgmgr="sudo -E apk add --no-cache"
+  fi
 else
   msg "Package maneger was not found." 1>&2
   exit 1
 fi
 
-# Install yadm
+# Install deps
+deps=""
 if ! command -v yadm >/dev/null 2>&1; then
-  msg "Installing yadm"
-  $pkgmgr install yadm
+  if [ "$OS" = "Alpine Linux" ]; then
+    if ! command -v bash >/dev/null 2>&1; then
+      deps=$deps" bash"
+    fi
+    if ! command -v git >/dev/null 2>&1; then
+      deps=$deps" git"
+    fi
+    msg "Downloading yadm"
+    curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
+  else
+    deps=$deps" yadm"
+  fi
+fi
+if [ -n "$deps" ]; then
+  msg "Installing$deps"
+  eval $pkgmgr$deps
 fi
 
 # Clone repository
-if [ ! -d ~/.yadm/repo.git ]; then
+if [ ! -d ~/.config/yadm/repo.git ]; then
   msg "Cloning repository"
   yadm clone --no-bootstrap "https://github.com/rtks/dotfiles.git"
 fi
@@ -43,7 +80,7 @@ if command -v fish >/dev/null 2>&1; then
   # Install fisher
   if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
     msg "Installing fisher"
-    curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+    curl -fLo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
   fi
   msg "Bootstraping fisher"
   fish -c fisher
@@ -57,5 +94,5 @@ if command -v vim >/dev/null 2>&1; then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   fi
   msg "Bootstraping vim-plug"
-  vim +'PlugInstall --sync' +qa -
+  vim +'PlugInstall --sync' +qa </dev/tty
 fi

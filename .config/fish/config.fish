@@ -1,7 +1,9 @@
 ########
 ## PATH
 set -px PATH "$HOME/bin"
-set -x MANPATH (string split : (manpath -q))
+if type -q manpath
+  set -x MANPATH (string split : (manpath -q))
+end
 if [ -d ~/.dotfiles/rcm ]
   set -xp PATH "$HOME/.dotfiles/rcm/bin"
   set -xp MANPATH "$HOME/.dotfiles/rcm/share/man"
