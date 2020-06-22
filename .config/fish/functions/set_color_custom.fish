@@ -1,5 +1,19 @@
 function set_color_custom
-	set -U fish_color_autosuggestion    'brcyan'
+    if [ "$argv[1]" = dark ]
+        touch ~/.config/dark-mode
+    else if [ "$argv[1]" = light ]
+        rm ~/.config/dark-mode 2>/dev/null
+    end
+    if [ -f ~/.config/dark-mode ]
+        set -U fish_color_autosuggestion    'brblack'
+        set -ug TMUX_COLOR_FG colour0
+        set -ug TMUX_COLOR_BG colour7
+    else
+	    set -U fish_color_autosuggestion    'brcyan'
+        set -ug TMUX_COLOR_FG colour7
+        set -ug TMUX_COLOR_BG colour0
+    end
+
 	set -U fish_color_command           'green'
 	set -U fish_color_comment           '93a1a1'
 	set -U fish_color_cwd               'green'
@@ -23,4 +37,7 @@ function set_color_custom
 	set -U fish_pager_color_description 'yellow'
 	set -U fish_pager_color_prefix      'cyan'
 	set -U fish_pager_color_progress    'cyan'
+
+    tmux source ~/.tmux.conf 2>/dev/null
+    tmux source ~/.tmux.conf 2>/dev/null
 end

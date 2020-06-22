@@ -7,7 +7,7 @@ function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
 
   if not set -q __fish_prompt_result
-    set __fish_prompt_git_info (set_color brcyan;string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
+    set __fish_prompt_git_info (set_color $fish_color_autosuggestion;string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
     __run_async __git_informative_prompt __fish_prompt_callback
   else
     set -g __fish_prompt_git_info $__fish_prompt_result
