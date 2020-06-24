@@ -11,13 +11,13 @@ yadm clone https://github.com/rtks/dotfiles.git --bootstrap
 curl
 
 ```bash
-curl -fsSL raw.github.com/rtks/dotfiles/master/.yadm/bootstrap | bash
+curl -sL takasu.dev/setup | sh
 ```
 
 wget
 
 ```bash
-wget -qO - raw.github.com/rtks/dotfiles/master/.yadm/bootstrap | bash
+wget -qO - takasu.dev/setup | sh
 ```
 
 
