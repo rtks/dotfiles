@@ -6,12 +6,11 @@
     "git.autofetch": true,
     "workbench.statusBar.feedback.visible": false,
     "files.associations": {
-        "vimrc": "viml"
+        "vimrc": "viml",
+        "*.omnijs": "javascript"
     },
-    "workbench.colorTheme": "Solarized Dark",
-    "editor.fontFamily": "'SFMonoSquareVSCodeHack', \"SF Mono Square\"",
+    "workbench.colorTheme": "Solarized Light",
     "editor.fontSize": 13,
-    "editor.lineHeight": 13,
     "editor.fontLigatures": true,
     "terminal.integrated.shell.osx": "/usr/local/bin/fish",
     "terminal.integrated.shell.windows": "C:\\Ubuntu18.04\\ubuntu1804.exe",
@@ -60,5 +59,16 @@
         }
     ],
     "terminal.integrated.copyOnSelection": true,
-    "workbench.editor.tabCloseButton": "left"
+    "workbench.editor.tabCloseButton": "left",
+    "window.zoomLevel": 0,
+    "editor.fontFamily": "'SF Mono 1x2','SF Mono Square',monospace",
+    "editor.lineHeight": 13,
+    "explorer.confirmDelete": false,
+    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+        "pi": "linux"
+    },
+    "workbench.preferredDarkColorTheme": "Solarized Dark",
+    "workbench.preferredLightColorTheme": "Solarized Light",
+    "window.autoDetectColorScheme": true
 }
