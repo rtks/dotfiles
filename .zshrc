@@ -8,55 +8,56 @@ if [ -e /proc/version ] && grep -q Microsoft /proc/version; then
 fi
 
 ############
-## zplugin
-if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
-  printf "Install zplugin? [y/N]: "
+## zinit
+if [ ! -f ~/.zinit/bin/zinit.zsh ]; then
+  printf "Install zinit? [y/N]: "
   if read -q; then
-    echo; sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+    echo; sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
   fi
 fi
 
-### Added by Zplugin's installer
-source ~/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-### End of Zplugin's installer chunk
+### Added by zinit's installer
+source ~/.zinit/bin/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of zinit's installer chunk
 
-zplugin ice pick"async.zsh" src"pure.zsh"
-zplugin light sindresorhus/pure
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 
-zplugin snippet PZT::modules/terminal/init.zsh
-zplugin snippet PZT::modules/history/init.zsh
+zinit snippet PZT::modules/terminal/init.zsh
+zinit snippet PZT::modules/history/init.zsh
 
-zplugin ice atclone'git clone https://github.com/zsh-users/zsh-history-substring-search.git external'
-zplugin snippet PZT::modules/history-substring-search/init.zsh
+zinit ice atclone'git clone https://github.com/zsh-users/zsh-history-substring-search.git external'
+zinit snippet PZT::modules/history-substring-search/init.zsh
 
-zplugin ice wait lucid;
-zplugin snippet PZT::modules/utility/init.zsh
+zinit ice wait lucid;
+zinit snippet PZT::modules/utility/init.zsh
 
-zplugin ice wait lucid
-zplugin snippet OMZ::lib/git.zsh
+zinit ice wait lucid
+zinit snippet OMZ::lib/git.zsh
 
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zinit ice wait lucid
+zinit snippet OMZ::plugins/git/git.plugin.zsh
 
-zplugin ice wait lucid
-zplugin light momo-lab/zsh-abbrev-alias
+zinit ice wait lucid
+zinit light momo-lab/zsh-abbrev-alias
 
-zplugin ice wait lucid
-zplugin light agkozak/zsh-z
+zinit ice wait lucid
+zinit light agkozak/zsh-z
 export ZSHZ_CMD=j
 
-zplugin ice wait blockf lucid
-zplugin light zsh-users/zsh-completions
+zinit ice wait blockf lucid
+zinit light zsh-users/zsh-completions
 
-zplugin ice wait atload"_zsh_autosuggest_start" lucid
-zplugin light zsh-users/zsh-autosuggestions
+zinit ice wait atload"_zsh_autosuggest_start" lucid
+zinit light zsh-users/zsh-autosuggestions
 
-zplugin ice wait lucid
-zplugin light zdharma/fast-syntax-highlighting
+zinit ice wait lucid
+zinit light zdharma/fast-syntax-highlighting
 
-zplugin ice wait lucid
-zplugin snippet PZT::modules/completion/init.zsh
+zinit ice wait lucid
+zinit snippet PZT::modules/completion/init.zsh
 
 ########
 ## PowerLine
