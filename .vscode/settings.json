@@ -12,7 +12,7 @@
     "workbench.colorTheme": "Solarized Light",
     "editor.fontSize": 13,
     "editor.fontLigatures": true,
-    "terminal.integrated.shell.osx": "/usr/local/bin/fish",
+    "terminal.integrated.shell.osx": "/opt/homebrew/bin/fish",
     "terminal.integrated.shell.windows": "C:\\Ubuntu18.04\\ubuntu1804.exe",
     "commands.commands" : [
         {
