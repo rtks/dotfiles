@@ -60,6 +60,7 @@
     ],
     "terminal.integrated.copyOnSelection": true,
     "workbench.editor.tabCloseButton": "left",
+    "rust-client.rustupPath": "/Users/ryota/.cargo/bin/rustup",
     "window.zoomLevel": 0,
     "editor.fontFamily": "'SF Mono 1x2','SF Mono Square',monospace",
     "editor.lineHeight": 13,
