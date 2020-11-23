@@ -6,7 +6,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 call plug#begin('~/.vim/plugged')
 Plug 'powerline/powerline', { 'rtp' : 'powerline/bindings/vim'}
 Plug 'powerline/fontpatcher', { 'branch' : 'develop' }
-Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized-light'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'dag/vim-fish'
 "Plug 'Shougo/neosnippet.vim'
@@ -27,7 +27,7 @@ endfunction
 syntax enable
 filetype plugin indent on
 
-set background=dark
+set background=light
 set laststatus=2
 set backspace=2
 
