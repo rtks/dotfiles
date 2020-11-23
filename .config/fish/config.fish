@@ -23,6 +23,9 @@ end
 if [ -d "$HOME/.cargo/bin" ]
   set -xp PATH "$HOME/.cargo/bin"
 end
+if [ -d "$HOME/go/bin" ]
+  set -xp PATH "$HOME/go/bin"
+end
 # Android SDK
 if [ -d "$HOME/Developer/android-sdk-macosx/tools" ]
   set -xp PATH "$HOME/Developer/android-sdk-macosx/tools"
