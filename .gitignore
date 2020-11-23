@@ -2,9 +2,11 @@
 /[^.]*
 
 # Directories
+/.Trash/
 /.cache/
 /.local/
 /.vscode/extensions/
+/.vscode-exploration/extensions/
 /.config/yadm/repo.git/
 /.vim/
 /.config/fisher/
@@ -33,6 +35,8 @@ log.*
 
 # zsh
 /.zcompdump
+/.zinit/
+/.zsh_sessions/
 
 # vim
 /.viminfo
