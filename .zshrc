@@ -58,6 +58,11 @@ zplugin light zdharma/fast-syntax-highlighting
 zplugin ice wait lucid
 zplugin snippet PZT::modules/completion/init.zsh
 
+########
+## PowerLine
+# PowerLineのセパレータをtmux.confで取得できるようにする
+export SEGMENT_SEPARATOR=''
+
 ############
 ## Profile
 # 無効にする場合は~/.zshenvのzmodload zsh/zprof && zprofをコメントアウト
