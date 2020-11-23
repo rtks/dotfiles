@@ -14,6 +14,7 @@
 /.zplugin/
 /.cargo/
 /.rustup/
+/.npm/_cacache/
 
 # Log files
 *[_-]history
