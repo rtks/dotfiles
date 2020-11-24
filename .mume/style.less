@@ -4,11 +4,16 @@
 
 @import "github.less";
 
+@media screen {
 html {
     .github(#3f5056, #fdfbf2, #08c);
 }
+}
 
 @media print {
+html {
+    .github(#000000, #ffffff, #08c);
+}
 .markdown-preview.markdown-preview {
     font-family: "MS PGothic";
 }
