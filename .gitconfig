@@ -52,12 +52,14 @@
 [diff]
 	compactionHeuristic = true
 [pager]
-	log = diff-highlight | less -R
-	show = diff-highlight | less -R
-	diff = diff-highlight | less -R
+	log = diff-highlight | nkf -w | less -R
+	show = diff-highlight | nkf -w | less -R
+	diff = diff-highlight | nkf -w | less -R
 [diff "toutf8"]
 	textconv = nkf -w8
 [diff "nkf"]
 	textconv = nkf
 [include]
     path = ~/.gitconfig.local
+[interactive]
+	diffFilter = nkf -w
