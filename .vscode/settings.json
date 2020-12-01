@@ -4,7 +4,6 @@
     "editor.formatOnPaste": true,
     "git.confirmSync": false,
     "git.autofetch": true,
-    "workbench.statusBar.feedback.visible": false,
     "files.associations": {
         "vimrc": "viml",
         "*.omnijs": "javascript"
@@ -13,49 +12,41 @@
     "editor.fontSize": 13,
     "editor.fontLigatures": true,
     "terminal.integrated.shell.osx": "/opt/homebrew/bin/fish",
-    "terminal.integrated.shell.windows": "C:\\Ubuntu18.04\\ubuntu1804.exe",
-    "commands.commands" : [
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "terminal.integrated.shell.linux": "/usr/local/bin/fish",
+    "terminal.integrated.fontSize": 13,
+    "debug.allowBreakpointsEverywhere": true,
+    "markdown-preview-enhanced.enableExtendedTableSyntax": true,
+    "trailing-spaces.backgroundColor": "rgba(255,0,0,0.05)",
+    "trailing-spaces.borderColor": "rgba(255,100,100,0.1)",
+    "activitusbar.views": [
         {
-            "text": "$(three-bars)",
-            "command": "workbench.action.toggleSidebarVisibility",
-            "tooltip": "サイドバーの表示切替え",
-            "priority": 20000
+            "name": "explorer",
+            "codicon": "files"
         },
         {
-            "text": "$(file-directory)",
-            "command": "workbench.view.explorer",
-            "tooltip": "エクスプローラー",
-            "priority": 20000
+            "name": "search",
+            "codicon": "search"
         },
         {
-            "text": "$(search)",
-            "command": "workbench.view.search",
-            "tooltip": "検索",
-            "priority": 20000
+            "name": "scm",
+            "codicon": "source-control"
         },
         {
-            "text": "$(checklist)",
-            "command": "workbench.view.extension.todo",
-            "tooltip": "TODO+",
-            "priority": 20000
+            "name": "debug",
+            "codicon": "debug-alt"
         },
         {
-            "text": "$(repo-forked)",
-            "command": "workbench.view.scm",
-            "tooltip": "ソース管理",
-            "priority": 20000
+            "name": "extensions",
+            "codicon": "extensions"
         },
         {
-            "text": "$(repo)",
-            "command": "workbench.view.extension.gitlens",
-            "tooltip": "GitLens",
-            "priority": 20000
+            "name": "extension.gitlens",
+            "codicon": "repo",
         },
         {
-            "text": "$(bug)",
-            "command": "workbench.view.debug",
-            "tooltip": "デバッグ",
-            "priority": 20000
+            "name": "extension.todo",
+            "codicon": "checklist",
         }
     ],
     "terminal.integrated.copyOnSelection": true,
