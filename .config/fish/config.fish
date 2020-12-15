@@ -82,7 +82,7 @@ set -gx FZF_TMUX 1
 ########
 ## PowerLine
 # PowerLineのセパレータをtmux.confで取得できるようにする
-set -gx SEGMENT_SEPARATOR '���'
+set -gx SEGMENT_SEPARATOR ''
 
 ########
 # msys
