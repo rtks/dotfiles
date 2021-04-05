@@ -40,8 +40,7 @@ elif command -v apk >/dev/null 2>&1; then
     pkgmgr="sudo -E apk add --no-cache"
   fi
 else
-  msg "Package maneger was not found." 1>&2
-  exit 1
+  pkgmgr=""
 fi
 
 # Install deps
@@ -61,8 +60,14 @@ if ! command -v yadm >/dev/null 2>&1; then
   fi
 fi
 if [ -n "$deps" ]; then
-  msg "Installing$deps"
-  eval $pkgmgr$deps
+  if [ -n "$pkgmgr" ]; then
+    msg "Installing$deps"
+    eval $pkgmgr$deps
+  else
+    msg "Package maneger was not found." 1>&2
+    msg "Install$deps manually." 1>&2
+    exit 1
+  fi
 fi
 
 # Clone repository
