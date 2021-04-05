@@ -4,7 +4,7 @@ function __run_async
 
   fish -c 'set -U _async_job_result_$fish_pid (eval '$command')' &
   set -l pid (jobs --last --pid)
-  #disown $pid
+  disown $pid
   set -l async_job_result _async_job_result_$pid
 
   function _async_job_$pid -v $async_job_result -V async_job_result -V callback

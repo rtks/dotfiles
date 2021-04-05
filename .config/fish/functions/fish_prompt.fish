@@ -129,7 +129,7 @@ end
 
 function __fish_prompt_refresh
   fish -c "kill -WINCH $fish_pid" 2>/dev/null &
-  #disown  # prevent blocking exit while job is running
+  disown  # prevent blocking exit while job is running
 end
 
 function __fish_prompt_pwd --on-variable PWD --on-variable PATH
