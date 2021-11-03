@@ -31,7 +31,7 @@ elif command -v apt-get >/dev/null 2>&1; then
   if [ $(id -u) -eq 0 ]; then
     pkgmgr="apt-get update; apt-get -y install"
   else
-    pkgmgr="sudo apt-get update: sudo -E apt-get -y install"
+    pkgmgr="sudo -E apt-get update; sudo -E apt-get -y install"
   fi
 elif command -v apk >/dev/null 2>&1; then
   if [ $(id -u) -eq 0 ]; then
