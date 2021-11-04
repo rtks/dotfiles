@@ -1,0 +1,108 @@
+{
+  "title": "MouseGestures",
+  "rules": [
+    {
+      "description": "Enable button 4 gestures and press shift to horizontal scroll",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button4",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_shift"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "pointing_button": "button4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Button 4 + left,right to desktop switch",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button1",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": "left_control"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button2",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": "left_control"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Button 4 + middle to button 10",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button3",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ]
+            }
+          },
+          "to": {
+            "pointing_button": "button10"
+          }
+        }
+      ]
+    },
+    {
+      "description": "Button 4 + dpi to launchpad",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "apple_vendor_keyboard_key_code": "mission_control",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ]
+            }
+          },
+          "to": {
+            "apple_vendor_keyboard_key_code": "launchpad"
+          }
+        }
+      ]
+    }
+  ]
+}
