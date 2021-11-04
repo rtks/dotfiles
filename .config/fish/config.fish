@@ -71,6 +71,11 @@ if [ -d "$HOME/Developer/android-sdk-macosx/tools" ]
 end
 
 ########
+## ENVS
+set -gx SHELL (which fish)
+set -gx EDITOR (which vim)
+
+########
 ## LS
 set -gx LSCOLORS GxfxcxdxAxegedabagacad
 set -gx LS_COLORS 'rs=0:di=1;36:ln=35:mh=0:pi=33:so=32:do=0:bd=0:cd=0:or=40;31;01:mi=00:su=0;31:sg=0;46:ca=0;41:tw=0;43:ow=0:st=0;43:ex=1;30'
