@@ -83,6 +83,10 @@ set -gx FZF_DEFAULT_OPTS "--reverse --inline-info --ansi\
 set -gx FZF_TMUX 1
 
 ########
+# skim
+set -gx SKIM_DEFAULT_OPTIONS '--inline-info --ansi --layout=reverse --min-height=0 --color=light,bg+:7'
+
+########
 ## PowerLine
 # PowerLineのセパレータをtmux.confで取得できるようにする
 set -gx SEGMENT_SEPARATOR ''
