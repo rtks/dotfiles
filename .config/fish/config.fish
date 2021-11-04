@@ -27,6 +27,9 @@ if type -q arch && [ (arch) = arm64 ];
   if [ -d /opt/homebrew/bin ]
     set -xp PATH /opt/homebrew/bin
   end
+  if [ -d /opt/homebrew/sbin ]
+    set -xp PATH /opt/homebrew/sbin
+  end
   if [ -d /opt/homebrew/share/man ]
     set -xp MANPATH /opt/homebrew/share/man
   end
