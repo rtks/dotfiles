@@ -140,3 +140,7 @@ log.*
 /.config/fish/functions/gunwip.fish
 /.config/fish/functions/gwip.fish
 /.config/fish/functions/uninstall.fish
+/.config/fish/completions/docker-compose.fish
+/.config/fish/completions/docker.fish
+/.config/fish/conf.d/halostatue_fish_docker.fish
+
