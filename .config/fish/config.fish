@@ -1,5 +1,8 @@
 ########
 ## PATH
+if type -q manpath
+    set -x MANPATH (string split : (manpath -q))
+end
 if [ -d /usr/local/share/man ]
   set -xp MANPATH /usr/local/share/man
 end
@@ -24,18 +27,15 @@ if [ -d /usr/local/lib/pkgconfig ]
 end
 
 if type -q arch && [ (arch) = arm64 ];
-  if [ -d /opt/homebrew/bin ]
-    set -xp PATH /opt/homebrew/bin
+  if [ -f /opt/homebrew/bin/brew ]
+    eval (/opt/homebrew/bin/brew shellenv)
   end
-  if [ -d /opt/homebrew/sbin ]
-    set -xp PATH /opt/homebrew/sbin
+  if [ -d /opt/homebrew/opt/python/libexec/bin/python ]
+    set -xp PATH /opt/homebrew/opt/python/libexec/bin
   end
-  if [ -d /opt/homebrew/share/man ]
-    set -xp MANPATH /opt/homebrew/share/man
-  end
-  if [ -d /opt/homebre/include ]
-    set -xp C_INCLUDE_PATH /opt/homebre/include
-    set -xp CPLUS_INCLUDE_PATH /opt/homebre/include
+  if [ -d /opt/homebrew/include ]
+    set -xp C_INCLUDE_PATH /opt/homebrew/include
+    set -xp CPLUS_INCLUDE_PATH /opt/homebrew/include
   end
   if [ -d /opt/homebrew/lib ]
     set -xp LIBRARY_PATH /opt/homebrew/lib
@@ -46,9 +46,6 @@ if type -q arch && [ (arch) = arm64 ];
   end
 end 
 
-if type -q manpath
-  set -x MANPATH (string split : (manpath -q))
-end
 if [ -d ~/.dotfiles/rcm ]
   set -xp PATH "$HOME/.dotfiles/rcm/bin"
   set -xp MANPATH "$HOME/.dotfiles/rcm/share/man"
