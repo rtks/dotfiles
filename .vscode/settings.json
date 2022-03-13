@@ -80,7 +80,9 @@
     "editor.lineHeight": 13,
     "explorer.confirmDelete": false,
     "remote.SSH.remotePlatform": {
-        "pi": "linux"
+        "pi": "linux",
+        "vps": "linux",
+        "octopi": "linux"
     },
     "workbench.preferredDarkColorTheme": "Solarized Dark",
     "workbench.preferredLightColorTheme": "Solarized Light",
