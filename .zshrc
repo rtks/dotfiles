@@ -1,3 +1,13 @@
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+if [[ "$LC_TERMINAL" = "ShellFish" ]]; then
+    exec fish --login
+fi
+
 ############
 ## PATH設定
 
