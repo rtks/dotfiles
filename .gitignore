@@ -1,6 +1,10 @@
 # Manage only dotfiles
 /[^.]*
 
+# yadm alt
+/.Brewfile
+/.config/karabiner
+
 # Directories
 /.Trash/
 /.cache/
@@ -17,7 +21,7 @@
 /.npm/_cacache/
 /.thumbnails/
 /.config/Battle.net/
-/.config/karabiner/automatic_backups/
+/.config/yadm/alt/.config/karabiner##os.Darwin/automatic_backups/
 /.config/fontforge/
 /.cups/
 /.pyenv/
