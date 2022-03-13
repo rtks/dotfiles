@@ -71,7 +71,7 @@ if [ -n "$deps" ]; then
 fi
 
 # Clone repository
-if [ ! -d ~/.config/yadm/repo.git ]; then
+if [ ! -d ~/.local/share/yadm/repo.git ]; then
   msg "Cloning repository"
   yadm clone --no-bootstrap "https://github.com/rtks/dotfiles.git"
 fi
@@ -79,8 +79,7 @@ fi
 # Bootstrap fish
 if command -v fish >/dev/null 2>&1; then
   msg "Bootstraping fish"
-  fish -c set_color_custom
-  fish -c "set -U fish_greeting ''"
+  fish -c 'set_color_custom; set_abbr_custom; set -U fish_greeting "";'
 
   # Install fisher
   if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
@@ -88,7 +87,7 @@ if command -v fish >/dev/null 2>&1; then
     curl -fLo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
   fi
   msg "Bootstraping fisher"
-  fish -c fisher
+  fish -c 'fisher update'
 fi
 
 # Bootstrap vim
