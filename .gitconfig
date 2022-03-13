@@ -12,16 +12,16 @@
 	helper = cache
 [merge]
 	keepBackup = false
-    tool = vimdiff
+	tool = vimdiff
 [mergetool]
 	keepBackup = false
 [rebase]
 	autostash = true
 	autosquash = true
+[pull]
+	rebase = true
 [branch]
 	autoSetupRebase = always
-[pull]
-	rebase = preserve
 [alias]
 	cd = !cd `git rev-parse --show-toplevel`
 	g = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
