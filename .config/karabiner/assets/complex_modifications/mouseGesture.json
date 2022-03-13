@@ -103,6 +103,116 @@
           }
         }
       ]
+    },
+    {
+      "description": "Univasal Control dpi to app switcher",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "apple_vendor_keyboard_key_code": "mission_control"
+          },
+          "to": [
+            {
+              "key_code": "up_arrow",
+              "modifiers": "fn"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.universalcontrol"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Univasal Control Button 4 + dpi to home",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "apple_vendor_keyboard_key_code": "mission_control",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "h",
+              "modifiers": "fn"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.universalcontrol"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Univasal Control Button 4 + left,right to app switch",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button1",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": "fn"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.universalcontrol"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "pointing_button": "button2",
+            "modifiers": {
+              "mandatory": [
+                "right_shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": "fn"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.apple\\.universalcontrol"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
