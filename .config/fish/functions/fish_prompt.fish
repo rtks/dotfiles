@@ -132,7 +132,7 @@ function __fish_prompt_refresh
   disown  # prevent blocking exit while job is running
 end
 
-function __fish_prompt_pwd --on-variable PWD --on-variable PATH
+function __fish_prompt_pwd --on-variable PWD
   set -g __fish_prompt_git_info ''
 
   set -q __fish_prompt_pwd_out; and return 
@@ -199,4 +199,10 @@ function __fish_prompt_pwd --on-variable PWD --on-variable PATH
 
   test -n "$line"; and echo "$line"
   set_color normal
+end
+
+function __fish_prompt_path --on-variable PATH
+  if [ -z (commandline) ]
+    __fish_prompt_pwd
+  end
 end
