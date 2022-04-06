@@ -8,4 +8,5 @@ function set_abbr_custom
     abbr dcup 'docker-compose up -d'
     abbr dcb 'docker-compose up -d --build'
     abbr dce 'docker-compose exec'
+    abbr dclo 'docker-compose logs -ft --tail=1000'
 end
