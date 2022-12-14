@@ -31,7 +31,7 @@ brew bundle
 Update Brewfile.
 
 ```
-brew bundle dump --force --file=~/.Brewfile; for l in (diff -u (brew list | sort | psub) (brew leaves | sed 's#^.*/##' | sort | psub) | tail -n+3 | grep "^-" | cut -c2-); sed -i -e "/^brew '[^']*$l'/d" ~/.Brewfile; end
+brew bundle dump --force --file=~/.config/yadm/alt/.Brewfile##os.Darwin; for l in (diff -u (brew list | sort | psub) (brew leaves | sed 's#^.*/##' | sort | psub) | tail -n+3 | grep "^-" | cut -c2-); sed -i -e '/^brew "[^"]*'$l'"/d' ~/.config/yadm/alt/.Brewfile##os.Darwin; end
 ```
 
 
