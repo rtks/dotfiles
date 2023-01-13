@@ -83,6 +83,7 @@ set -gx FZF_DEFAULT_OPTS "--reverse --inline-info --ansi\
  --bind ctrl-f:page-down,ctrl-b:page-up\
  --color bg+:007,fg+:010,hl:009,hl+:009"
 set -gx FZF_TMUX 1
+set -U FZF_DISABLE_KEYBINDINGS 1
 
 ########
 # skim
