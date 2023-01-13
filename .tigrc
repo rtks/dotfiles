@@ -5,6 +5,7 @@ set ignore-space = all
 set diff-highlight = true
 set line-graphics = utf-8
 set main-view-date = relative-compact
+set main-view-date-local = true
 
 source ~/.tigrc.vim
 source -q ~/.tigrc.local
