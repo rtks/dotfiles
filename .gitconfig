@@ -12,7 +12,7 @@
 	helper = cache
 [merge]
 	keepBackup = false
-	tool = vimdiff
+    tool = vimdiff
 [mergetool]
 	keepBackup = false
 [rebase]
@@ -41,6 +41,8 @@
 [mergetool "TortoiseMerge"]
 	path = C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe
 	cmd = \"C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe\" /base:\"$BASE\" /mine:\"$LOCAL\" /theirs:\"$REMOTE\" /merged:\"$MERGED\"
+[mergetool "code"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
