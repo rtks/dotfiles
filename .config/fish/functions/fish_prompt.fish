@@ -13,7 +13,6 @@ function fish_prompt --description 'Write out the prompt'
     set -g __fish_prompt_git_info $__fish_prompt_result
     set -e __fish_prompt_result
   end
-  set -e __fish_prompt_pwd_out
 
   # Hostname
   if set -q SSH_CONNECTED; or set -q SSH_CONNECTION
@@ -37,18 +36,26 @@ function fish_prompt --description 'Write out the prompt'
   # Duration
   set -l duration $CMD_DURATION
   if test $duration -ge 5000
-    set -l ms (math -s0 $duration % 1000 / 10)
+    set -l ss (math -s0 $duration / 10 % 100)
     set -l s (math -s0 $duration / 1000 % 60)
     set -l m (math -s0 $duration / 60000 % 60)
     set -l h (math -s0 $duration / 3600000 % 24)
+    set -l d (math -s0 $duration / 86400000)
     set_color yellow
+    if test $d -gt 0
+      echo -sn $d "d"
+    end
     if test $h -gt 0
-        echo -sn $h "h"
+      echo -sn $h "h"
     end
     if test $m -gt 0
-        echo -sn $m "m"
+      echo -sn $m "m"
     end
-    echo -sn $s.$ms "s "
+    if test $duration -ge 3600000
+      echo -sn $s "s "
+    else
+      printf '%d.%02ds ' $s $ss
+    end
   end
   set_color normal
 
@@ -129,16 +136,28 @@ end
 
 function __fish_prompt_refresh
   fish -c "kill -WINCH $fish_pid" 2>/dev/null &
-  disown  # prevent blocking exit while job is running
+  disown  # ジョブ実行中に終了できるようにする
 end
 
 function __fish_prompt_pwd --on-variable PWD
   set -g __fish_prompt_git_info ''
+  set -g __fish_prompt_trigger PWD
+end
 
-  set -q __fish_prompt_pwd_out; and return 
-  set -g __fish_prompt_pwd_out 1
+function __fish_prompt_path --on-variable PATH
+  if ! set -q __fish_prompt_trigger
+    set -g __fish_prompt_trigger PATH
+  end
+end
 
-  set -l line ""
+function __fish_prompt_postexec --on-event fish_postexec
+  if ! set -q __fish_prompt_trigger
+    return
+  end
+  set -l trigger "$__fish_prompt_trigger"
+  set -e __fish_prompt_trigger
+
+  set -l line ''
 
   # Current Git author
   if command git rev-parse 2>/dev/null
@@ -197,12 +216,16 @@ function __fish_prompt_pwd --on-variable PWD
     set line $line$package_ver
   end
 
-  test -n "$line"; and echo "$line"
-  set_color normal
-end
+  set line $line(set_color normal)
 
-function __fish_prompt_path --on-variable PATH
-  if [ -z (commandline) ]
-    __fish_prompt_pwd
+  if [ -z "$line" ]
+    return
   end
+  if [ "$trigger" = PATH -a "$line" = "$__fish_prompt_versions" ]
+    reutrn
+  end
+
+  echo $line
+
+  set -g __fish_prompt_versions "$line"
 end
