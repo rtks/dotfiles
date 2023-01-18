@@ -216,8 +216,6 @@ function __fish_prompt_postexec --on-event fish_postexec
     set line $line$package_ver
   end
 
-  set line $line(set_color normal)
-
   if [ -z "$line" ]
     return
   end
@@ -226,6 +224,7 @@ function __fish_prompt_postexec --on-event fish_postexec
   end
 
   echo $line
+  set_color normal
 
   set -g __fish_prompt_versions "$line"
 end
