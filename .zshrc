@@ -19,18 +19,28 @@ fi
 
 ############
 ## zinit
-if [ ! -f ~/.zinit/bin/zinit.zsh ]; then
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [ ! -f "${ZINIT_HOME}/zinit.zsh" ]; then
   printf "Install zinit? [y/N]: "
   if read -q; then
-    echo; sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+    echo; bash -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
   fi
 fi
 
 ### Added by zinit's installer
-source ~/.zinit/bin/zinit.zsh
+source "${ZINIT_HOME}/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-### End of zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
 
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
@@ -75,3 +85,4 @@ zinit snippet PZT::modules/completion/init.zsh
 if (which zprof > /dev/null) ;then
   zprof | less
 fi
+
