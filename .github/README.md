@@ -34,17 +34,3 @@ Update Brewfile.
 brew bundle dump --force --file=~/.config/yadm/alt/.Brewfile##os.Darwin; for l in (diff -u (brew list | sort | psub) (brew leaves | sed 's#^.*/##' | sort | psub) | tail -n+3 | grep "^-" | cut -c2-); sed -i -e '/^brew "[^"]*'$l'"/d' ~/.config/yadm/alt/.Brewfile##os.Darwin; end
 ```
 
-
-## VSCode
-
-Install packages.
-
-```bash
-bash ~/.vscode/extensions.sh
-```
-
-Update package list.
-
-```bash
-code --list-extensions | xargs -L 1 echo code --install-extension >~/.vscode/extensions.sh
-```
