@@ -22,4 +22,6 @@ function fish_user_key_bindings
     bind -M insert \eq '__fzf_repo'
     bind -M insert \eg '__fzf_git_rev'
   end
+
+  bind \cd 'delete-or-deactivate-or-exit'
 end

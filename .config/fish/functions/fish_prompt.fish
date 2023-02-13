@@ -188,7 +188,10 @@ function __fish_prompt_postexec --on-event fish_postexec
   end
 
   # Current Python version
-  type -q python
+  begin 
+    type -q python
+    or type -q python3
+  end
   and begin
     set -q VIRTUAL_ENV
     or test -f requirements.txt
@@ -201,7 +204,11 @@ function __fish_prompt_postexec --on-event fish_postexec
     set line $line(set_color yellow)
     set line $line"Python "
     set line $line(set_color normal)
-    set line $line(python --version 2>&1 | string replace "Python " "")
+    if type -q python
+      set line $line(python --version 2>&1 | string replace "Python " "")
+    else
+      set line $line(python3 --version 2>&1 | string replace "Python " "")
+    end
   end
   
   # Current version of package in current directory
@@ -219,12 +226,7 @@ function __fish_prompt_postexec --on-event fish_postexec
   if [ -z "$line" ]
     return
   end
-  if [ "$trigger" = PATH -a "$line" = "$__fish_prompt_versions" ]
-    reutrn
-  end
 
   echo $line
   set_color normal
-
-  set -g __fish_prompt_versions "$line"
 end
