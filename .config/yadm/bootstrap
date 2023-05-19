@@ -90,6 +90,16 @@ if command -v fish >/dev/null 2>&1; then
   fish -c 'fisher update'
 fi
 
+# Bootstrap tmux
+if command -v tmux >/dev/null 2>&1; then
+  if [ ! -f ~/.tmux/plugins/tpm/tpm ]; then
+    msg "Installing Tmux Plugin Manager"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  fi
+  msg "Bootstraping Tmux Plugin Manager"
+  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+fi
+
 # Bootstrap vim
 if command -v vim >/dev/null 2>&1; then
   # Install vim-plug
