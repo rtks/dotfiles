@@ -20,11 +20,18 @@ msg() {
   printf "\e[1m$1\e[m\n"
 }
 
+install_brew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi
+}
+
 # Install package manager
 if [ "$OS" = "Darwin" ]; then
   if ! command -v brew >/dev/null 2>&1; then
     msg "Installing homebrew"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    install_brew
   fi
   pkgmgr="brew install"
 elif command -v apt-get >/dev/null 2>&1; then
@@ -39,34 +46,64 @@ elif command -v apk >/dev/null 2>&1; then
   else
     pkgmgr="sudo -E apk add --no-cache"
   fi
+elif command -v dnf >/dev/null 2>&1; then
+  if [ $(id -u) -eq 0 ]; then
+    pkgmgr="dnf install -y"
+  else
+    pkgmgr="sudo -E dnf install -y"
+  fi
 else
   pkgmgr=""
 fi
 
 # Install deps
 deps=""
+if ! command -v git >/dev/null 2>&1; then
+  deps=$deps" git"
+fi
 if ! command -v yadm >/dev/null 2>&1; then
-  if [ "$OS" = "Alpine Linux" ]; then
-    if ! command -v bash >/dev/null 2>&1; then
-      deps=$deps" bash"
-    fi
-    if ! command -v git >/dev/null 2>&1; then
-      deps=$deps" git"
-    fi
-    msg "Downloading yadm"
-    curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
-  else
-    deps=$deps" yadm"
-  fi
+  deps=$deps" yadm"
 fi
 if [ -n "$deps" ]; then
   if [ -n "$pkgmgr" ]; then
-    msg "Installing$deps"
-    eval $pkgmgr$deps
+    msg "The following packages will be installed:$deps"
+    printf "Press \e[1mRETURN\e[m/\e[1mENTER\e[m to continue or ctrl-c to abort: "
+    read c
+	for dep in $deps; do
+      eval $pkgmgr $dep
+	done
   else
     msg "Package maneger was not found." 1>&2
     msg "Install$deps manually." 1>&2
     exit 1
+  fi
+fi
+
+deps=""
+if ! command -v git >/dev/null 2>&1; then
+  deps=$deps" git"
+fi
+if ! command -v yadm >/dev/null 2>&1; then
+  deps=$deps" yadm"
+fi
+if [ -n "$deps" ]; then
+  msg "Cannot install$deps via default package manager"
+  printf "Press \e[1m1\e[m to install yadm via homebrew or \e[1m2\e[m to download yadm script or ctrl-c to abort: "
+  read c
+  if [ "${c}" = 1 ]; then
+    msg "Installing homebrew"
+    install_brew
+    msg "Installing$deps"
+    eval brew install$deps
+  elif [ "${c}" = 2 ]; then
+    msg "Downloading yadm"
+    if [ $(id -u) -eq 0 ]; then
+      curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
+	else
+	  sudo curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && sudo chmod a+x /usr/local/bin/yadm
+	fi
+  else
+	exit 1
   fi
 fi
 
