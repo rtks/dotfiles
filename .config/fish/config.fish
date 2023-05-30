@@ -1,71 +1,48 @@
 ########
 ## PATH
-if type -q manpath
-    set -x MANPATH (string split : (manpath -q))
+function __add_path
+  if [ -d $argv[2] ]
+    if set -q $argv[1]
+      if ! contains $argv[2] $$argv[1]
+        set -p $argv[1] $argv[2]
+      end
+    else
+      set -gx $argv[1] $argv[2]
+    end
+  end
 end
-if [ -d /usr/local/share/man ]
-  set -xp MANPATH /usr/local/share/man
-end
-if [ -d /usr/local/sbin ]
-  set -xp PATH /usr/local/sbin
-end
-# Homebrew fish
-if [ -d /usr/local/share/fish/vendor_completions.d ]
-  set -xp fish_complete_path /usr/local/share/fish/vendor_completions.d
-end
-# C/C++
-if [ -d /usr/local/include ]
-  set -xp C_INCLUDE_PATH /usr/local/include
-  set -xp CPLUS_INCLUDE_PATH /usr/local/include
-end
-if [ -d /usr/local/lib ]
-  set -xp LIBRARY_PATH /usr/local/lib
-  set -xp LD_LIBRARY_PATH /usr/local/lib
-end
-if [ -d /usr/local/lib/pkgconfig ]
-  set -xp PKG_CONFIG_PATH /usr/local/lib/pkgconfig
-end
-
+# Homebrew
 if type -q arch && [ (arch) = arm64 ];
   if [ -f /opt/homebrew/bin/brew ]
     eval (/opt/homebrew/bin/brew shellenv)
   end
-  if [ -d /opt/homebrew/opt/python/libexec/bin/python ]
-    set -xp PATH /opt/homebrew/opt/python/libexec/bin
-  end
-  if [ -d /opt/homebrew/include ]
-    set -xp C_INCLUDE_PATH /opt/homebrew/include
-    set -xp CPLUS_INCLUDE_PATH /opt/homebrew/include
-  end
-  if [ -d /opt/homebrew/lib ]
-    set -xp LIBRARY_PATH /opt/homebrew/lib
-    set -xp LD_LIBRARY_PATH /opt/homebrew/lib
-  end
-  if [ -d /opt/homebrew/share/fish/vendor_completions.d ]
-    set -xp fish_complete_path /opt/homebrew/share/fish/vendor_completions.d
+else
+  if [ -f /usr/local/bin/brew ]
+    eval (/usr/local/bin/brew shellenv)
   end
 end 
-
-if [ -d ~/.dotfiles/rcm ]
-  set -xp PATH "$HOME/.dotfiles/rcm/bin"
-  set -xp MANPATH "$HOME/.dotfiles/rcm/share/man"
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]
+  eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+else
+  # In Linuxbrew, adding to LD_LIBRARY_PATH makes references from executables strange.
+  __add_path LD_LIBRARY_PATH $HOMEBREW_PREFIX/lib
+  __add_path LIBRARY_PATH $HOMEBREW_PREFIX/lib
+  __add_path C_INCLUDE_PATH $HOMEBREW_PREFIX/include
+  __add_path CPLUS_INCLUDE_PATH $HOMEBREW_PREFIX/include
+  __add_path PKG_CONFIG_PATH $HOMEBREW_PREFIX/lib/pkgconfig
 end
-if [ -d ~/.local/bin ]
-  set -xp PATH "$HOME/.local/bin"
-end
-if [ -d ~/.local/share/man ]
-  set -xp MANPATH "$HOME/.local/share/man"
-end
-if [ -d "$HOME/.cargo/bin" ]
-  set -xp PATH "$HOME/.cargo/bin"
-end
-if [ -d "$HOME/go/bin" ]
-  set -xp PATH "$HOME/go/bin"
-end
+__add_path PATH $HOMEBREW_PREFIX/opt/python/libexec/bin
+__add_path fish_complete_path $HOMEBREW_PREFIX/share/fish/vendor_completions.d
+# Rust Cargo
+__add_path PATH "$HOME/.cargo/bin"
+# Go
+__add_path PATH "$HOME/go/bin"
 # Android SDK
-if [ -d "$HOME/Developer/android-sdk-macosx/tools" ]
-  set -xp PATH "$HOME/Developer/android-sdk-macosx/tools"
-end
+__add_path PATH "$HOME/Developer/android-sdk-macosx/tools"
+# .local
+__add_path PATH "$HOME/.local/bin"
+__add_path MANPATH "$HOME/.local/share/man"
+functions -e __add_path
 
 ########
 ## ENVS
@@ -92,12 +69,9 @@ set -gx SKIM_DEFAULT_OPTIONS '--inline-info --ansi --layout=reverse --min-height
 ########
 # msys
 if test -n "$MSYSTEM"
-  set -xg MSYS winsymlinks:nativestrict
-end
-
-for file in .config/fish/conf.override.d/*.fish
-    source $file
+  set -gx MSYS winsymlinks:nativestrict
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
+true
