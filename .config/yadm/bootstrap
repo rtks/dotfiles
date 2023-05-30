@@ -121,10 +121,10 @@ if command -v fish >/dev/null 2>&1; then
   # Install fisher
   if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
     msg "Installing fisher"
-    curl -fLo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+    fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
   fi
   msg "Bootstraping fisher"
-  fish -c 'fisher update'
+  fish -c "fisher update"
 fi
 
 # Bootstrap tmux
