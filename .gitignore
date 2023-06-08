@@ -61,6 +61,9 @@ log.*
 /.viminfo
 *.swp
 
+# tmux
+/.tmux/plugins/
+
 # ssh
 /.ssh/
 !/.ssh/config
@@ -143,6 +146,7 @@ log.*
 /.config/fish/functions/gtl.fish
 /.config/fish/functions/gunwip.fish
 /.config/fish/functions/gwip.fish
+/.config/fish/functions/gtest.fish
 /.config/fish/functions/uninstall.fish
 /.config/fish/completions/docker-compose.fish
 /.config/fish/completions/docker.fish
