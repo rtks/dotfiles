@@ -1,140 +1,122 @@
-#!/bin/sh
-
-if [ -f /etc/os-release ]; then
-  . /etc/os-release
-  OS=$NAME
-elif type lsb_release >/dev/null 2>&1; then
-  OS=$(lsb_release -si)
-elif [ -f /etc/lsb-release ]; then
-  . /etc/lsb-release
-  OS=$DISTRIB_ID
-elif [ -f /etc/debian_version ]; then
-  OS=Debian
-else
-  OS=$(uname -s)
-fi
-
-unset GIT_DIR
+#!/bin/bash
 
 msg() {
-  printf "\e[1m$1\e[m\n"
-}
-
-install_brew() {
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  if [ "$1" = "-n" ]; then
+    printf "\e[1m$2\e[m"
+  else
+    printf "\e[1m$1\e[m\n"
   fi
 }
 
-# Install package manager
-if [ "$OS" = "Darwin" ]; then
-  if ! command -v brew >/dev/null 2>&1; then
-    msg "Installing homebrew"
-    install_brew
-  fi
-  pkgmgr="brew install"
-elif command -v apt-get >/dev/null 2>&1; then
-  if [ $(id -u) -eq 0 ]; then
-    pkgmgr="apt-get update; apt-get -y install"
-  else
-    pkgmgr="sudo -E apt-get update; sudo -E apt-get -y install"
-  fi
-elif command -v apk >/dev/null 2>&1; then
-  if [ $(id -u) -eq 0 ]; then
-    pkgmgr="apk add --no-cache"
-  else
-    pkgmgr="sudo -E apk add --no-cache"
-  fi
-elif command -v dnf >/dev/null 2>&1; then
-  if [ $(id -u) -eq 0 ]; then
-    pkgmgr="dnf install -y"
-  else
-    pkgmgr="sudo -E dnf install -y"
-  fi
-else
-  pkgmgr=""
-fi
+getc() {
+  local save_state
+  save_state="$(/bin/stty -g)"
+  /bin/stty raw -echo
+  IFS='' read -r -n 1 -d '' "$@"
+  /bin/stty "${save_state}"
+}
 
-# Install deps
+# Check dependencies
 deps=""
+if ! command -v curl >/dev/null 2>&1; then
+  deps=$deps" curl"
+fi
 if ! command -v git >/dev/null 2>&1; then
   deps=$deps" git"
 fi
 if ! command -v yadm >/dev/null 2>&1; then
   deps=$deps" yadm"
 fi
+yadm=yadm
 if [ -n "$deps" ]; then
-  if [ -n "$pkgmgr" ]; then
-    msg "The following packages will be installed:$deps"
-    printf "Press \e[1mRETURN\e[m/\e[1mENTER\e[m to continue or ctrl-c to abort: "
-    read c
-	for dep in $deps; do
-      eval $pkgmgr $dep
-	done
+  msg "The following packages are required to continue:"
+  echo $deps
+
+  # Check package manager
+  if [ "$OS" = "Darwin" ]; then
+    pkgmgr="brew install"
+    if ! command -v brew >/dev/null 2>&1; then
+      pkgmgr='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'"; $pkgmgr"
+    fi
   else
-    msg "Package maneger was not found." 1>&2
-    msg "Install$deps manually." 1>&2
-    exit 1
+    if [ $(id -u) -ne 0 ]; then
+      sudo="sudo -E "
+    else
+      sudo=""
+    fi
+    if command -v apt-get >/dev/null 2>&1; then
+      pkgmgr="${sudo}apt-get update; ${sudo}apt-get -y install"
+    elif command -v apk >/dev/null 2>&1; then
+      pkgmgr="${sudo}apk add --no-cache"
+    elif command -v dnf >/dev/null 2>&1; then
+      pkgmgr="${sudo}dnf install -y"
+    else
+      exit 1 # Not found package manager
+    fi
   fi
+
+  msg "1. Install the packages with:"
+  cmd[1]="$pkgmgr$deps"
+  yadm[1]=yadm
+  keys="1"
+  printf "${cmd[1]}\n"
+  if [[ "$deps" =~ " yadm" ]]; then
+    if [ "$deps" = " yadm" ]; then
+      msg "2. Use remotely yadm."
+      cmd[2]=
+    else
+      msg "2. Install the minimum packages and use remotely yadm with:"
+      cmd[2]="$pkgmgr${deps/ yadm/}"
+      printf "${cmd[2]}\n"
+    fi
+    yadm[2]="curl -fsSL https://github.com/TheLocehiliosan/yadm/raw/master/yadm | bash -s --"
+    keys="1-2"
+  fi
+  msg -n "Press $keys to continue with selected option, or other key to abort: "
+  getc c
+  echo
+  [ "$c" != 1 -a "$c" != 2 ] && exit 1
+  [ -z "${cmd[$c]}" -a -z "${yadm[$c]}" ] && exit 1
+  msg "Installing packages"
+  eval ${cmd[$c]}
+  yadm="${yadm[$c]}"
 fi
 
-deps=""
-if ! command -v git >/dev/null 2>&1; then
-  deps=$deps" git"
-fi
-if ! command -v yadm >/dev/null 2>&1; then
-  deps=$deps" yadm"
-fi
-if [ -n "$deps" ]; then
-  msg "Cannot install$deps via default package manager"
-  printf "Press \e[1m1\e[m to install yadm via homebrew or \e[1m2\e[m to download yadm script or ctrl-c to abort: "
-  read c
-  if [ "${c}" = 1 ]; then
-    msg "Installing homebrew"
-    install_brew
-    msg "Installing$deps"
-    eval brew install$deps
-  elif [ "${c}" = 2 ]; then
-    msg "Downloading yadm"
-    if [ $(id -u) -eq 0 ]; then
-      curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
-	else
-	  sudo curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && sudo chmod a+x /usr/local/bin/yadm
-	fi
-  else
-	exit 1
-  fi
-fi
-
-# Clone repository
 if [ ! -d ~/.local/share/yadm/repo.git ]; then
+  # Clone repository
   msg "Cloning repository"
-  yadm clone --no-bootstrap "https://github.com/rtks/dotfiles.git"
+  eval $yadm' clone --no-bootstrap "https://github.com/rtks/dotfiles.git"'
 fi
 
 # Bootstrap fish
 if command -v fish >/dev/null 2>&1; then
   msg "Bootstraping fish"
-  fish -c 'set_color_custom; set -U fish_greeting "";'
+  fish -c 'set_color_custom; set -U fish_greeting ""; fish_update_completions'
 
   # Install fisher
   if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
     msg "Installing fisher"
-    fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
+    fish -l -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
+  else
+    msg "Bootstraping fisher"
+    fish -l -c "fisher update"
   fi
-  msg "Bootstraping fisher"
-  fish -c "fisher update"
+else
+  msg "fish not found. Skip bootstrap."
 fi
 
 # Bootstrap tmux
 if command -v tmux >/dev/null 2>&1; then
   if [ ! -f ~/.tmux/plugins/tpm/tpm ]; then
     msg "Installing Tmux Plugin Manager"
+    export -n GIT_DIR
+    export -n GIT_WORK_TREE
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   fi
   msg "Bootstraping Tmux Plugin Manager"
   ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+else
+  msg "tmux not found. Skip bootstrap."
 fi
 
 # Bootstrap vim
@@ -146,4 +128,9 @@ if command -v vim >/dev/null 2>&1; then
   fi
   msg "Bootstraping vim-plug"
   vim +'PlugInstall --sync' +qa </dev/tty
+else
+  msg "bash not found. Skip bootstrap."
 fi
+
+# Bootstrap tig
+mkdir -p ~/.local/share/tig/

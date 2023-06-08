@@ -38,6 +38,8 @@ function set_color_custom
 	set -U fish_pager_color_prefix      'cyan'
 	set -U fish_pager_color_progress    'cyan'
 
-    tmux source ~/.tmux.conf 2>/dev/null
-    tmux source ~/.tmux.conf 2>/dev/null
+    if command -q tmux
+        tmux source ~/.tmux.conf 2>/dev/null
+        tmux source ~/.tmux.conf 2>/dev/null
+    end
 end

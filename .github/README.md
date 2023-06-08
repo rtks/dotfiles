@@ -11,13 +11,13 @@ yadm clone https://github.com/rtks/dotfiles.git --bootstrap
 curl
 
 ```bash
-curl -sL takasu.dev/dotfiles | sh
+bash -c "$(curl -sL takasu.dev/dotfiles)"
 ```
 
 wget
 
 ```bash
-wget -qO - takasu.dev/dotfiles | sh
+bash -c "$(wget -qO - takasu.dev/dotfiles)"
 ```
 
 
