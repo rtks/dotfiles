@@ -1,104 +1,26 @@
-# Manage only dotfiles
-/[^.]*
-
-# yadm alt
-/.Brewfile
-/.config/karabiner
-
-# Directories
-/.Trash/
-/.cache/
-/.local/
-/.config/yadm/repo.git/
-/.vim/
-/.config/fisher/
-/.envs/
-/.subversion/
-/.wine/
-/.zplugin/
-/.cargo/
-/.rustup/
-/.npm/_cacache/
-/.thumbnails/
-/.config/Battle.net/
-/.config/yadm/alt/.config/karabiner##os.Darwin/automatic_backups/
-/.config/fontforge/
-/.cups/
-/.pyenv/
-
-# Log files
-*[_-]history
-*.log*
-log.*
-
-# macos
-/.CFUserTextEncoding
-
-# vscode
-/.vscode/extensions/
-/.vscode-*/extensions/
-/.vscode/argv.json
-/.vscode-*/argv.json
-/.vscode-server/
-/.vscode-remote-containers/
-
-# z
-/.config/z
-
-# fzf
-/.fzf/
-/.config/fish/functions/fzf_key_bindings.fish
-
-# bash
-/.bash_sessions
-
-# zsh
-/.zcompdump
-/.zinit/
-/.zsh_sessions/
-
-# vim
-/.viminfo
-*.swp
-
-# tmux
-/.tmux/plugins/
-
-# ssh
-/.ssh/
-!/.ssh/config
-
-# adb
-/.android/adbkey                                                  
-/.android/adbkey.pub
-
-# Docker
-/.docker/
-
-# unite.app
-/.BZG/
-
-# yarn
-/.yarnrc
-
-# java runtime
-/.oracle_jre_usage/
-
-# mono
-/.mono/
-
-/.lesshst
-/.wget-hsts
+# Manage only .config/fish .config/yadm .github
+/*
+!/.config
+/.config/*
+!/.config/fish/
+!/.config/yadm/
+!/.github/
 
 # Fish
 /.config/fish/fish_variables
-/.config/fish/fishd*
 
-# Fisher
-/.config/fish/completions/fisher.fish
-/.config/fish/functions/fisher.fish
+# Zsh
+/.config/zsh/.zsh_history
+
+# Tmux
+/.config/tmux/plugins/
+
+# Karabiner
+/.config/yadm/alt/.config/karabiner##os.Darwin/automatic_backups/*
 
 # Fisher Plugin files
+/.config/fish/completions/fisher.fish
+/.config/fish/functions/fisher.fish
 /.config/fish/functions/__bass.py
 /.config/fish/functions/bass.fish
 /.config/fish/functions/bd.fish
@@ -151,4 +73,3 @@ log.*
 /.config/fish/completions/docker-compose.fish
 /.config/fish/completions/docker.fish
 /.config/fish/conf.d/halostatue_fish_docker.fish
-
