@@ -1,0 +1,47 @@
+version: "3"
+
+x-service: &service
+  build:
+    context: .
+  tty: true
+  stdin_open: true
+  volumes:
+    - ./bootstrap:/home/abc/bootstrap
+
+services:
+  almalinux:
+    <<: *service
+    build:
+      dockerfile: docker/almalinux/Dockerfile
+      target: base
+    container_name: dotfiles-almalinux
+  ubuntu:
+    <<: *service
+    build:
+      dockerfile: docker/ubuntu/Dockerfile
+      target: base
+    container_name: dotfiles-ubuntu
+  alpine:
+    <<: *service
+    build:
+      dockerfile: docker/alpine/Dockerfile
+      target: base
+    container_name: dotfiles-alpine
+  almalinux-full:
+    <<: *service
+    build:
+      dockerfile: docker/almalinux/Dockerfile
+      target: full
+    container_name: dotfiles-almalinux-full
+  ubuntu-full:
+    <<: *service
+    build:
+      dockerfile: docker/ubuntu/Dockerfile
+      target: full
+    container_name: dotfiles-ubuntu-full
+  alpine-full:
+    <<: *service
+    build:
+      dockerfile: docker/alpine/Dockerfile
+      target: full
+    container_name: dotfiles-alpine-full
