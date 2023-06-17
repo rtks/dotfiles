@@ -86,3 +86,5 @@ if (which zprof > /dev/null) ;then
   zprof | less
 fi
 
+test -e "$HOME/.shellfishrc" && source "$HOME/.shellfishrc"
+### End of Zinit's installer chunk

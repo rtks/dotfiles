@@ -1,9 +1,12 @@
-# Manage only .config/fish .config/yadm .github
 /*
 !/.config
 /.config/*
 !/.config/fish/
 !/.config/yadm/
+!/.config/tmux/
+!/.config/tig/
+!/.config/zsh/
+!/.config/git/
 !/.github/
 
 # Fish

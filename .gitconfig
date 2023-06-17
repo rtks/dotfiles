@@ -2,7 +2,6 @@
 	name = rtks
 	email = rtks@users.noreply.github.com
 [core]
-	excludesfile = ~/.gitignore.global
 	editor = vim
 	pager = less -R
 	precomposeunicode = true
@@ -62,6 +61,6 @@
 [diff "nkf"]
 	textconv = nkf
 [include]
-    path = ~/.gitconfig.local
+    path = ~/.config/git/config.local
 [interactive]
 	diffFilter = nkf -w
