@@ -34,20 +34,19 @@ end
 __add_path PATH $HOMEBREW_PREFIX/opt/python/libexec/bin
 __add_path fish_complete_path $HOMEBREW_PREFIX/share/fish/vendor_completions.d
 # Rust Cargo
-__add_path PATH "$HOME/.cargo/bin"
+__add_path PATH $HOME/.cargo/bin
 # Go
-__add_path PATH "$HOME/go/bin"
+__add_path PATH $HOME/go/bin
 # Android SDK
-__add_path PATH "$HOME/Developer/android-sdk-macosx/tools"
+__add_path PATH $HOME/Developer/android-sdk-macosx/tools
 # .local
-__add_path PATH "$HOME/.local/bin"
-__add_path MANPATH "$HOME/.local/share/man"
-functions -e __add_path
+__add_path PATH $HOME/.local/bin
+__add_path MANPATH $HOME/.local/share/man
 
 ########
 ## ENVS
-set -gx SHELL (which fish)
-set -gx EDITOR (which vim)
+set -gx SHELL (type -P fish)
+set -gx EDITOR (type -P vim)
 
 ########
 ## LS
@@ -67,11 +66,19 @@ set -U FZF_DISABLE_KEYBINDINGS 1
 set -gx SKIM_DEFAULT_OPTIONS '--inline-info --ansi --layout=reverse --min-height=0 --color=light,bg+:7'
 
 ########
+# pyenv
+if [ -d "$HOME/.pyenv" ]
+  set -gx PYENV_ROOT "$HOME/.pyenv"
+  __add_path PATH "$PYENV_ROOT/bin"
+  pyenv init - | source
+end
+
+########
 # msys
-if test -n "$MSYSTEM"
+if [ -n $MSYSTEM ]
   set -gx MSYS winsymlinks:nativestrict
 end
 
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish
 
-true
+functions -e __add_path
