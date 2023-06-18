@@ -2,7 +2,7 @@
 	name = rtks
 	email = rtks@users.noreply.github.com
 [core]
-	editor = vim
+	editor = vim -c \"set fenc=utf-8\"
 	pager = less -R
 	precomposeunicode = true
 	autocrlf = false
