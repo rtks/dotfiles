@@ -7,7 +7,11 @@ function __add_path
         set -p $argv[1] $argv[2]
       end
     else
-      set -gx $argv[1] $argv[2]
+      if [ $argv[1] = MANPATH ]
+        set -gx $argv[1] $argv[2] (manpath)
+      else
+        set -gx $argv[1] $argv[2]
+      end
     end
   end
 end
