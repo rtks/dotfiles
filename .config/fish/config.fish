@@ -70,14 +70,6 @@ set -U FZF_DISABLE_KEYBINDINGS 1
 set -gx SKIM_DEFAULT_OPTIONS '--inline-info --ansi --layout=reverse --min-height=0 --color=light,bg+:7'
 
 ########
-# pyenv
-if [ -d "$HOME/.pyenv" ]
-  set -gx PYENV_ROOT "$HOME/.pyenv"
-  __add_path PATH "$PYENV_ROOT/bin"
-  pyenv init - | source
-end
-
-########
 # msys
 if [ -n $MSYSTEM ]
   set -gx MSYS winsymlinks:nativestrict
