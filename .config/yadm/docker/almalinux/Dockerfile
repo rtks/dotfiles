@@ -27,4 +27,4 @@ FROM base AS full
 
 RUN --mount=type=cache,target=/var/cache/dnf,sharing=locked \
     sudo dnf install -y epel-release && \
-    sudo dnf install -y fish tmux vim
+    sudo dnf install -y fish tmux neovim

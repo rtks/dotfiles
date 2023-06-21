@@ -48,17 +48,22 @@ __add_path PATH $HOME/.local/bin
 __add_path MANPATH $HOME/.local/share/man
 
 ########
-## ENVS
+## envs
 set -gx SHELL (type -P fish)
-set -gx EDITOR (type -P vim)
+if type -q nvim
+  set -gx EDITOR (type -P nvim)
+  alias vim=nvim
+else
+  set -gx EDITOR (type -P vim)
+end
 
 ########
-## LS
+## ls
 set -gx LSCOLORS GxfxcxdxAxegedabagacad
 set -gx LS_COLORS 'rs=0:di=1;36:ln=35:mh=0:pi=33:so=32:do=0:bd=0:cd=0:or=40;31;01:mi=00:su=0;31:sg=0;46:ca=0;41:tw=0;43:ow=0:st=0;43:ex=1;30'
 
 ########
-## FZF
+## fzf
 set -gx FZF_DEFAULT_OPTS "--reverse --inline-info --ansi\
  --bind ctrl-f:page-down,ctrl-b:page-up\
  --color bg+:007,fg+:010,hl:009,hl+:009"

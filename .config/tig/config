@@ -6,6 +6,7 @@ set diff-highlight = true
 set line-graphics = utf-8
 set main-view-date = relative-compact
 set main-view-date-local = true
+#set commit-order = date
 
 source ~/.config/tig/config.vim
 source -q ~/.config/tig/config.local

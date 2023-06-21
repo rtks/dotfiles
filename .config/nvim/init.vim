@@ -2,11 +2,10 @@ if &shell =~# 'fish$'
   set shell=bash
 endif
 
-if filereadable(expand('~/.vim/autoload/plug.vim')) 
-call plug#begin('~/.vim/plugged')
-Plug 'powerline/powerline', { 'rtp' : 'powerline/bindings/vim'}
-Plug 'powerline/fontpatcher', { 'branch' : 'develop' }
-"Plug 'altercation/vim-colors-solarized-light'
+if filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
+call plug#begin()
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'dag/vim-fish'
 "Plug 'Shougo/neosnippet.vim'
@@ -14,7 +13,6 @@ Plug 'dag/vim-fish'
 "Plug 'tpope/vim-fugitive'
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'flazz/vim-colorschemes'
-" Then reload .vimrc and :PlugInstall to install plugins.
 call plug#end()
 endif
 
@@ -37,7 +35,11 @@ set expandtab
 set shiftwidth=4
 
 set encoding=utf-8
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+if has('mac')
+  set fileencodings=utf-8
+else
+  set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+endif
 
 " 日本語を含まない場合は fileencoding に encoding を使うようにする
 if has('autocmd')
@@ -49,15 +51,15 @@ if has('autocmd')
   autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 
-if s:plug.is_installed("vim-colors-solarized")
-  if exists('$SSH_CONNECTION')
-  else
-    colorscheme solarized
+if s:plug.is_installed("vim-airline")
+  let g:airline_theme = 'solarized'
+  let g:airline_skip_empty_sections = 1
+  let g:airline_powerline_fonts = 1
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
   endif
-endif
-
-if s:plug.is_installed("powerline")
-  let g:Powerline_symbols ='fancy'
+  let g:airline_symbols.maxlinenr = ','
+  let g:airline_symbols.colnr = ''
   set noshowmode
 endif
 
@@ -65,4 +67,3 @@ hi DiffAdd    ctermfg=black ctermbg=2
 hi DiffChange ctermfg=black ctermbg=3
 hi DiffDelete ctermfg=black ctermbg=6
 hi DiffText   ctermfg=black ctermbg=7
-

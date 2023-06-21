@@ -18,6 +18,7 @@ CMD [ "bash" ]
 FROM base AS full
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    sudo apt-get update && \
     sudo apt-get install -y software-properties-common && \
     sudo apt-add-repository ppa:fish-shell/release-3 && \
-    sudo apt-get install -y fish tmux vim
+    sudo apt-get install -y fish tmux neovim

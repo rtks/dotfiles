@@ -18,4 +18,4 @@ CMD [ "bash" ]
 FROM base AS full
 
 RUN --mount=type=cache,target=/var/cache/apk \
-    sudo apk --update add fish tmux vim
+    sudo apk --update add fish tmux neovim

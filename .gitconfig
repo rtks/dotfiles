@@ -2,7 +2,7 @@
 	name = rtks
 	email = rtks@users.noreply.github.com
 [core]
-	editor = vim -c \"set fenc=utf-8\"
+	editor = nvim -c \"set fenc=utf-8\"
 	pager = less -R
 	precomposeunicode = true
 	autocrlf = false
@@ -11,7 +11,7 @@
 	helper = cache
 [merge]
 	keepBackup = false
-    tool = vimdiff
+	tool = nvim
 [mergetool]
 	keepBackup = false
 [rebase]
@@ -41,7 +41,11 @@
 	path = C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe
 	cmd = \"C:/Program Files/TortoiseSVN/bin/TortoiseMerge.exe\" /base:\"$BASE\" /mine:\"$LOCAL\" /theirs:\"$REMOTE\" /merged:\"$MERGED\"
 [mergetool "code"]
-    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[difftool "nvim"]
+	cmd = nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\"
+[mergetool "nvim"]
+	cmd = nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\"
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -61,6 +65,6 @@
 [diff "nkf"]
 	textconv = nkf
 [include]
-    path = ~/.config/git/config.local
+	path = ~/.config/git/config.local
 [interactive]
 	diffFilter = nkf -w
