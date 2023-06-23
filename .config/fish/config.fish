@@ -66,13 +66,9 @@ set -gx LS_COLORS 'rs=0:di=1;36:ln=35:mh=0:pi=33:so=32:do=0:bd=0:cd=0:or=40;31;0
 ## fzf
 set -gx FZF_DEFAULT_OPTS "--reverse --inline-info --ansi\
  --bind ctrl-f:page-down,ctrl-b:page-up\
- --color bg+:007,fg+:010,hl:009,hl+:009"
+ --color bg+:007,fg+:010,hl:009,hl+:009,border:007 --preview-window=border-left"
 set -gx FZF_TMUX 1
 set -U FZF_DISABLE_KEYBINDINGS 1
-
-########
-# skim
-set -gx SKIM_DEFAULT_OPTIONS '--inline-info --ansi --layout=reverse --min-height=0 --color=light,bg+:7'
 
 ########
 # msys

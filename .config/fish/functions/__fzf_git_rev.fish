@@ -13,7 +13,8 @@ function __fzf_git_rev
     end
     
     for i in $commits; echo $i; end | fzf-tmux --preview 'git show --color $(echo {} | grep -o "[0-9a-f]\{7,40\}")' | grep -o "[0-9a-f]\{7,40\}"| read -l line
-    [ "$status" = 0 -a "$line" != "" ]; or return "$status"
-    commandline -i "$line"
+    if [ "$status" = 0 -a "$line" != "" ]
+      commandline -i "$line"
+    end
     commandline -f repaint
 end
