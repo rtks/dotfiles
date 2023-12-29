@@ -7,6 +7,9 @@ esac
 if [[ "$LC_TERMINAL" = "ShellFish" ]]; then
     exec fish --login
 fi
+if [ -n "$ET_VERSION" ]; then
+    exec fish --login
+fi
 
 ############
 ## PATH設定
