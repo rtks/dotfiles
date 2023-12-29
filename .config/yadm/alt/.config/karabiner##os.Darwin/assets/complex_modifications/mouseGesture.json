@@ -6,234 +6,83 @@
       "manipulators": [
         {
           "type": "basic",
-          "from": {
-            "pointing_button": "button4",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "key_code": "right_shift" }
-          ],
-          "to_if_alone": [
-            { "pointing_button": "button4" }
-          ]
+          "from": { "pointing_button": "button4", "modifiers": { "optional": [ "any" ] } },
+          "to": [ { "key_code": "right_shift" } ],
+          "to_if_alone": [ { "pointing_button": "button4" } ]
         }
       ]
     },
     {
-      "description": "Button 5 + left,right to desktop switch, middle to button 10, dpi to launchpad",
+      "description": "Button 5 + left,right to desktop switch, middle to button 10",
       "manipulators": [
         {
           "type": "basic",
-          "from": {
-            "apple_vendor_keyboard_key_code": "mission_control",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "up_arrow",
-              "modifiers": "fn"
-            }
-          ],
+          "from": { "pointing_button": "button5", "modifiers": { "optional": [ "any" ] } },
+          "to": [ { "set_variable": { "name": "button5_down", "value": 1 } }, { "key_code": "right_command" } ],
+          "to_after_key_up": [ { "set_variable": { "name": "button5_down", "value": 0 } } ],
+          "to_if_alone": [ { "pointing_button": "button5" } ]
+        },
+        {
+          "type": "basic",
+          "from": { "pointing_button": "button1", "modifiers": { "mandatory": [ "command" ] } },
+          "to": [ { "key_code": "left_arrow", "modifiers": "left_control" } ],
+          "conditions": [ { "type": "variable_if", "name": "button5_down", "value": 1 } ]
+        },
+        {
+          "type": "basic",
+          "from": { "pointing_button": "button2", "modifiers": { "mandatory": [ "command" ] } },
+          "to": [ { "key_code": "right_arrow", "modifiers": "left_control" } ],
+          "conditions": [ { "type": "variable_if", "name": "button5_down", "value": 1 } ]
+        },
+        {
+          "type": "basic",
+          "from": { "pointing_button": "button3", "modifiers": { "mandatory": [ "command" ] } },
+          "to": [ { "pointing_button": "button10" } ],
+          "conditions": [ { "type": "variable_if", "name": "button5_down", "value": 1 } ]
+        },
+        {
+          "type": "basic",
+          "from": { "pointing_button": "button8" },
+          "to": [ { "key_code": "up_arrow", "modifiers": "fn" } ],
           "conditions": [
-            {
-              "type": "variable_if",
-              "name": "button5_down",
-              "value": 0
-            },
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.universalcontrol"
-              ]
-            }
+            { "type": "variable_if", "name": "button8_press", "value": 1 },
+            { "type": "frontmost_application_if", "bundle_identifiers": [ "^com\\.apple\\.universalcontrol" ] }
           ]
         },
         {
           "type": "basic",
-          "from": {
-            "apple_vendor_keyboard_key_code": "mission_control",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
+          "from": { "pointing_button": "button8", "modifiers": { "optional": [ "any" ] } },
           "to": [
-            {
-              "key_code": "h",
-              "modifiers": "fn"
-            }
+            { "set_variable": { "name": "button8_press", "value": 1 } }
           ],
+          "to_delayed_action": {
+            "to_if_invoked": [
+              { "set_variable": { "name": "button8_press", "value": 0 } },
+              { "key_code": "h", "modifiers": "fn" }
+            ],
+            "to_if_canceled": [ { "set_variable": { "name": "button8_press", "value": 0 } } ]
+          },
           "conditions": [
-            {
-              "type": "variable_if",
-              "name": "button5_down",
-              "value": 1
-            },
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.universalcontrol"
-              ]
-            }
+            { "type": "variable_if", "name": "button8_press", "value": 0 },
+            { "type": "frontmost_application_if", "bundle_identifiers": [ "^com\\.apple\\.universalcontrol" ] }
           ]
         },
         {
           "type": "basic",
-          "from": {
-            "pointing_button": "button1",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "left_arrow",
-              "modifiers": "fn"
-            }
-          ],
+          "from": { "pointing_button": "button1", "modifiers": { "mandatory": [ "command" ] } },
+          "to": [ { "key_code": "left_arrow", "modifiers": "fn" } ],
           "conditions": [
-            {
-              "type": "variable_if",
-              "name": "button5_down",
-              "value": 1
-            },
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.universalcontrol"
-              ]
-            }
+            { "type": "variable_if", "name": "button5_down", "value": 1 },
+            { "type": "frontmost_application_if", "bundle_identifiers": [ "^com\\.apple\\.universalcontrol" ] }
           ]
         },
         {
           "type": "basic",
-          "from": {
-            "pointing_button": "button2",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "right_arrow",
-              "modifiers": "fn"
-            }
-          ],
+          "from": { "pointing_button": "button2", "modifiers": { "mandatory": [ "command" ] } },
+          "to": [ { "key_code": "right_arrow", "modifiers": "fn" } ],
           "conditions": [
-            {
-              "type": "variable_if",
-              "name": "button5_down",
-              "value": 1
-            },
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.apple\\.universalcontrol"
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "pointing_button": "button5",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "set_variable": { "name": "button5_down", "value": 1 } }
-          ],
-          "to_after_key_up": [
-            { "set_variable": { "name": "button5_down", "value": 0 } }
-          ],
-          "to_if_alone": [
-            { "pointing_button": "button5" }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "pointing_button": "button1",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "key_code": "left_arrow", "modifiers": "left_control" }
-          ],
-          "conditions": [
-            { "type": "variable_if", "name": "button5_down", "value": 1 }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "pointing_button": "button2",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "key_code": "right_arrow", "modifiers": "left_control" }
-          ],
-          "conditions": [
-            { "type": "variable_if", "name": "button5_down", "value": 1 }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "pointing_button": "button3",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "pointing_button": "button10" }
-          ],
-          "conditions": [
-            { "type": "variable_if", "name": "button5_down", "value": 1 }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "pointing_button": "button6",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "pointing_button": "button11" }
-          ],
-          "conditions": [
-            { "type": "variable_if", "name": "button5_down", "value": 1 }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "pointing_button": "button7",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "pointing_button": "button12" }
-          ],
-          "conditions": [
-            { "type": "variable_if", "name": "button5_down", "value": 1 }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "apple_vendor_keyboard_key_code": "mission_control",
-            "modifiers": { "optional": [ "any" ] }
-          },
-          "to": [
-            { "apple_vendor_keyboard_key_code": "launchpad" }
-          ],
-          "conditions": [
-            { "type": "variable_if", "name": "button5_down", "value": 1 }
+            { "type": "variable_if", "name": "button5_down", "value": 1 },
+            { "type": "frontmost_application_if", "bundle_identifiers": [ "^com\\.apple\\.universalcontrol" ] }
           ]
         }
       ]
