@@ -12,6 +12,7 @@
 
 # Fish
 /.config/fish/fish_variables
+/.config/fish/fishd.tmp.*
 
 # Zsh
 /.config/zsh/.zsh_history

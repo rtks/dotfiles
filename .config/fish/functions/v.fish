@@ -1,5 +1,5 @@
 function v
-    set -l files (nvim --headless -c 'echo v:oldfiles | q' 2>&1 | string match -arg "'(.*?)'[,\]]" | string replace "''" "\'" | string match -v '*/tmp/*' | string match -v '*COMMIT_EDITMSG' | string match -vr '_(BASE|LOCAL|REMOTE)_' | string replace $HOME '~')
+    set -l files (nvim --headless -c 'echo v:oldfiles | q' 2>&1 | string match -arg "'(.*?)'[,\]]" | string replace "''" "\'" | string match -v "*$TMPDIR*" | string match -v '*COMMIT_EDITMSG' | string match -vr '_(BASE|LOCAL|REMOTE)_' | string replace $HOME '~')
     if [ (count $files) -eq 1 ]
       nvim (string replace -r '^~' $HOME -- $files)
     else
