@@ -2,6 +2,8 @@ abbr -a gfi 'git fixup'
 abbr -a gfia 'git add --all; git-fixup'
 abbr -a gau 'git add --update'
 
+abbr -a d 'docker'
+
 abbr -a t 'tig --all'
 
 abbr -a dco 'docker compose'
