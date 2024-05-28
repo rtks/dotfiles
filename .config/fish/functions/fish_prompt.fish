@@ -6,12 +6,14 @@ end
 function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
 
-  if not set -q __fish_prompt_result
+  if set -q __fish_prompt_result
+    set -g __fish_prompt_git_info $__fish_prompt_result
+    set -e __fish_prompt_result
+  else if command git rev-parse --git-dir >/dev/null 2>&1
     set __fish_prompt_git_info (set_color $fish_color_autosuggestion;string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
     __run_async __git_informative_prompt __fish_prompt_callback
   else
-    set -g __fish_prompt_git_info $__fish_prompt_result
-    set -e __fish_prompt_result
+    set -g __fish_prompt_git_info ''
   end
 
   # Hostname
