@@ -53,7 +53,7 @@ set -gx SHELL (type -P fish)
 if type -q nvim
   set -gx EDITOR (type -P nvim)
   alias vim=nvim
-else
+else if type -q vim
   set -gx EDITOR (type -P vim)
 end
 
