@@ -1,5 +1,20 @@
+function __fish_prompt_setup_on_startup --on-event fish_prompt
+  functions -e (status current-function)
+  set -g __fish_prompt_result (__git_informative_prompt)
+end
+
 function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
+
+  if set -q __fish_prompt_result
+    set -g __fish_prompt_git_info $__fish_prompt_result
+    set -e __fish_prompt_result
+  else if command git rev-parse --git-dir >/dev/null 2>&1
+    set __fish_prompt_git_info (set_color $fish_color_autosuggestion;string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
+    __run_async __git_informative_prompt __fish_prompt_callback
+  else
+    set -g __fish_prompt_git_info ''
+  end
 
   # Hostname
   if set -q SSH_CONNECTED; or set -q SSH_CONNECTION
@@ -17,10 +32,7 @@ function fish_prompt --description 'Write out the prompt'
   set_color normal
 
   # Git
-  if command git rev-parse --git-dir >/dev/null 2>&1
-    echo -n (__git_informative_prompt)
-  end
-
+  echo -n $__fish_prompt_git_info
   echo -n ' '
 
   # Duration
@@ -119,23 +131,25 @@ function fish_prompt --description 'Write out the prompt'
   set_color normal
 end
 
-function __git_informative_prompt_loading_indicator -a last_prompt
-  if [ -z $last_prompt ]
-    set last_prompt " (…)"
-  end
-  echo -n "$last_prompt" | sed -r 's/\x1B\[[0-9;]*[JKmsu]//g' | read -zl uncolored_last_prompt
-  echo -n (set_color $fish_color_autosuggestion)"$uncolored_last_prompt"(set_color normal)
+function __fish_prompt_callback
+  set -g __fish_prompt_result $argv[1]
+  __fish_prompt_refresh
 end
 
-set -g async_prompt_functions __git_informative_prompt
+function __fish_prompt_refresh
+  fish -c "kill -WINCH $fish_pid" 2>/dev/null &
+  disown  # ジョブ実行中に終了できるようにする
+end
 
 function __fish_prompt_pwd --on-variable PWD
-  __async_prompt_fire
-  set -ga __fish_prompt_trigger PWD
+  set -g __fish_prompt_git_info ''
+  set -g __fish_prompt_trigger PWD
 end
 
 function __fish_prompt_path --on-variable PATH
-    set -ga __fish_prompt_trigger PATH
+  if ! set -q __fish_prompt_trigger
+    set -g __fish_prompt_trigger PATH
+  end
 end
 
 function __fish_prompt_postexec --on-event fish_postexec
@@ -164,9 +178,9 @@ function __fish_prompt_postexec --on-event fish_postexec
 
   # Current Rust version
   type -q rustc
-  and begin
+  and begin 
     test -f (__fish_prompt_pwd_get Cargo.toml)
-    or test (count *.rs) -gt 0
+    or test (count *.rs) -gt 0 
   end
   and begin
     set line $line(set_color yellow)
@@ -176,7 +190,7 @@ function __fish_prompt_postexec --on-event fish_postexec
   end
 
   # Current Python version
-  begin
+  begin 
     type -q python
     or type -q python3
   end
@@ -198,7 +212,7 @@ function __fish_prompt_postexec --on-event fish_postexec
       set line $line(python3 --version 2>&1 | string replace "Python " "")
     end
   end
-
+  
   # Current version of package in current directory
   type -q cargo
   and test -f (__fish_prompt_pwd_get Cargo.toml)
