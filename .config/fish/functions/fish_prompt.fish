@@ -1,17 +1,15 @@
-function __fish_prompt_setup_on_startup --on-event fish_prompt
-  functions -e (status current-function)
-  set -g __fish_prompt_result (__git_informative_prompt)
-end
-
 function fish_prompt --description 'Write out the prompt'
   set -l last_status $status
 
-  if set -q __fish_prompt_result
-    set -g __fish_prompt_git_info $__fish_prompt_result
-    set -e __fish_prompt_result
-  else if command git rev-parse --git-dir >/dev/null 2>&1
-    set __fish_prompt_git_info (set_color $fish_color_autosuggestion;string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
-    __run_async __git_informative_prompt __fish_prompt_callback
+  if set -q __fish_prompt_git_root
+    if set -q $__fish_prompt_result
+      set -g __fish_prompt_git_info $$__fish_prompt_result
+      set -e $__fish_prompt_result
+    else
+      set __fish_prompt_git_info (set_color $fish_color_autosuggestion; string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
+      fish -P -c "set -U $__fish_prompt_result (__git_informative_prompt); kill -s USR1 $fish_pid 2>/dev/null" &
+      disown
+    end
   else
     set -g __fish_prompt_git_info ''
   end
@@ -28,7 +26,7 @@ function fish_prompt --description 'Write out the prompt'
   if not test -w .
     echo -n ''
   end
-  echo -n (prompt_pwd)
+  echo -n $__fish_prompt_pwd
   set_color normal
 
   # Git
@@ -131,32 +129,49 @@ function fish_prompt --description 'Write out the prompt'
   set_color normal
 end
 
-function __fish_prompt_callback
-  set -g __fish_prompt_result $argv[1]
-  __fish_prompt_refresh
+set --global __fish_prompt_result __fish_prompt_result_$fish_pid
+
+function __fish_prompt_repaint --on-signal USR1
+  commandline --function repaint
 end
 
-function __fish_prompt_refresh
-  fish -c "kill -WINCH $fish_pid" 2>/dev/null &
-  disown  # ジョブ実行中に終了できるようにする
+function __fish_prompt_exit --on-event fish_exit
+  set -q $__fish_prompt_result && set -e $__fish_prompt_result
 end
 
 function __fish_prompt_pwd --on-variable PWD
-  set -g __fish_prompt_git_info ''
-  set -g __fish_prompt_trigger PWD
+  set -ga __fish_prompt_trigger PWD
+  
+  set -l git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
+
+  if set --query git_root[1]
+    if [ "$git_root[1]" != "$__fish_prompt_git_root" ]
+      set -g __fish_prompt_git_info ' (…)'
+    end
+    set -g __fish_prompt_git_root $git_root[1]
+  else
+    set -e __fish_prompt_git_root
+  end
+
+  set -l git_base (string replace --all --regex -- "^.*/" "" "$git_root")
+  set -g __fish_prompt_pwd (
+    string replace --ignore-case -- ~ \~ $PWD |
+    string replace -- "/$git_base/" /:/ |
+    string replace --regex --all -- "(\.?[^/]{1})[^/]*/" "\$1/" |
+    string replace -- : "$git_base"
+  )
 end
 
+__fish_prompt_pwd
+
 function __fish_prompt_path --on-variable PATH
-  if ! set -q __fish_prompt_trigger
-    set -g __fish_prompt_trigger PATH
-  end
+  set -ga __fish_prompt_trigger PATH
 end
 
 function __fish_prompt_postexec --on-event fish_postexec
   if ! set -q __fish_prompt_trigger
     return
   end
-  set -l trigger "$__fish_prompt_trigger"
   set -e __fish_prompt_trigger
 
   set -l line ''
