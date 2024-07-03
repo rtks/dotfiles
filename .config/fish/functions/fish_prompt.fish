@@ -7,7 +7,22 @@ function fish_prompt --description 'Write out the prompt'
       set -e $__fish_prompt_result
     else
       set __fish_prompt_git_info (set_color $fish_color_autosuggestion; string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
-      fish -P -c "set -U $__fish_prompt_result (__git_informative_prompt); kill -s USR1 $fish_pid 2>/dev/null" &
+      fish -P -c "
+        set -x GIT_OPTIONAL_LOCKS 0
+        set __fish_git_prompt_show_informative_status 'yes'
+        set __fish_git_prompt_showcolorhints 'yes'
+        set __fish_git_prompt_showstashstate 'yes'
+        set __fish_git_prompt_showuntrackedfiles 'yes'
+        set __fish_git_prompt_char_cleanstate '✓'
+        set __fish_git_prompt_char_dirtystate '+'
+        set __fish_git_prompt_char_invalidstate '×'
+        set __fish_git_prompt_char_stagedstate '✓'
+        set __fish_git_prompt_char_stashstate '∎'
+        set __fish_git_prompt_char_untrackedfiles '…'
+        set __fish_git_prompt_char_upstream_ahead '⤴'
+        set __fish_git_prompt_char_upstream_behind '⤵'
+        set -U $__fish_prompt_result (fish_git_prompt)
+        kill -s USR1 $fish_pid 2>/dev/null" &
       disown
     end
   else
@@ -149,7 +164,7 @@ end
 
 function __fish_prompt_pwd --on-variable PWD
   set -ga __fish_prompt_trigger PWD
-  
+
   set -l git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
 
   if set --query git_root[1]
@@ -185,13 +200,13 @@ function __fish_prompt_postexec --on-event fish_postexec
   set -l line ''
 
   # Current Git author
-  if command git rev-parse 2>/dev/null
+  if command git --no-optional-locks rev-parse 2>/dev/null
     set line $line(set_color yellow)
     set line $line"Git "
     set line $line(set_color normal)
-    set line $line(git config user.name)" <"(git config user.email)"> "
+    set line $line(command git --no-optional-locks config user.name)" <"(command git --no-optional-locks config user.email)"> "
     function __fish_prompt_pwd_get
-      echo (ls {(git rev-parse --show-toplevel),./}/$argv[1] 2>/dev/null)[1]
+      echo (ls {(command git --no-optional-locks rev-parse --show-toplevel),./}/$argv[1] 2>/dev/null)[1]
     end
   else
     function __fish_prompt_pwd_get
@@ -201,9 +216,9 @@ function __fish_prompt_postexec --on-event fish_postexec
 
   # Current Rust version
   type -q rustc
-  and begin 
+  and begin
     test -f (__fish_prompt_pwd_get Cargo.toml)
-    or test (count *.rs) -gt 0 
+    or test (count *.rs) -gt 0
   end
   and begin
     set line $line(set_color yellow)
@@ -213,7 +228,7 @@ function __fish_prompt_postexec --on-event fish_postexec
   end
 
   # Current Python version
-  begin 
+  begin
     type -q python
     or type -q python3
   end
@@ -235,7 +250,7 @@ function __fish_prompt_postexec --on-event fish_postexec
       set line $line(python3 --version 2>&1 | string replace "Python " "")
     end
   end
-  
+
   # Current version of package in current directory
   type -q cargo
   and test -f (__fish_prompt_pwd_get Cargo.toml)
