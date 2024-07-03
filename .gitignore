@@ -13,6 +13,7 @@
 # Fish
 /.config/fish/fish_variables
 /.config/fish/fishd.tmp.*
+/.config/fish/fisher
 
 # Zsh
 /.config/zsh/.zsh_history
@@ -23,63 +24,3 @@
 # Karabiner
 /.config/yadm/alt/.config/karabiner##os.Darwin/automatic_backups/*
 
-# Fisher Plugin files
-/.config/fish/completions/fisher.fish
-/.config/fish/functions/fisher.fish
-/.config/fish/functions/__bass.py
-/.config/fish/functions/bass.fish
-/.config/fish/functions/bd.fish
-/.config/fish/completions/bd.fish
-/.config/fish/functions/_fzf_configure_bindings_help.fish
-/.config/fish/functions/_fzf_extract_var_info.fish
-/.config/fish/functions/_fzf_preview_changed_file.fish
-/.config/fish/functions/_fzf_preview_file.fish
-/.config/fish/functions/_fzf_report_diff_type.fish
-/.config/fish/functions/_fzf_report_file_type.fish
-/.config/fish/functions/_fzf_search_directory.fish
-/.config/fish/functions/_fzf_search_git_log.fish
-/.config/fish/functions/_fzf_search_git_status.fish
-/.config/fish/functions/_fzf_search_history.fish
-/.config/fish/functions/_fzf_search_processes.fish
-/.config/fish/functions/_fzf_search_variables.fish
-/.config/fish/functions/_fzf_wrapper.fish
-/.config/fish/functions/fzf_configure_bindings.fish
-/.config/fish/conf.d/fzf.fish
-/.config/fish/completions/fzf_configure_bindings.fish
-/.config/fish/functions/getopts.fish
-/.config/fish/functions/__z.fish
-/.config/fish/functions/__z_add.fish
-/.config/fish/functions/__z_clean.fish
-/.config/fish/functions/__z_complete.fish
-/.config/fish/functions/__zo.fish
-/.config/fish/conf.d/z.fish
-/.config/fish/conf.d/git.fish
-/.config/fish/conf.d/plugin-git_init.fish
-/.config/fish/functions/__git.destroy.fish
-/.config/fish/functions/__git.init.fish
-/.config/fish/functions/__git.reset.fish
-/.config/fish/functions/__git.branch_has_wip.fish
-/.config/fish/functions/__git.current_branch.fish
-/.config/fish/functions/__git.default_branch.fish
-/.config/fish/functions/gbage.fish
-/.config/fish/functions/gbda.fish
-/.config/fish/functions/gdt.fish
-/.config/fish/functions/gdv.fish
-/.config/fish/functions/ggl.fish
-/.config/fish/functions/ggp.fish
-/.config/fish/functions/ggpnp.fish
-/.config/fish/functions/ggsup.fish
-/.config/fish/functions/ggu.fish
-/.config/fish/functions/gignored.fish
-/.config/fish/functions/glp.fish
-/.config/fish/functions/gpoat.fish
-/.config/fish/functions/grename.fish
-/.config/fish/functions/grt.fish
-/.config/fish/functions/gtl.fish
-/.config/fish/functions/gunwip.fish
-/.config/fish/functions/gwip.fish
-/.config/fish/functions/gtest.fish
-/.config/fish/functions/uninstall.fish
-/.config/fish/completions/docker-compose.fish
-/.config/fish/completions/docker.fish
-/.config/fish/conf.d/halostatue_fish_docker.fish
