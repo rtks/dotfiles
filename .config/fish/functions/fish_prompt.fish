@@ -16,7 +16,7 @@ function fish_prompt --description 'Write out the prompt'
 
   # Hostname
   if set -q SSH_CONNECTED; or set -q SSH_CONNECTION
-    if not set -q TMUX
+    if not set -q TMUX; and not set -q VSCODE_SHELL_INTEGRATION
       echo -n (prompt_hostname)' '
     end
   end
