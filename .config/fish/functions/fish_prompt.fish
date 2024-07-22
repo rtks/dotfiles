@@ -75,7 +75,7 @@ function fish_prompt --description 'Write out the prompt'
   set_color normal
 
   # Job Count
-  set -l job_count (count (jobs | grep -v _async_job_result_ | grep -v 'kill -WINCH'))
+  set -l job_count (count (jobs))
   if test $job_count -gt 0
     echo -n "+"$job_count" "
   end
