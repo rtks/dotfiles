@@ -1,5 +1,5 @@
 /*
-!/.config
+!/.config/
 /.config/*
 !/.config/fish/
 !/.config/yadm/
@@ -9,6 +9,9 @@
 !/.config/git/
 !/.config/nvim/
 !/.github/
+
+!/.gitconfig
+!/.gitignore
 
 # Fish
 /.config/fish/fish_variables
