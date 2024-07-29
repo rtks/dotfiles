@@ -48,6 +48,21 @@ __add_path PATH $HOME/.local/bin
 __add_path MANPATH $HOME/.local/share/man
 
 ########
+# fisher
+set -g fisher_path $__fish_config_dir/fisher
+set fish_complete_path $fish_complete_path[1] $fisher_path/completions $fish_complete_path[2..]
+set fish_function_path $fish_function_path[1] $fisher_path/functions $fish_function_path[2..]
+for file in $fisher_path/conf.d/*.fish
+  source $file
+end
+
+########
+# local
+if test -f ~/.config/fish/config_local.fish
+  source ~/.config/fish/config_local.fish
+end
+
+########
 ## envs
 set -gx SHELL (type -P fish)
 if type -q nvim
@@ -65,25 +80,9 @@ set -gx LS_COLORS 'rs=0:di=1;36:ln=35:mh=0:pi=33:so=32:do=0:bd=0:cd=0:or=40;31;0
 ########
 ## fzf
 set -gx FZF_DEFAULT_OPTS "--height=~50% --reverse --inline-info --ansi\
- --bind ctrl-f:page-down,ctrl-b:page-up\
- --color bg+:007,fg+:010,hl:009,hl+:009,border:007 --preview-window=border-left"
+  --bind ctrl-f:page-down,ctrl-b:page-up\
+  --color bg+:007,fg+:010,hl:009,hl+:009,border:007 --preview-window=border-left"
 
-########
-# msys
-if [ -n $MSYSTEM ]
-  set -gx MSYS winsymlinks:nativestrict
-end
-
-########
-# fisher
-set -g fisher_path $__fish_config_dir/fisher
-
-set fish_complete_path $fish_complete_path[1] $fisher_path/completions $fish_complete_path[2..]
-set fish_function_path $fish_function_path[1] $fisher_path/functions $fish_function_path[2..]
-
-for file in $fisher_path/conf.d/*.fish
-    source $file
-end
 
 test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish
 
