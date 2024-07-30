@@ -1,0 +1,70 @@
+add_newline = false
+command_timeout = 5000
+
+# Which is equivalent to
+format = """
+${custom.extra}\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$fossil_branch\
+$fossil_metrics\
+${env_var.FISH_PROMPT_GIT}\
+$hg_branch\
+$pijul_channel\
+$docker_context\
+$sudo\
+$cmd_duration\
+$jobs\
+$battery\
+$time\
+$status\
+$os\
+$container\
+$shell\
+$character"""
+
+[username]
+disabled = true
+
+[battery]
+disabled = true
+
+[hostname]
+format = "[$hostname]($style) "
+style = "bright black"
+
+[directory]
+style = "green"
+fish_style_pwd_dir_length = 1
+
+[character]
+success_symbol = "[>](black)"
+error_symbol = "[>](bold red)"
+vimcmd_symbol = "[>](green)"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+min_time = 5000
+
+[status]
+disabled = false
+format = '[$status(\($common_meaning$signal_name\))]($style) '
+pipestatus = true
+pipestatus_separator = ""
+pipestatus_format = '$pipestatus'
+
+[env_var.FISH_PROMPT_GIT]
+format = "$env_value"
+
+[custom.extra]
+command = 'STARSHIP_CONFIG=~/.config/starship_extra.toml starship prompt | sed "s/\x1B\[J//"'
+when = 'test -n "$FISH_PROMPT_EXTRA"'
+shell = ['bash']
+format = "($output\n)"
+ignore_timeout = true

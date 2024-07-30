@@ -1,0 +1,92 @@
+add_newline = false
+
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+[localip]
+disabled = true
+
+[shlvl]
+disabled = true
+
+[singularity]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[directory]
+disabled = true
+
+[vcsh]
+disabled = true
+
+[fossil_branch]
+disabled = true
+
+[fossil_metrics]
+disabled = true
+
+[git_branch]
+disabled = true
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_metrics]
+disabled = true
+
+[git_status]
+disabled = true
+
+[hg_branch]
+disabled = true
+
+[pijul_channel]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[sudo]
+disabled = true
+
+[cmd_duration]
+disabled = true
+
+[jobs]
+disabled = true
+
+[battery]
+disabled = true
+
+[time]
+disabled = true
+
+[status]
+disabled = true
+
+[os]
+disabled = true
+
+[container]
+disabled = true
+
+[shell]
+disabled = true
+
+[character]
+disabled = true
+
+[custom.git_user]
+when = true
+require_repo = true
+shell = ['bash']
+command = 'echo "$(git config user.name) <$(git config user.email)>"'
+style = 'bright black'

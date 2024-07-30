@@ -8,6 +8,9 @@
 !/.config/zsh/
 !/.config/git/
 !/.config/nvim/
+!/.config/starship.toml
+!/.config/starship_git.toml
+!/.config/starship_extra.toml
 !/.github/
 
 !/.gitconfig
