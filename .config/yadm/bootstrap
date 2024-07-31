@@ -123,6 +123,15 @@ else
   msg "fish not found. Skip bootstrap."
 fi
 
+# Bootstrap starship
+if command -v zsh &>/dev/null || command -v fish &>/dev/null; then
+  if ! command -v starship &>/dev/null; then
+    msg "Bootstraping starship"
+    mkdir -p $HOME/.local/bin
+    curl -fsSL https://starship.rs/install.sh | sh /dev/stdin -f -b $HOME/.local/bin | awk '/complete the installation/{exit}1'
+  fi
+fi
+
 # Bootstrap tmux
 if command -v tmux >/dev/null 2>&1; then
   if [ ! -f ~/.tmux/plugins/tpm/tpm ]; then
