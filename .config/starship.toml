@@ -3,7 +3,7 @@ command_timeout = 5000
 
 # Which is equivalent to
 format = """
-${custom.extra}\
+${env_var.FISH_PROMPT_EXTRA}\
 $hostname\
 $localip\
 $os\
@@ -15,7 +15,10 @@ $directory\
 $vcsh\
 $fossil_branch\
 $fossil_metrics\
+(\\($git_branch\
+$git_commit\
 ${env_var.FISH_PROMPT_GIT}\
+$git_state\\) )\
 $hg_branch\
 $pijul_channel\
 $sudo\
@@ -39,9 +42,30 @@ style = "bright black"
 [container]
 format = '[$symbol $name]($style) '
 
+[shell]
+disabled = false
+format = '[$indicator]($style)'
+style = 'blue'
+fish_indicator = ''
+bash_indicator = 'bash '
+zsh_indicator = 'zsh '
+powershell_indicator = 'PS '
+
 [directory]
 style = "green"
 fish_style_pwd_dir_length = 1
+
+[git_branch]
+format = '[$branch]($style)'
+style = "green"
+
+[git_commit]
+format = '[\($hash$tag\)]($style)'
+style = "green"
+
+[git_state]
+format = '(|[$state($progress_current/$progress_total)]($style))'
+style = "bright-black"
 
 [character]
 success_symbol = "[>](black)"
@@ -51,7 +75,7 @@ vimcmd_symbol = "[>](green)"
 [cmd_duration]
 format = "[$duration]($style) "
 style = "yellow"
-min_time = 5000
+min_time = 500
 
 [status]
 disabled = false
@@ -61,11 +85,7 @@ pipestatus_separator = ""
 pipestatus_format = '$pipestatus'
 
 [env_var.FISH_PROMPT_GIT]
-format = "$env_value"
+format = '[$env_value](black)'
 
-[custom.extra]
-command = 'STARSHIP_CONFIG=~/.config/starship_extra.toml starship prompt | sed "s/\x1B\[J//"'
-when = 'test -n "$FISH_PROMPT_EXTRA"'
-shell = ['bash']
-format = "($output\n)"
-ignore_timeout = true
+[env_var.FISH_PROMPT_EXTRA]
+format = "[$env_value](black)\n"

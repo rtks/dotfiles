@@ -14,10 +14,15 @@ if not type -q starship
     set -l last_pipestatus $pipestatus
 
     if set -q __fish_prompt_git_root
-      if set -q $__fish_prompt_result
+      if set -q __fish_prompt_queued
+        while not set -q $__fish_prompt_result
+          sleep 0.01
+        end
         set -g __fish_prompt_git_info $$__fish_prompt_result
         set -e $__fish_prompt_result
+        set -e __fish_prompt_queued
       else
+        set -g __fish_prompt_queued
         set __fish_prompt_git_info (set_color $fish_color_autosuggestion; string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
         fish -P -c "
           set -x GIT_OPTIONAL_LOCKS 0
@@ -174,8 +179,8 @@ if not type -q starship
     if set --query git_root[1]
       if [ "$git_root[1]" != "$__fish_prompt_git_root" ]
         set -g __fish_prompt_git_info ' (…)'
+        set -g __fish_prompt_git_root $git_root[1]
       end
-      set -g __fish_prompt_git_root $git_root[1]
     else
       set -e __fish_prompt_git_root
     end
@@ -280,39 +285,75 @@ if not type -q starship
 
 else
 
-  function fish_prompt --description 'Write out the prompt'
-    set -l last_status $status
-    set -l last_pipestatus $pipestatus
-    set -l job_count (count (jobs -p))
+  starship init fish | source
+  function starship_transient_prompt_func
+    echo -n '> '
+  end
+  #enable_transience
+  functions -c fish_prompt fish_prompt_starship
+  functions -e fish_prompt
+  functions -e fish_right_prompt
 
+  function fish_prompt --description 'Write out the prompt'
+    switch "$fish_key_bindings"
+        case fish_hybrid_key_bindings fish_vi_key_bindings
+            set STARSHIP_KEYMAP "$fish_bind_mode"
+        case '*'
+            set STARSHIP_KEYMAP insert
+    end
+    set STARSHIP_CMD_PIPESTATUS $pipestatus
+    set STARSHIP_CMD_STATUS $status
+    # Account for changes in variable name between v2.7 and v3.0
+    set STARSHIP_DURATION "$CMD_DURATION$cmd_duration"
+    set STARSHIP_JOBS (count (jobs -p))
+
+    if test "$TRANSIENT" = "1"
+      fish_prompt_starship
+      return
+    end
+
+    set -lx FISH_PROMPT_GIT ''
     if set -q __fish_prompt_git_root
-      if set -q $__fish_prompt_result
-        set -gx FISH_PROMPT_GIT $$__fish_prompt_result
+      if set -q __fish_prompt_queued
+        while not set -q $__fish_prompt_result
+          sleep 0.01
+        end
+        set -g __fish_prompt_git_info $$__fish_prompt_result
         set -e $__fish_prompt_result
+        set -e __fish_prompt_queued
       else
-        set FISH_PROMPT_GIT (set_color $fish_color_autosuggestion; string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $FISH_PROMPT_GIT)
+        set -g __fish_prompt_queued 1
+        set __fish_prompt_git_info (set_color $fish_color_autosuggestion; string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
         fish -P -c "
-          set -Ux $__fish_prompt_result (STARSHIP_CONFIG=~/.config/starship_git.toml starship prompt)
+          set -U $__fish_prompt_result (STARSHIP_CONFIG=~/.config/starship_git.toml starship prompt)
           kill -s USR1 $fish_pid 2>/dev/null" &
         disown
       end
+      set FISH_PROMPT_GIT $__fish_prompt_git_info
     else
       set -e FISH_PROMPT_GIT
     end
 
-    starship prompt --terminal-width="$COLUMNS" --status=$last_status --pipestatus="$last_pipestatus" --keymap=$STARSHIP_KEYMAP --cmd-duration=$CMD_DURATION --jobs=$job_count
+    set -lx FISH_PROMPT_EXTRA ''
+    if set -q __fish_prompt_trigger
+      set FISH_PROMPT_EXTRA (STARSHIP_CONFIG=~/.config/starship_extra.toml starship prompt | sed "s/\x1B\[J//")
+    end
+    if test -z "$FISH_PROMPT_EXTRA"
+      set -e FISH_PROMPT_EXTRA
+    end
+    starship prompt --terminal-width="$COLUMNS" --status=$STARSHIP_CMD_STATUS --pipestatus="$STARSHIP_CMD_PIPESTATUS" --keymap=$STARSHIP_KEYMAP --cmd-duration=$STARSHIP_DURATION --jobs=$STARSHIP_JOBS
   end
 
   function __fish_prompt_pwd --on-variable PWD
-    set -gx FISH_PROMPT_EXTRA 1
+    set -ga __fish_prompt_trigger PWD
 
     set -l git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
 
     if set --query git_root[1]
       if [ "$git_root[1]" != "$__fish_prompt_git_root" ]
-          set -gx FISH_PROMPT_GIT '(…) '
+        set -g __fish_prompt_git_info '…'
+        set -g __fish_prompt_git_root $git_root[1]
       end
-      set -g __fish_prompt_git_root $git_root[1]
     else
       set -e __fish_prompt_git_root
     end
@@ -321,10 +362,10 @@ else
   __fish_prompt_pwd
 
   function __fish_prompt_path --on-variable PATH
-    set -gx FISH_PROMPT_EXTRA 1
+    set -ga __fish_prompt_trigger PATH
   end
 
   function __fish_prompt_preexec --on-event fish_preexec
-    set -e FISH_PROMPT_EXTRA
+    set -e __fish_prompt_trigger
   end
 end
