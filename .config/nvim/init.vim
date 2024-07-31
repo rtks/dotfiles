@@ -34,6 +34,8 @@ set autoindent
 set expandtab
 set shiftwidth=4
 
+set mouse=
+
 set encoding=utf-8
 if has('mac')
   set fileencodings=utf-8
