@@ -1,5 +1,8 @@
 add_newline = false
 
+[line_Break]
+disabled = true
+
 [username]
 disabled = true
 
@@ -13,9 +16,6 @@ disabled = true
 disabled = true
 
 [singularity]
-disabled = true
-
-[kubernetes]
 disabled = true
 
 [directory]
@@ -51,9 +51,6 @@ disabled = true
 [pijul_channel]
 disabled = true
 
-[docker_context]
-disabled = true
-
 [sudo]
 disabled = true
 
@@ -84,9 +81,13 @@ disabled = true
 [character]
 disabled = true
 
+[package]
+format = '[$symbol$version]($style) '
+
 [custom.git_user]
 when = true
 require_repo = true
 shell = ['bash']
 command = 'echo "$(git config user.name) <$(git config user.email)>"'
 style = 'bright black'
+symbol = '📝 '

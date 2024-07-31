@@ -6,9 +6,11 @@ format = """
 ${custom.extra}\
 $hostname\
 $localip\
+$os\
+$container\
+$shell\
 $shlvl\
 $singularity\
-$kubernetes\
 $directory\
 $vcsh\
 $fossil_branch\
@@ -16,16 +18,12 @@ $fossil_metrics\
 ${env_var.FISH_PROMPT_GIT}\
 $hg_branch\
 $pijul_channel\
-$docker_context\
 $sudo\
 $cmd_duration\
 $jobs\
 $battery\
 $time\
 $status\
-$os\
-$container\
-$shell\
 $character"""
 
 [username]
@@ -37,6 +35,9 @@ disabled = true
 [hostname]
 format = "[$hostname]($style) "
 style = "bright black"
+
+[container]
+format = '[$symbol $name]($style) '
 
 [directory]
 style = "green"
