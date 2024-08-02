@@ -22,10 +22,11 @@ function! s:plug.is_installed(name)
   return has_key(self.plugs, a:name) ? isdirectory(self.plugs[a:name].dir) : 0
 endfunction
 
-syntax enable
 filetype plugin indent on
 
 set background=light
+syntax enable
+
 set laststatus=2
 set backspace=2
 
@@ -65,7 +66,9 @@ if s:plug.is_installed("vim-airline")
   set noshowmode
 endif
 
+hi Normal guibg=NONE ctermbg=NONE
 hi DiffAdd    ctermfg=black ctermbg=2
 hi DiffChange ctermfg=black ctermbg=3
 hi DiffDelete ctermfg=black ctermbg=6
 hi DiffText   ctermfg=black ctermbg=7
+
