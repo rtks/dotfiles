@@ -7,7 +7,7 @@ esac
 if [[ "$LC_TERMINAL" = "ShellFish" ]]; then
     exec fish --login
 fi
-if [ -n "$ET_VERSION" ]; then
+if [ -n "$ET_VERSION" -a "$SHLVL" -le 2 ]; then
     exec fish --login
 fi
 
@@ -45,8 +45,12 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
+if type starship &>/dev/null; then
+  eval "$(starship init zsh)"
+else
+  zinit ice pick"async.zsh" src"pure.zsh"
+  zinit light sindresorhus/pure
+fi
 
 zinit snippet PZT::modules/terminal/init.zsh
 zinit snippet PZT::modules/history/init.zsh
