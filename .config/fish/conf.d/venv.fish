@@ -1,3 +1,7 @@
+if not status is-interactive
+  exit
+end
+
 function __auto_source_venv --on-variable PWD --description "Activate/Deactivate virtualenv on directory change"
   status --is-command-substitution; and return
 

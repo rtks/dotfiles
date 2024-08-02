@@ -1,3 +1,7 @@
+if not status is-interactive
+  exit
+end
+
 abbr -a gfi 'git fixup'
 abbr -a gfia 'git add --all; git-fixup'
 abbr -a gau 'git add --update'
