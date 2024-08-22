@@ -1,11 +1,18 @@
 set --global __fish_prompt_result __fish_prompt_result_$fish_pid
 
 function __fish_prompt_repaint --on-signal USR1
-  commandline --function repaint
+  if set -q __fish_prompt_queued
+    commandline --function repaint
+  end
 end
 
 function __fish_prompt_exit --on-event fish_exit
   set -q $__fish_prompt_result && set -e $__fish_prompt_result
+  for i in (set -Un | string match -r '^__fish_prompt_result_\d+$')
+    if not kill -s 0 (string match -r '\d+$' $i) &>/dev/null
+      set -e $i
+    end
+  end
 end
 
 if not type -q starship
@@ -15,7 +22,10 @@ if not type -q starship
 
     if set -q __fish_prompt_git_root
       if set -q __fish_prompt_queued
-        while not set -q $__fish_prompt_result
+        for i in (seq 100)
+          if set -q $__fish_prompt_result
+            break
+          end
           sleep 0.01
         end
         set -g __fish_prompt_git_info $$__fish_prompt_result
@@ -39,7 +49,14 @@ if not type -q starship
           set __fish_git_prompt_char_upstream_ahead '⤴'
           set __fish_git_prompt_char_upstream_behind '⤵'
           set -U $__fish_prompt_result (fish_git_prompt)
-          kill -s USR1 $fish_pid 2>/dev/null" &
+          kill -s USR1 $fish_pid 2>/dev/null
+          for i in (seq 10)
+            if not set -q $__fish_prompt_result
+              break
+            end
+            sleep 0.1
+            kill -s USR1 $fish_pid 2>/dev/null
+          end" &
         disown
       end
     else
@@ -315,7 +332,10 @@ else
     set -lx FISH_PROMPT_GIT ''
     if set -q __fish_prompt_git_root
       if set -q __fish_prompt_queued
-        while not set -q $__fish_prompt_result
+        for i in (seq 100)
+          if set -q $__fish_prompt_result
+            break
+          end
           sleep 0.01
         end
         set -g __fish_prompt_git_info $$__fish_prompt_result
@@ -326,7 +346,14 @@ else
         set __fish_prompt_git_info (set_color $fish_color_autosuggestion; string replace -r -a '\\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]' '' $__fish_prompt_git_info)
         fish -P -c "
           set -U $__fish_prompt_result (STARSHIP_CONFIG=~/.config/starship_git.toml starship prompt)
-          kill -s USR1 $fish_pid 2>/dev/null" &
+          kill -s USR1 $fish_pid 2>/dev/null
+          for i in (seq 10)
+            if not set -q $__fish_prompt_result
+              break
+            end
+            sleep 0.1
+            kill -s USR1 $fish_pid 2>/dev/null
+          end" &
         disown
       end
       set FISH_PROMPT_GIT $__fish_prompt_git_info
