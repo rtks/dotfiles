@@ -60,10 +60,6 @@
 	log = diff-highlight | nkf -w | less -R
 	show = diff-highlight | nkf -w | less -R
 	diff = diff-highlight | nkf -w | less -R
-[diff "toutf8"]
-	textconv = nkf -w8
-[diff "nkf"]
-	textconv = nkf
 [include]
 	path = ~/.config/git/config.local
 [interactive]
