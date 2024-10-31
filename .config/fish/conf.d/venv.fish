@@ -13,19 +13,22 @@ function __auto_source_venv --on-variable PWD --description "Activate/Deactivate
   end
 
   # find a virtual environment
-  set dir (string replace "$gitdir" '' -- $PWD)
+  set dir (pwd)
   set VENV_DIR_NAMES env .env venv .venv
-  while true
-    for venv_dir in $gitdir$dir/$VENV_DIR_NAMES
-      if test -e "$venv_dir/bin/activate.fish"
-        if test "$VIRTUAL_ENV" != "$venv_dir"
-          source $venv_dir/bin/activate.fish
+  while test $dir != /
+    for venv_dir in $dir/$VENV_DIR_NAMES
+      if test -d $venv_dir
+        if test "$VIRTUAL_ENV" != $venv_dir
+          for venv_activate in $venv_dir/{bin,Scripts}/activate.fish
+            if test -e $venv_activate
+              source $venv_activate
+            end
+          end
         end
 		return
       end
     end
-    set dir (string replace -r '/[^/]*$' '' -- $dir)
-    test -z "$dir"; and break
+    set dir (path dirname $dir)
   end
   # If venv activated but the current (git) dir has no venv.
   if test -n "$VIRTUAL_ENV"; and functions -q deactivate
