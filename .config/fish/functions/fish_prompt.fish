@@ -311,6 +311,11 @@ else
   functions -e fish_prompt
   functions -e fish_right_prompt
 
+  function __fish_prompt_cmd_finished --on-event fish_postexec
+    set -g STARSHIP_CMD_PIPESTATUS $pipestatus
+    set -g STARSHIP_CMD_STATUS $status
+  end
+
   function fish_prompt --description 'Write out the prompt'
     switch "$fish_key_bindings"
         case fish_hybrid_key_bindings fish_vi_key_bindings
@@ -318,8 +323,6 @@ else
         case '*'
             set STARSHIP_KEYMAP insert
     end
-    set STARSHIP_CMD_PIPESTATUS $pipestatus
-    set STARSHIP_CMD_STATUS $status
     # Account for changes in variable name between v2.7 and v3.0
     set STARSHIP_DURATION "$CMD_DURATION$cmd_duration"
     set STARSHIP_JOBS (count (jobs -p))
