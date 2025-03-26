@@ -20,6 +20,27 @@ if not type -q starship
   function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus
 
+    if contains PWD $__fish_prompt_trigger
+      set -l git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
+
+      if set --query git_root[1]
+        if [ "$git_root[1]" != "$__fish_prompt_git_root" ]
+          set -g __fish_prompt_git_info ' (…)'
+          set -g __fish_prompt_git_root $git_root[1]
+        end
+      else
+        set -e __fish_prompt_git_root
+      end
+
+      set -l git_base (string replace --all --regex -- "^.*/" "" "$git_root")
+      set -g __fish_prompt_pwd (
+        string replace --ignore-case -- ~ \~ $PWD |
+        string replace -- "/$git_base/" /:/ |
+        string replace --regex --all -- "(\.?[^/]{1})[^/]*/" "\$1/" |
+        string replace -- : "$git_base"
+      )
+    end
+
     if set -q __fish_prompt_git_root
       if set -q __fish_prompt_queued
         for i in (seq 100)
@@ -188,32 +209,13 @@ if not type -q starship
     set_color normal
   end
 
-  function __fish_prompt_pwd --on-variable PWD
+  function __fish_prompt_pwd_changed --on-variable PWD
     set -ga __fish_prompt_trigger PWD
-
-    set -l git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
-
-    if set --query git_root[1]
-      if [ "$git_root[1]" != "$__fish_prompt_git_root" ]
-        set -g __fish_prompt_git_info ' (…)'
-        set -g __fish_prompt_git_root $git_root[1]
-      end
-    else
-      set -e __fish_prompt_git_root
-    end
-
-    set -l git_base (string replace --all --regex -- "^.*/" "" "$git_root")
-    set -g __fish_prompt_pwd (
-      string replace --ignore-case -- ~ \~ $PWD |
-      string replace -- "/$git_base/" /:/ |
-      string replace --regex --all -- "(\.?[^/]{1})[^/]*/" "\$1/" |
-      string replace -- : "$git_base"
-    )
   end
 
-  __fish_prompt_pwd
+  __fish_prompt_pwd_changed
 
-  function __fish_prompt_path --on-variable PATH
+  function __fish_prompt_path_changed --on-variable PATH
     set -ga __fish_prompt_trigger PATH
   end
 
@@ -235,7 +237,7 @@ if not type -q starship
       set line $line(set_color normal)
       set line $line(command git --no-optional-locks config user.name)" <"(command git --no-optional-locks config user.email)"> "
       function __fish_prompt_pwd_get
-        echo (ls {(command git --no-optional-locks rev-parse --show-toplevel),./}/$argv[1] 2>/dev/null)[1]
+        echo (ls {$__fish_prompt_git_root,./}/$argv[1] 2>/dev/null)[1]
       end
     else
       function __fish_prompt_pwd_get
@@ -302,7 +304,7 @@ if not type -q starship
 
 else
 
-  starship init fish | source
+  starship init --print-full-init fish | source
   function starship_transient_prompt_func
     echo -n '> '
   end
@@ -330,6 +332,18 @@ else
     if test "$TRANSIENT" = "1"
       fish_prompt_starship
       return
+    end
+
+    if contains PWD $__fish_prompt_trigger
+      set -l git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
+      if set --query git_root[1]
+        if [ "$git_root[1]" != "$__fish_prompt_git_root" ]
+          set -g __fish_prompt_git_info '…'
+          set -g __fish_prompt_git_root $git_root[1]
+        end
+      else
+        set -e __fish_prompt_git_root
+      end
     end
 
     set -lx FISH_PROMPT_GIT ''
@@ -374,24 +388,13 @@ else
     starship prompt --terminal-width="$COLUMNS" --status=$STARSHIP_CMD_STATUS --pipestatus="$STARSHIP_CMD_PIPESTATUS" --keymap=$STARSHIP_KEYMAP --cmd-duration=$STARSHIP_DURATION --jobs=$STARSHIP_JOBS
   end
 
-  function __fish_prompt_pwd --on-variable PWD
+  function __fish_prompt_pwd_changed --on-variable PWD
     set -ga __fish_prompt_trigger PWD
-
-    set -l git_root (command git --no-optional-locks rev-parse --show-toplevel 2>/dev/null)
-
-    if set --query git_root[1]
-      if [ "$git_root[1]" != "$__fish_prompt_git_root" ]
-        set -g __fish_prompt_git_info '…'
-        set -g __fish_prompt_git_root $git_root[1]
-      end
-    else
-      set -e __fish_prompt_git_root
-    end
   end
 
-  __fish_prompt_pwd
+  __fish_prompt_pwd_changed
 
-  function __fish_prompt_path --on-variable PATH
+  function __fish_prompt_path_changed --on-variable PATH
     set -ga __fish_prompt_trigger PATH
   end
 
