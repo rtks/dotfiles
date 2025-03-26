@@ -92,7 +92,7 @@ if test -f ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish
 end
 
-if status is-interactive
+if status is-interactive; and set -q ITERM_SESSION
   test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish
 end
 
