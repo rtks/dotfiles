@@ -38,6 +38,8 @@ if status is-login
   end
   __add_path PATH $HOMEBREW_PREFIX/opt/python/libexec/bin
   __add_path fish_complete_path $HOMEBREW_PREFIX/share/fish/vendor_completions.d
+  # msys2
+  __add_path PATH /mingw64/bin
   # Rust Cargo
   __add_path PATH $HOME/.cargo/bin
   # Go
@@ -67,6 +69,11 @@ if status is-login
   set -gx FZF_DEFAULT_OPTS "--height=~50% --reverse --inline-info --ansi\
     --bind ctrl-f:page-down,ctrl-b:page-up\
     --color bg+:007,fg+:010,hl:009,hl+:009,border:007 --preview-window=border-left"
+
+  ########
+  ## z
+  set -gx Z_CMD "j"
+  set -gx Z_DATA "$HOME/.config/z"
 end
 
 ########
