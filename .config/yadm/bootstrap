@@ -54,28 +54,38 @@ if [ -n "$deps" ]; then
     elif command -v dnf >/dev/null 2>&1; then
       pkgmgr="${sudo}dnf install -y"
     else
-      exit 1 # Not found package manager
+      pkgmgr=""
     fi
   fi
 
-  msg "1. Install the packages with:"
-  cmd[1]="$pkgmgr$deps"
-  yadm[1]=yadm
-  keys="1"
-  printf "${cmd[1]}\n"
+  if [ -n "$pkgmgr" ]; then
+    msg "1. Install the packages with:"
+    cmd[1]="$pkgmgr$deps"
+    yadm[1]=yadm
+    keys="1"
+    printf "${cmd[1]}\n"
+  else
+    if [ "$deps" != " yadm" ]; then
+      exit 1
+    fi
+    msg "1. Install yadm in:"
+    echo "~/.local/bin/"
+    cmd[1]="curl -fsSL https://github.com/TheLocehiliosan/yadm/raw/master/yadm >$HOME/.local/bin/yadm; chmod +x $HOME/.local/bin/yadm"
+    yadm[1]=$HOME/.local/bin/yadm
+  fi
   if [[ "$deps" =~ " yadm" ]]; then
     if [ "$deps" = " yadm" ]; then
-      msg "2. Use remotely yadm."
+      msg "2. Use yadm remotely."
       cmd[2]=
     else
-      msg "2. Install the minimum packages and use remotely yadm with:"
+      msg "2. Install the minimum packages and use yadm remotely with:"
       cmd[2]="$pkgmgr${deps/ yadm/}"
       printf "${cmd[2]}\n"
     fi
     yadm[2]="curl -fsSL https://github.com/TheLocehiliosan/yadm/raw/master/yadm | bash -s --"
-    keys="1-2"
+    keys="1 or 2"
   fi
-  msg -n "Press $keys to continue with selected option, or other key to abort: "
+  msg -n "Press $keys to continue with the selected option, or any other key to abort: "
   getc c
   echo
   [ "$c" != 1 -a "$c" != 2 ] && exit 1
@@ -104,6 +114,7 @@ if [ ! -d ~/.local/share/yadm/repo.git ]; then
   # Clone repository
   msg "Cloning repository"
   eval $yadm' clone --no-bootstrap "https://github.com/rtks/dotfiles.git"'
+  eval $yadm' restore'
 fi
 
 # Bootstrap fish
