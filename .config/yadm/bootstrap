@@ -157,7 +157,7 @@ else
   msg "tmux not found. Skip bootstrap."
 fi
 
-# Bootstrap neovim
+# Bootstrap neovim or vim
 if command -v nvim >/dev/null 2>&1; then
   # Install vim-plug
   vimplug="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim
@@ -167,8 +167,18 @@ if command -v nvim >/dev/null 2>&1; then
   fi
   msg "Bootstraping vim-plug"
   nvim --headless +'PlugInstall --sync' +qa
+elif command -v vim >/dev/null 2>&1; then
+  ln -sf .config/nvim/init.vim ~/.vimrc
+  # Install vim-plug
+  vimplug=~/.vim/autoload/plug.vim
+  if [ ! -f "$vimplug" ]; then
+    msg "Installing vim-plug"
+    curl -fLo "$vimplug" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  fi
+  msg "Bootstraping vim-plug"
+  vim +'PlugInstall --sync' +qa
 else
-  msg "nvim not found. Skip bootstrap."
+  msg "nvim and vim not found. Skip bootstrap."
 fi
 
 # Bootstrap tig

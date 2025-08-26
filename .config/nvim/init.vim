@@ -2,7 +2,13 @@ if &shell =~# 'fish$'
   set shell=bash
 endif
 
-if filereadable(expand('~/.local/share/nvim/site/autoload/plug.vim'))
+if has('nvim')
+  let s:plug_path = expand('~/.local/share/nvim/site/autoload/plug.vim')
+else
+  let s:plug_path = expand('~/.vim/autoload/plug.vim')
+endif
+
+if filereadable(s:plug_path)
 call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
