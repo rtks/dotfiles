@@ -15,6 +15,7 @@ abbr -a dcup 'docker compose up -d'
 abbr -a dcb 'docker compose up -d --build'
 abbr -a dce 'docker compose exec'
 abbr -a dclo 'docker compose logs -ft --tail=1000'
+abbr -a db 'docker buildx bake'
 
 abbr -a L --position anywhere "| less"
 abbr -a H --position anywhere "| head"
