@@ -94,6 +94,12 @@ for file in $fisher_path/conf.d/*.fish
 end
 
 ########
+# direnv
+if type -q direnv
+  direnv hook fish | source
+end
+
+########
 # local
 if test -f ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish

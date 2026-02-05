@@ -398,6 +398,10 @@ else
     set -ga __fish_prompt_trigger PATH
   end
 
+  function __fish_prompt_path_changed --on-variable DOCKER_CONTEXT
+    set -ga __fish_prompt_trigger DOCKER_CONTEXT
+  end
+
   function __fish_prompt_preexec --on-event fish_preexec
     set -e __fish_prompt_trigger
   end
