@@ -100,6 +100,16 @@ if type -q direnv
 end
 
 ########
+# ssh-agent
+if set -q XDG_RUNTIME_DIR
+  ssh-add -l >/dev/null 2>&1
+  if test $status = 2
+    set -Ux SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+    ssh-agent -a $SSH_AUTH_SOCK >/dev/null
+  end
+end
+
+########
 # local
 if test -f ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish
