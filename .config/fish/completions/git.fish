@@ -1,5 +1,5 @@
 
-for i in $fish_complete_path/git.fish /usr/share/fish/completions/git.fish
+for i in $fish_complete_path/git.fish /usr/share/fish/completions/git.fish /opt/homebrew/share/fish/completions/git.fish
     if test $i != (status --current-filename); and test -e $i
         source $i
     end
