@@ -38,6 +38,8 @@ if status is-login
   end
   __add_path PATH $HOMEBREW_PREFIX/opt/python/libexec/bin
   __add_path fish_complete_path $HOMEBREW_PREFIX/share/fish/vendor_completions.d
+  # nodebrew
+  __add_path PATH $HOME/.nodebrew/current/bin
   # msys2
   __add_path PATH /mingw64/bin
   # Rust Cargo
