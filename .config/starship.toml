@@ -38,7 +38,7 @@ disabled = true
 [hostname]
 format = "[$hostname]($style) "
 style = "bright black"
-detect_env_vars = ['!TMUX']
+detect_env_vars = ['!TMUX', '!VSCODE_INJECTION']
 
 [container]
 format = '[$symbol $name]($style) '
