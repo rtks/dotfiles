@@ -37,4 +37,7 @@ function __auto_source_venv --on-variable PWD --description "Activate/Deactivate
 end
 
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
-__auto_source_venv
+function __venv_startup --on-event fish_prompt
+  __auto_source_venv
+  functions -e __venv_startup
+end
