@@ -35,3 +35,6 @@ function __auto_source_venv --on-variable PWD --description "Activate/Deactivate
     deactivate
   end
 end
+
+set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
+__auto_source_venv
