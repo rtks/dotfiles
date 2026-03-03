@@ -11,3 +11,4 @@ fi
 
 # Profile
 #zmodload zsh/zprof && zprof
+. "$HOME/.cargo/env"
