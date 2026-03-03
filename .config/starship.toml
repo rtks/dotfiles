@@ -4,13 +4,16 @@ command_timeout = 5000
 # Which is equivalent to
 format = """
 ${env_var.FISH_PROMPT_EXTRA}\
+$username\
 $hostname\
 $localip\
 $os\
 $container\
+$netns\
 $shell\
 $shlvl\
 $singularity\
+$kubernetes\
 $directory\
 $vcsh\
 $fossil_branch\

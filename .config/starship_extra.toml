@@ -92,3 +92,7 @@ shell = ['bash']
 command = 'echo "$(git config user.name) <$(git config user.email)>"'
 style = 'bright black'
 symbol = '📝 '
+
+[direnv]
+disabled = false
+format = '[$symbol$loaded]($style) '
