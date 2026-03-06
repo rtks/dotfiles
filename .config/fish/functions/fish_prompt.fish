@@ -398,7 +398,7 @@ else
     set -ga __fish_prompt_trigger PATH
   end
 
-  function __fish_prompt_path_changed --on-variable DOCKER_CONTEXT
+  function __fish_prompt_docker_context_changed --on-variable DOCKER_CONTEXT
     set -ga __fish_prompt_trigger DOCKER_CONTEXT
   end
 
