@@ -1,9 +1,4 @@
-
-for i in $fish_complete_path/git.fish /usr/share/fish/completions/git.fish /opt/homebrew/share/fish/completions/git.fish
-    if test $i != (status --current-filename); and test -e $i
-        source $i
-    end
-end
+source $__fish_data_dir/completions/git.fish
 
 function __fish_git_function_subcommand
     set commands (functions | string split ',' | string replace -fr '^git-' '')
