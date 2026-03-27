@@ -48,6 +48,8 @@ if status is-login
   __add_path PATH $HOME/go/bin
   # Android SDK
   __add_path PATH $HOME/Developer/android-sdk-macosx/tools
+  # LM Studio CLI
+  __add_path PATH $HOME/.lmstudio/bin
   # .local
   __add_path PATH $HOME/.local/bin
   __add_path MANPATH $HOME/.local/share/man
@@ -103,22 +105,36 @@ end
 
 ########
 # ssh-agent
-if set -q XDG_RUNTIME_DIR
+if type -q ssh-add
   ssh-add -l >/dev/null 2>&1
   if test $status = 2
-    set -Ux SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
-    ssh-agent -a $SSH_AUTH_SOCK >/dev/null
+    if set -q XDG_RUNTIME_DIR
+      # Linux
+      set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+      ssh-add -l >/dev/null 2>&1
+      if test $status = 2
+        ssh-agent -a $SSH_AUTH_SOCK >/dev/null
+      end
+    else
+      # MacOS
+      for file in /var/run/com.apple.launchd.*/Listeners
+        set -gx SSH_AUTH_SOCK $file
+        ssh-add -l >/dev/null 2>&1 && break
+      end
+    end
   end
+end
+
+########
+# iTerm2
+if status is-interactive; and set -q ITERM_SESSION
+  test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish
 end
 
 ########
 # local
 if test -f ~/.config/fish/config_local.fish
   source ~/.config/fish/config_local.fish
-end
-
-if status is-interactive; and set -q ITERM_SESSION
-  test -e {$HOME}/.iterm2_shell_integration.fish; and source {$HOME}/.iterm2_shell_integration.fish
 end
 
 functions -e __add_path
