@@ -7,8 +7,6 @@ function fish_user_key_bindings
     bind -M insert \eg '_fzf_search_git_log_custom'
   end
 
-  bind \cd 'delete-or-deactivate-or-exit'
-
   # For VSCode
   bind \e\[1\;5A history-token-search-backward
   bind \e\[1\;5B history-token-search-forward
