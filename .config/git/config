@@ -8,6 +8,7 @@
 	autocrlf = false
 	whitespace = cr-at-eol
 [credential]
+	helper =
 	helper = cache
 [merge]
 	keepBackup = false
