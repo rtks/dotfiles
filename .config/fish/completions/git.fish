@@ -1,4 +1,4 @@
-source $__fish_data_dir/completions/git.fish
+status get-file completions/git.fish | source
 
 function __fish_git_function_subcommand
     set commands (functions | string split ',' | string replace -fr '^git-' '')
