@@ -86,12 +86,18 @@ disabled = true
 format = '[$symbol$version]($style) '
 
 [custom.git_user]
-when = true
+when = 'test -z "$FISH_PROMPT_JJ_ROOT"'
 require_repo = true
 shell = ['bash']
 command = 'echo "$(git config user.name) <$(git config user.email)>"'
-style = 'bright black'
-symbol = '📝 '
+format = '[🌿 git $output ](yellow)'
+
+# jj repo では git user の代わりに jj user を出す（FISH_PROMPT_JJ_ROOT は fish_prompt が渡す）
+[custom.jj_user]
+when = 'test -n "$FISH_PROMPT_JJ_ROOT"'
+shell = ['bash']
+command = 'echo "$(jj config get --ignore-working-copy user.name) <$(jj config get --ignore-working-copy user.email)>"'
+format = '[🥋 jj $output ](purple)'
 
 [direnv]
 disabled = false

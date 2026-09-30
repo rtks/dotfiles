@@ -76,7 +76,7 @@ if status is-login
 
   ########
   ## z
-  set -gx Z_CMD "j"
+  set -gx Z_CMD "z"
   set -gx Z_DATA "$HOME/.config/z"
 end
 

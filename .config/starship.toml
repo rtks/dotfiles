@@ -32,6 +32,37 @@ $time\
 $status\
 $character"""
 
+# fish_prompt が jj で作業中の repo で --profile jj として使う（git_branch と git_commit の代わりに jj-starship の情報を出す）
+# git で作業中なら通常の format を使う。git/jj の区別は starship_extra.toml の Extra 行（author の前）で表示する
+[profiles]
+jj = """
+${env_var.FISH_PROMPT_EXTRA}\
+$username\
+$hostname\
+$localip\
+$os\
+$container\
+$netns\
+$shell\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$fossil_branch\
+$fossil_metrics\
+(\\(${env_var.FISH_PROMPT_JJ}\
+${env_var.FISH_PROMPT_GIT}\\) )\
+$hg_branch\
+$pijul_channel\
+$sudo\
+$cmd_duration\
+$jobs\
+$battery\
+$time\
+$status\
+$character"""
+
 [username]
 disabled = true
 
@@ -93,3 +124,6 @@ format = '[$env_value](black)'
 
 [env_var.FISH_PROMPT_EXTRA]
 format = "[$env_value](black)\n"
+
+[env_var.FISH_PROMPT_JJ]
+format = '[$env_value](black)'

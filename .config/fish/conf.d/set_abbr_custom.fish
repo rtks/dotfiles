@@ -8,7 +8,9 @@ abbr -a gau 'git add --update'
 
 abbr -a d 'docker'
 
-abbr -a t 'tig --all'
+abbr -a t 'tig --branches'
+
+abbr -a j 'jjui'
 
 abbr -a dco 'docker compose'
 abbr -a dcup 'docker compose up -d'
