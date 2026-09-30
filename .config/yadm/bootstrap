@@ -11,6 +11,22 @@ msg() {
   fi
 }
 
+# アーカイブ($1)から指定ファイル($2)を展開する。zip は unzip、無ければ Windows 標準の tar.exe(bsdtar)を使う
+extract() {
+  case "$1" in
+    *.zip)
+      if command -v unzip >/dev/null 2>&1; then
+        unzip -oq "$1" "$2"
+      else
+        "$(cygpath -u "$SYSTEMROOT")/System32/tar.exe" -xf "$1" "$2"
+      fi
+      ;;
+    *)
+      tar -xzf "$1" "$2"
+      ;;
+  esac
+}
+
 getc() {
   local save_state
   save_state="$(/bin/stty -g)"
@@ -143,6 +159,130 @@ fi && {
   msg "Bootstraping starship"
   mkdir -p $HOME/.local/bin
   curl -fsSL https://starship.rs/install.sh | sh /dev/stdin -f -b $HOME/.local/bin | awk '/complete the installation/{exit}1'
+}
+
+# Bootstrap jj-starship
+if command -v jj-starship &>/dev/null; then
+  [ -f $HOME/.local/bin/jj-starship ] || [ -f $HOME/.local/bin/jj-starship.exe ]
+else
+  command -v jj &>/dev/null
+fi && {
+  msg "Bootstraping jj-starship"
+  case "$(uname -s)" in
+    Darwin)
+      # Rosetta 上の shell では uname -m が x86_64 を返すため、CPU を直接調べる
+      if [ "$(sysctl -n hw.optional.arm64 2>/dev/null)" = 1 ]; then
+        target=aarch64-apple-darwin
+      else
+        target=x86_64-apple-darwin
+      fi
+      ;;
+    Linux)
+      case "$(uname -m)" in
+        aarch64|arm64) target=aarch64-unknown-linux-musl ;;
+        *) target=x86_64-unknown-linux-musl ;;
+      esac
+      ;;
+    MSYS*|MINGW*|CYGWIN*)
+      # MSYS ではなくネイティブの Windows 版を使う
+      case "$(uname -m)" in
+        aarch64|arm64) target=aarch64-pc-windows-msvc ;;
+        *) target=x86_64-pc-windows-msvc ;;
+      esac
+      ;;
+    *)
+      target=
+      ;;
+  esac
+  if [ -n "$target" ]; then
+    case "$target" in
+      *-windows-*) bin=jj-starship.exe; archive=jj-starship-$target.zip ;;
+      *) bin=jj-starship; archive=jj-starship-$target.tar.gz ;;
+    esac
+    tmp=$(mktemp -d)
+    if command -v shasum &>/dev/null; then
+      sha256="shasum -a 256 -c -s"
+    else
+      sha256="sha256sum -c"
+    fi
+    # 実行中の Mach-O を上書きすると macOS が強制終了するため、展開したファイルを mv で置き換える
+    (
+      cd "$tmp" &&
+        curl -fsSLO https://github.com/dmmulroy/jj-starship/releases/latest/download/$archive &&
+        curl -fsSL https://github.com/dmmulroy/jj-starship/releases/latest/download/checksums-sha256.txt | grep " $archive\$" | $sha256 - >/dev/null &&
+        extract $archive $bin &&
+        chmod 755 $bin &&
+        mkdir -p $HOME/.local/bin &&
+        mv -f $bin $HOME/.local/bin/$bin
+    ) && $HOME/.local/bin/$bin version | head -n 1 || msg "Failed to install jj-starship"
+    rm -rf "$tmp"
+  else
+    msg "jj-starship is not available on $(uname -s). Skip bootstrap."
+  fi
+}
+
+# Bootstrap tij
+if command -v tij &>/dev/null; then
+  [ -f $HOME/.local/bin/tij ] || [ -f $HOME/.local/bin/tij.exe ]
+else
+  command -v jj &>/dev/null
+fi && {
+  msg "Bootstraping tij"
+  case "$(uname -s)" in
+    Darwin)
+      # Rosetta 上の shell では uname -m が x86_64 を返すため、CPU を直接調べる
+      if [ "$(sysctl -n hw.optional.arm64 2>/dev/null)" = 1 ]; then
+        target=aarch64-apple-darwin
+      else
+        target=x86_64-apple-darwin
+      fi
+      ;;
+    Linux)
+      case "$(uname -m)" in
+        x86_64) target=x86_64-unknown-linux-gnu ;;
+        *) target= ;;
+      esac
+      ;;
+    MSYS*|MINGW*|CYGWIN*)
+      # MSYS ではなくネイティブの Windows 版を使う
+      case "$(uname -m)" in
+        x86_64) target=x86_64-pc-windows-msvc ;;
+        *) target= ;;
+      esac
+      ;;
+    *)
+      target=
+      ;;
+  esac
+  if [ -n "$target" ]; then
+    case "$target" in
+      *-windows-*) bin=tij.exe; archive=tij-$target.zip ;;
+      *) bin=tij; archive=tij-$target.tar.gz ;;
+    esac
+    tmp=$(mktemp -d)
+    if command -v shasum &>/dev/null; then
+      sha256="shasum -a 256 -c -s"
+    else
+      sha256="sha256sum -c"
+    fi
+    # チェックサムファイルが無いため、Releases API のアセットごとの digest で照合する
+    # 実行中の Mach-O を上書きすると macOS が強制終了するため、展開したファイルを mv で置き換える
+    (
+      cd "$tmp" &&
+        curl -fsSLO https://github.com/nakamura-shuta/tij/releases/latest/download/$archive &&
+        digest=$(curl -fsSL https://api.github.com/repos/nakamura-shuta/tij/releases/latest |
+          awk -v n="\"$archive\"," '$1 == "\"name\":" && $2 == n { f = 1 } f && $1 == "\"digest\":" { gsub(/[",]|sha256:/, "", $2); print $2; exit }') &&
+        [ -n "$digest" ] &&
+        echo "$digest  $archive" | $sha256 - >/dev/null &&
+        extract $archive $bin &&
+        chmod 755 $bin &&
+        mkdir -p $HOME/.local/bin &&
+        mv -f $bin $HOME/.local/bin/$bin
+    ) && $HOME/.local/bin/$bin --version | head -n 1 || msg "Failed to install tij"
+    rm -rf "$tmp"
+  else
+    msg "tij is not available on $(uname -s) $(uname -m). Skip bootstrap."
+  fi
 }
 
 # Bootstrap tmux

@@ -2,7 +2,7 @@
 	name = rtks
 	email = rtks@users.noreply.github.com
 [core]
-	editor = nvim -c \"set fenc=utf-8\"
+	editor = "sh -c 'if [ \"$TERM_PROGRAM\" = \"zed\" ]; then exec zed --wait \"$@\"; else exec nvim -c \"set fenc=utf-8\" \"$@\"; fi' -"
 	pager = less -R
 	precomposeunicode = true
 	autocrlf = false
@@ -65,3 +65,5 @@
 	path = ~/.config/git/config.local
 [interactive]
 	diffFilter = nkf -w
+[log]
+	excludeDecoration = refs/jj/*
