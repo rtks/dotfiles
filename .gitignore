@@ -22,6 +22,11 @@
 /.config/fish/fishd.tmp.*
 /.config/fish/fisher
 
+# Starship
+!/.config/starship.toml
+!/.config/starship_extra.toml
+!/.config/starship_status.toml
+
 # Zsh
 /.config/zsh/.zsh_history
 /.config/zsh/.zsh_sessions/

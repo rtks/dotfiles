@@ -18,10 +18,7 @@ $directory\
 $vcsh\
 $fossil_branch\
 $fossil_metrics\
-(\\($git_branch\
-$git_commit\
-${env_var.FISH_PROMPT_GIT}\
-$git_state\\) )\
+(\\($vcs\\) )\
 $hg_branch\
 $pijul_channel\
 $sudo\
@@ -32,36 +29,12 @@ $time\
 $status\
 $character"""
 
-# fish_prompt が jj で作業中の repo で --profile jj として使う（git_branch と git_commit の代わりに jj-starship の情報を出す）
-# git で作業中なら通常の format を使う。git/jj の区別は starship_extra.toml の Extra 行（author の前）で表示する
-[profiles]
-jj = """
-${env_var.FISH_PROMPT_EXTRA}\
-$username\
-$hostname\
-$localip\
-$os\
-$container\
-$netns\
-$shell\
-$shlvl\
-$singularity\
-$kubernetes\
-$directory\
-$vcsh\
-$fossil_branch\
-$fossil_metrics\
-(\\(${env_var.FISH_PROMPT_JJ}\
-${env_var.FISH_PROMPT_GIT}\\) )\
-$hg_branch\
-$pijul_channel\
-$sudo\
-$cmd_duration\
-$jobs\
-$battery\
-$time\
-$status\
-$character"""
+# jj と git のどちらを出すかは vcs モジュールが決める（jj 優先）。
+# status は遅延で求めて FISH_PROMPT_VCS に入る（fish_prompt が starship_status.toml で求める）
+[vcs]
+order = ["jj", "git"]
+jj_modules = '$jj_bookmark${env_var.FISH_PROMPT_VCS}'
+git_modules = '$git_branch$git_commit${env_var.FISH_PROMPT_VCS}$git_state'
 
 [username]
 disabled = true
@@ -102,6 +75,10 @@ style = "green"
 format = '(|[$state($progress_current/$progress_total)]($style))'
 style = "bright-black"
 
+[jj_bookmark]
+format = '[$bookmark(@$remote)$diverged]($style)'
+style = "green"
+
 [character]
 success_symbol = "[>](black)"
 error_symbol = "[>](bold red)"
@@ -119,11 +96,8 @@ pipestatus = true
 pipestatus_separator = ""
 pipestatus_format = '$pipestatus'
 
-[env_var.FISH_PROMPT_GIT]
+[env_var.FISH_PROMPT_VCS]
 format = '[$env_value](black)'
 
 [env_var.FISH_PROMPT_EXTRA]
 format = "[$env_value](black)\n"
-
-[env_var.FISH_PROMPT_JJ]
-format = '[$env_value](black)'

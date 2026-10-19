@@ -1,7 +1,26 @@
 add_newline = false
 command_timeout = 10000
 
-format = '$git_status'
+# 遅延で求める status。jj と git のどちらを出すかは vcs モジュールが決める
+format = '$vcs'
+
+[vcs]
+order = ["jj", "git"]
+jj_modules = '$jj_status'
+git_modules = '$git_status'
+
+[jj_status]
+format = '(|$all)'
+conflicted = '[!](bold red)'
+description_empty = ''
+description_present = '[∅](yellow)'
+hidden = ''
+immutable = '[◆](cyan)'
+added = '[…$count](blue)'
+copied = '[=$count](red)'
+deleted = '[×$count](red)'
+modified = '[+$count](red)'
+renamed = '[→$count](red)'
 
 [git_status]
 format = '$ahead_behind(|$staged$conflicted$deleted$renamed$modified$typechanged$untracked$stashed)'
