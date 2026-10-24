@@ -1,0 +1,66 @@
+name: bootstrap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .config/yadm/bootstrap
+      - .github/workflows/bootstrap.yml
+  pull_request:
+    paths:
+      - .config/yadm/bootstrap
+      - .github/workflows/bootstrap.yml
+  schedule:
+    # 外部のインストーラやリリースの変化を検知するため、週次でも実行する
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+    name: ${{ matrix.image }} (${{ matrix.variant }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [ubuntu:latest, debian:stable, alpine:latest]
+        # base: git/curl/yadm のみ。full: fish/tmux/neovim も入れて各ブートストラップを通す
+        variant: [base, full]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run bootstrap in ${{ matrix.image }}
+        run: |
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/src:ro" \
+            -e VARIANT=${{ matrix.variant }} \
+            ${{ matrix.image }} sh -euc '
+              if command -v apk >/dev/null; then
+                apk add --no-cache bash curl git yadm ca-certificates
+                [ "$VARIANT" = full ] && apk add --no-cache fish tmux neovim
+              else
+                export DEBIAN_FRONTEND=noninteractive
+                apt-get update
+                apt-get install -y --no-install-recommends bash curl git yadm ca-certificates
+                [ "$VARIANT" = full ] && apt-get install -y --no-install-recommends fish tmux neovim
+              fi
+              true
+
+              git config --global --add safe.directory "*"
+              git config --global user.name ci
+              git config --global user.email ci@example.com
+
+              # 手元の変更を検証するため、GitHub ではなくチェックアウト済みのリポジトリから clone する
+              yadm clone --no-bootstrap -f file:///src
+              # 対話入力が無い環境で動かす
+              yadm bootstrap </dev/null
+
+              if [ "$VARIANT" = full ]; then
+                test -x ~/.local/bin/starship
+                test -f ~/.config/fish/functions/fisher.fish
+                test -f ~/.tmux/plugins/tpm/tpm
+                test -f ~/.local/share/nvim/site/autoload/plug.vim
+              fi
+            '
