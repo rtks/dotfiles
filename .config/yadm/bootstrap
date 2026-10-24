@@ -139,7 +139,7 @@ if command -v fish >/dev/null 2>&1; then
   fish -c 'set_color_custom; set -U fish_greeting ""; fish_update_completions'
 
   # Install fisher
-  if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
+  if [ ! -f ~/.config/fish/fisher/functions/fisher.fish ]; then
     msg "Installing fisher"
     fish -l -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
   else
