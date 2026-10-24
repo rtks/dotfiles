@@ -57,9 +57,12 @@ jobs:
               yadm bootstrap </dev/null
 
               if [ "$VARIANT" = full ]; then
-                test -x ~/.local/bin/starship
-                test -f ~/.config/fish/functions/fisher.fish
-                test -f ~/.tmux/plugins/tpm/tpm
-                test -f ~/.local/share/nvim/site/autoload/plug.vim
+                # fisher_path は config.fish で ~/.config/fish/fisher に設定される
+                for f in ~/.local/bin/starship \
+                  ~/.config/fish/fisher/functions/fisher.fish \
+                  ~/.tmux/plugins/tpm/tpm \
+                  ~/.local/share/nvim/site/autoload/plug.vim; do
+                  [ -e "$f" ] || { echo "missing: $f"; exit 1; }
+                done
               fi
             '
